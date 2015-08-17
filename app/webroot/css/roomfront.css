@@ -41,33 +41,63 @@
     width: 100%;
 }
 
+#roomContent {
+    min-height: 450px;
+    padding: 10px 0;
+}
+
 #roomContent .welcome_msg {
-    font-size: 26px;
+    font-size: 20px;
     line-height: 28px;
-    margin: 10px 0 10px;
 }
 
 .message {
     border: 1px solid #323232;
     opacity: 0.8;
-    padding: 12px 0;
+    margin-bottom: 10px;
 }
 
 .message .glyphicon {
     color: #fff;
-    font-size: 40px;
+    font-size: 32px;
     margin: 5px 20px;
 }
 
 .message .tag {
-    font-size: 20px;
-    line-height: 40px;
+    font-size: 18px;
+    line-height: 32px;
     margin: 4px;
 }
 
 .message .tag .strong{
     color: #4c4c4d;
     font-weight: bold;
+}
+
+.list-group-item {
+    background: inherit;
+    font-size: 16px;
+}
+.list-group-item:first-child{
+    border-radius: 0px;
+}
+a.list-group-item{
+    color : #18ab9b;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus{
+    background-color: #18ab9b;
+    border-color: #18ab9b;
+}
+
+.list-group-item span {
+    margin-right: 5px;
+}
+
+.panel-default {
+    background: inherit;
+    border-radius: 0;
+    border: 1px solid #18ab9b;
 }
 
 .room-title {
@@ -134,7 +164,7 @@
 }
 
 .new-box {
-    top: 50px;
+    top: 95px;
 }
 
 .new-label {
@@ -159,6 +189,59 @@
     top: -6px;
     width: 0;
 }
+
+
+.room-form input[type=text], 
+.room-form input[type=email], 
+.room-form input[type=number], 
+.room-form textarea, 
+.room-form select, 
+.room-form input[type=password] {
+    min-height: 44px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    background: inherit;
+    border: 2px solid #18ab9b;
+    color: #18ab9b;
+    padding: 0 8px;
+}
+
+.room-form input[type=text]:hover,
+.room-form input[type=email]:hover,
+.room-form input[type=number]:hover,
+.room-form textarea:hover,
+.room-form select:hover, 
+.room-form input[type=password]:hover {
+    border: 1px solid #18ab9b;
+    border-top: 1px solid #18ab9b;
+    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.room-form select {
+    height: 40px;
+}
+
+.room-form .checkbox {
+    float: left;
+    min-width: 100px;
+    padding: 8px;
+}
+
+.room-form .checkbox .form-control{
+    margin-left: -45px;
+}
+
+.room-form .tip-attached{
+    
+}
+
+.room-form .tip-attached + .tooltip > .tooltip-inner {background-color: #18ab9b;}
+.room-form .tip-attached + .tooltip > .tooltip-arrow { border-bottom-color:#18ab9b; }
+
 
 /****** LOGIN MODAL ******/
 .login-container {
@@ -390,7 +473,7 @@
 }
 
 #roomList .listing-info .info-value{
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .listing-info .info-title{

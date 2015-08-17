@@ -220,6 +220,57 @@ class RoomsController extends AppController {
         }
     }
     
+    public function add() {
+        $this->loadModel('Categories');
+        $this->loadModel('Facilities');
+        $this->loadModel('RoomOption');
+
+        $cateList = $this->Categories->find('list', array('fields' => array('code', 'title')));
+        $this->set('cateList', $cateList);
+
+        $fa_List = $this->Facilities->find('all');
+        $this->set('fa_List', $fa_List);
+
+
+        if (!empty($this->request->data)) {
+            $data = $this->request->data;
+
+
+            //pr($data);
+            $maxPro = $this->Room->find('first', array('fields' => array('MAX(unique_number) as maxnum')));
+            $data['Room']['unique_number'] = $maxPro[0]['maxnum'] + 1;
+            $data['Room']['unique_code'] = $data['Room']['cate'];
+            
+            $data['Room']['created_by'] = $this->user_id;
+            $s_cate = $this->Categories->find('first',array(
+                'conditions' => array('code' => $data['Room']['cate']),
+                'fields' => array('id','code')
+            ));
+             
+            $data['Room']['category_id'] = $s_cate['Categories']['id'];
+
+            //prd($data);
+            if ($r = $this->Room->save($data)) {
+
+                foreach ($data['RoomOption'] as $key => $value) {
+                    if ($value['facility_id'] == 1) {
+                        $optionData = array();
+                        $optionData['RoomOption']['facility_id'] = $key;
+                        $optionData['RoomOption']['room_id'] = $r['Room']['id'];
+
+                        $this->RoomOption->create();
+                        $this->RoomOption->save($optionData);
+                    }
+                }
+
+                $this->Session->setFlash('Room added successfully.', 'default', array('class' => 'alert alert-success'));
+                $this->redirect(array('action' => 'admin_index'));
+            } else {
+                $this->Session->setFlash('Room could be added.', 'default', array('class' => 'alert alert-danger'));
+            }
+        }
+    }
+    
     function delete_all_between($beginning, $end, $string) {
         $beginningPos = strpos($string, $beginning);
         $endPos = strpos($string, $end);
@@ -264,6 +315,13 @@ class RoomsController extends AppController {
             $maxPro = $this->Room->find('first', array('fields' => array('MAX(unique_number) as maxnum')));
             $data['Room']['unique_number'] = $maxPro[0]['maxnum'] + 1;
             $data['Room']['unique_code'] = $data['Room']['cate'];
+            
+            $s_cate = $this->Categories->find('first',array(
+                'conditions' => array('code' => $data['Room']['cate']),
+                'fields' => array('id','code')
+            ));
+             
+            $data['Room']['category_id'] = $s_cate['Categories']['id'];
 
             //prd($data);
             if ($r = $this->Room->save($data)) {

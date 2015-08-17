@@ -62,6 +62,11 @@ class UsersController extends AppController {
     public function index() {
         
     }
+    
+    public function edit_profile(){
+        //pr($this->user_info);
+        //$this->request->data['User'] = $this->user_info;
+    }
 
     public function login() {
 
