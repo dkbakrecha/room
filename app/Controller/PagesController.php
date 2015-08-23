@@ -1,5 +1,4 @@
 <?php
-
 App::uses('AppController', 'Controller');
 
 class PagesController extends AppController
@@ -13,7 +12,7 @@ class PagesController extends AppController
     {
         parent::beforeFilter();
         $this->Auth->allow('index', 'about', 'home', 'req_complete', 'sync', 'getEvents'
-            , 'add_lesson_opening');
+            , 'add_lesson_opening','services');
 
         $this->Gcal->c_id = "406644858249-sa671ja4v9uc9td5cbclfqmcpci5sm42.apps.googleusercontent.com";
         $this->Gcal->c_secrat = "q3PZCxUtP862JwTWVkTnEJEX";
@@ -453,6 +452,10 @@ class PagesController extends AppController
 
         $resultEvent['eventSummary'] = implode(" ", $strCompose);
         return $resultEvent;
+    }
+    
+    public function services(){
+        
     }
 
 }

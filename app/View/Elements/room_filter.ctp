@@ -19,7 +19,7 @@
  */ ?>
 
 <div class="row">
-    <div id="accordion" class="panel-group col-lg-12 ">
+    <div id="accordion" class="panel-group box-inner">
         <?php //pr(@$search); ?>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -42,7 +42,7 @@
 
     </div>
     
-    <div id="accordion" class="panel-group col-lg-12 ">
+    <div id="accordion" class="panel-group box-inner">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -58,6 +58,7 @@
                         //pr($category);
                         $optionCategory = array();
                         foreach ($category as $value => $label) {
+                            //pr($label);
                             $optionCategory[] = array(
                                 'name' => $label,
                                 'value' => $value,
@@ -71,7 +72,7 @@
                             'type' => 'select',
                             'multiple' => 'checkbox',
                             'options' => $optionCategory,
-                            'selected' => @$search['Search']['category_id'],
+                            //'selected' => @$search['Search']['category_id'],
                                 )
                         );
                     }

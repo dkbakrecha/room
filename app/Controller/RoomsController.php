@@ -48,7 +48,7 @@ class RoomsController extends AppController {
                 $room_condition['Room.category_id'] = $data['Search']['category_id'];
             }
             
-            if (isset($data['Search']['list_for']) && !empty($data['Search']['list_for'])) {
+            if (isset($data['Search']['list_for']) && $data['Search']['list_for'] != '') {
                 $room_condition['Room.list_for'] = $data['Search']['list_for'];
             }
             /*
