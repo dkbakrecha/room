@@ -23,9 +23,9 @@
                                 <td><?php echo $cateRow['Category']['code']; ?></td>
                                 <td><?php echo $cateRow['Category']['title']; ?></td>
                                 <td>
-                                    <span class="btn btn-default btn-xs"><i class="fa fa-dot-circle-o"></i></span>
+                                    <a href="<?php echo $this->Html->url(array('controller' => 'categories', 'action' => 'edit',$cateRow['Category']['id'])); ?>">
                                     <span class="btn btn-default btn-xs"><i class="fa fa-edit"></i></span>
-                                    <span class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i></span>
+                                    </a>
                                 </td>
                             </tr>
                             <?php } ?>

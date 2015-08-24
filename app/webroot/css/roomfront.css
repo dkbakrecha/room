@@ -97,7 +97,7 @@ a.list-group-item{
 .panel-default {
     background: inherit;
     border-radius: 0;
-    border: 1px solid #18ab9b;
+    /*border: 1px solid #18ab9b;*/
 }
 
 .room-title {
@@ -373,6 +373,13 @@ a.list-group-item{
     padding: 15px;
 }
 
+.box-inner {
+    border-color: #292f40 #94969f;
+    border-style: solid;
+    border-width: 3px 1px;
+    background: #fff;
+}
+
 .room-filter .panel-group .panel{
     border-radius: 0px;
 }
@@ -465,7 +472,7 @@ a.list-group-item{
 
 .listing-info .info-value{
     color: #000;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     line-height: normal;
     margin: 0;

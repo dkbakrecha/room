@@ -9,15 +9,18 @@
                     <?php
                     echo $this->Form->input('name', array(
                         'label' => false,
-                        'placeholder' => 'Enter username'
+                        'placeholder' => 'Enter username',
+                        'required' => true
                     ));
                     echo $this->Form->input('email', array(
                         'label' => false,
-                        'placeholder' => 'Enter email address'
+                        'placeholder' => 'Enter email address',
+                        'required' => true
                     ));
                     echo $this->Form->input('password', array(
                         'label' => false,
-                        'placeholder' => 'Enter password'
+                        'placeholder' => 'Enter password',
+                        'required' => true
                     ));
                     echo $this->Form->hidden('role', array(
                         'value' => '2'

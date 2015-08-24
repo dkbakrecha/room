@@ -53,7 +53,7 @@ if (!empty($roomList)) {
                         </div>
 
                         <div class="col-lg-3 info-block">
-                            <div  class="info-value"><?php echo $room['Category']['title']; ?> </div>
+                            <div  class="info-value"><?php echo ($room['Category']['title'])?$room['Category']['title']:'-'; ?> </div>
                             <div class="info-title"> Listing Type </div>
                         </div>
                     </div>

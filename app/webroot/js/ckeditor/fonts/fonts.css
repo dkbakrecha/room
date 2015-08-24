@@ -1,0 +1,8 @@
+@font-face {
+    font-family: ''belfast_light_sfregular'';
+    src: url('belfast_light_sf-webfont.eot');
+    src: url('belfast_light_sf-webfont.eot') format('embedded-opentype'),
+         url('belfast_light_sf-webfont.woff') format('woff'),
+         url('belfast_light_sf-webfont.ttf') format('truetype'),
+         url('belfast_light_sf-webfont.svg#belfast_light_sfregular') format('svg');
+}
