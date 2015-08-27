@@ -1,31 +1,12 @@
-<a id="fancyBoxUser" href="" style="display:none"></a>
-<!-- BEGIN PAGE HEADER-->
-<div class="row">
-	<div class="col-md-12"> 
-		<!-- BEGIN PAGE TITLE & BREADCRUMB-->
-		<h3 class="page-title"><?php echo "Email System";?> </h3>
-		<div class="page-bar">
-			<ul class="page-breadcrumb">
-				<li> <i class="fa fa-home"></i>
-					<a href="<?php echo $this->html->url(array("admin"=>true,"controller" => "Users","action" => "dashboard", 'full_base' => true))?>">Home
-					</a>
-					<i class="fa fa-angle-right"></i>
-				</li>
-				<li>
-					<a href="#"><?php echo "Email System"; ?></a> <i class="fa fa-angle-right"></i>
-				</li>
-				<li>
-					<a href="#"><?php echo "Email List"; ?></a>
-				</li>
-			</ul>
-		</div>
-		<!-- END PAGE TITLE & BREADCRUMB--> 
-	</div>
-</div>
-<!-- END PAGE HEADER-->
-<div class="portlet">
-	<div class="portlet-body">
-		<div class="table-container">
+<div class="warper container-fluid">
+    <div class="page-header"><h1>Site Content <small>Site Static Content</small></h1></div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Site Content
+            <a class='btn btn-purple btn-xs pull-right' href='<?php echo $this->Html->url(array('controller' => 'categories', 'action' => 'add', 'admin' => true)); ?>'>Add Category</a>
+        </div>
+        <div class="panel-body">
+            <div class="dataTable_wrapper">
 			<table class="table table-striped table-bordered table-hover" id="datatable_ajax">
 				<thead>
 					<tr role="row" class="heading">
@@ -35,37 +16,31 @@
 						<th width="15%">Keyword</th>
 						<th width="5%">Actions</th>
 					</tr>
-					<tr role="row" class="filter">
-						<td>
-							<input type="text" class="form-control form-filter input-sm" name="id">
-						</td>
-						<td>
-							<input type="text" class="form-control form-filter input-sm" name="title">
-						</td>
-						<td>
-							<input type="text" class="form-control form-filter input-sm" name="subject">
-						</td>
-						<td>
-							<input type="text" class="form-control form-filter input-sm" name="keyword">
-						</td>
-						<td>
-							<div class="margin-bottom-5">
-								<button class="btn btn-sm yellow filter-submit margin-bottom">
-									<i class="fa fa-search"></i>
-									Search
-								</button>
-							</div>
-							<button class="btn btn-sm red filter-cancel">
-								<i class="fa fa-times"></i>
-								Reset
-							</button>
-						</td>
-					</tr>
+					
 				</thead>
-				<tbody></tbody>
+                                <tbody>
+                                    <?php 
+                                    foreach($emailContent as $row){
+                                        ?>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        
+                                    </tr>
+                                            
+                                        <?php
+                                    }
+                                    ?>
+                                    
+                                    
+                                </tbody>
 			</table>
-		</div>
-	</div>
+		 </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">

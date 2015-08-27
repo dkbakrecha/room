@@ -13,6 +13,11 @@ class EmailContentsController extends AppController {
 	
 	public function admin_index(){
 		$this->set('title_for_layout','Email Content');
+                
+                $emailContent = $this->EmailContent->find('all',array(
+                ));
+                //prd($emailContent);
+                $this->set('emailContent',$emailContent);
 	}
 	
 	public function admin_mail(){
