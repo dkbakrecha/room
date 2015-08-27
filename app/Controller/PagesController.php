@@ -12,7 +12,7 @@ class PagesController extends AppController
     {
         parent::beforeFilter();
         $this->Auth->allow('index', 'about', 'home', 'req_complete', 'sync', 'getEvents'
-            , 'add_lesson_opening','services');
+            , 'add_lesson_opening','services', 'contact');
 
         $this->Gcal->c_id = "406644858249-sa671ja4v9uc9td5cbclfqmcpci5sm42.apps.googleusercontent.com";
         $this->Gcal->c_secrat = "q3PZCxUtP862JwTWVkTnEJEX";
@@ -456,6 +456,28 @@ class PagesController extends AppController
     
     public function services(){
         
+    }
+
+    public function contact()
+    {
+        $this->loadModel('Contact');
+        $contact = $this->Contact->find('all');
+        if($this->request->is('post')){
+            
+            $data = $this->request->data;
+            $this->Contact->create($data);
+
+            if ($this->Contact->validates()) {
+                $this->Contact->save();
+                $this->Session->setFlash(__('Contact us has been saved successfully.'));
+                return $this->redirect(array('action' => 'contact'));
+            } else {
+                 $this->Session->setFlash(
+                        __('Error! While saving. Please fill all required field.')
+                );
+            }
+            
+        }
     }
 
 }
