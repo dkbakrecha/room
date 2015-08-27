@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             Newsletters
-                                   <a class='btn btn-purple btn-xs pull-right' href='<?php echo $this->Html->url(array('controller' => 'newsletters', 'action' => 'add', 'admin' => true)); ?>'>Add new subscriber</a>
+            <a class='btn btn-purple btn-xs pull-right' href='<?php echo $this->Html->url(array('controller' => 'newsletters', 'action' => 'add', 'admin' => true)); ?>'>Add new subscriber</a>
         </div>
         <div class="panel-body">
 
@@ -24,18 +24,31 @@
                             <a href="<?php echo $this->Html->url(array('controller' => 'newsletters', 'action' => 'edit', $row['Newsletter']['id'])); ?>">
                                 <span class="btn btn-default btn-xs"><i class="fa fa-edit"></i></span>
                             </a>
-                            
-                            <?php if($row['Newsletter']['status'] == 1){ ?>
-                            <span class="fa fa-dot-circle-o"></span>
-                            <?php }else{ ?>
-                            <span class="fa fa-circle-o"></span>
+
+                            <?php if ($row['Newsletter']['status'] == 1) { ?>
+                                <span class="fa fa-dot-circle-o"></span>
+                            <?php } else { ?>
+                                <span class="fa fa-circle-o"></span>
                             <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>
             </table>
+            <a id="get_checkbox_values" class="btn btn-primary">Continue</a>
 
         </div>
     </div>
 
 </div>
+<script>
+    $(function() {
+        $('#get_checkbox_values').click(function() {
+            var val = [];
+            $(':checkbox:checked').each(function(i) {
+                val[i] = $(this).val();
+            });
+        });
+
+         console.log();
+    });
+</script>
