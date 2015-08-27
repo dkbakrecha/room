@@ -610,3 +610,123 @@ footer a {
     font-size: 14px;
     padding: 20px 10px;
 }
+
+/*contact us*/
+
+.sb-textarea{
+    width: 290px;
+    height: 100px;
+}
+
+.contact-container{
+
+}
+
+.contact-container form fieldset .input:nth-child(odd){
+    width: 49%;
+    float: right;
+    margin-bottom: 16px;
+}
+
+.contact-container form fieldset .input:nth-child(even){
+    width: 49%;
+    float: left;
+    margin-bottom: 16px;
+}
+
+.contact-container form fieldset .input input{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    padding: 0px 12px;
+
+}
+
+.contact-container form fieldset textarea{
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ccc;   
+    padding: 0px 12px;
+    padding-top: 10px;
+    resize:none;
+}
+
+.contact-container form .submit input{
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 16px;
+    text-transform: uppercase;
+}
+
+.contact-container form fieldset legend{
+    font-size: 24px;
+    margin-bottom: 28px;
+    position: relative;
+    text-align: center;
+}
+
+.contact-container form fieldset legend .lines{
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    border: 1px solid #ccc;
+    margin-top: 15px;
+    z-index: -1;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.contact-container form fieldset legend span{
+    background-color: #fff;
+    padding: 0px 12px;
+}
+
+.office-detail{
+    min-height: 400px;
+}
+
+.office-detail fieldset legend{
+    font-size: 24px;
+    margin-bottom: 28px;
+    position: relative;
+    text-align: center;
+}
+
+.office-detail fieldset legend .lines{
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    border: 1px solid #ccc;
+    margin-top: 15px;
+    z-index: -1;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.office-detail fieldset legend span{
+    background-color: #fff;
+    padding: 0px 12px;
+}
+
+.location-detail{
+    padding: 0px 15px;
+}
+
+.company-name{
+    font-size: 20px !important;
+}
+
+.location-detail div{
+    font-size: 14px;
+}
+
+.location-detail div span{
+    font-size: 13px;
+}
+
+.spacer-20{
+    margin-bottom: 20px;
+}
