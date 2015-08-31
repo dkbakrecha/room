@@ -24,8 +24,9 @@ echo $this->Html->script(array(
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3">To :</label>
                 <div class="col-md-6">
+                    <?php //pr($user_email); ?>
                     <?php
-                    echo $this->Form->hidden('email', array('class' => 'form_textbox', 'value' => @$user_email, 'label' => false, 'required' => true));
+                    echo $this->Form->hidden('emails', array('class' => 'form_textbox', 'value' => @$user_email, 'label' => false, 'required' => true));
                     echo $this->Form->hidden('names', array('class' => 'form_textbox', 'value' => @$user_names, 'label' => false));
                     ?>
                     <ul id="tags" class="form-control11">
@@ -67,7 +68,7 @@ echo $this->Html->script(array(
     $(function () {
         $('#tags').tagit({
             singleField: true,
-            singleFieldNode: $('#MailEmail'),
+            singleFieldNode: $('#MailEmails'),
             //autocomplete: {delay: 0, minLength: 200}
         });
     });

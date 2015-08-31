@@ -32,7 +32,7 @@
                             <span class="btn btn-default btn-xs"><i class="fa fa-dot-circle-o"></i></span>
                             <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'admin_edit', $row['User']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-edit"></i></span></a>
                             <a href="<?php echo $this->Html->url(array('controller' => 'email_contents', 'action' => 'admin_mail', $row['User']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-envelope"></i></span></a>
-                            <span class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i></span>
+                            <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'admin_delete', $row['User']['id'])); ?>" class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                 <?php } ?>

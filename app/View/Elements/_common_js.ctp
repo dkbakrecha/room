@@ -8,12 +8,12 @@
     var USRID = '<?php echo AuthComponent::user('id'); ?>';
 
     $(document).ready(function () {
-        $("#loginOpen, .loginOpen").click(function() {
+        $("#loginOpen, .loginOpen").click(function () {
 
             window.location.href = '<?php echo $this->Html->url(array("controller" => "users", "action" => "login"), true); ?>';
-        
+
         });
-        
+
         //console.log(USRID);
         $("#enquiryModal").on("submit", "#EnquiryIndexForm", function () {
             $(this).ajaxSubmit({
@@ -48,12 +48,37 @@
         });
 
         $(".show-number").click(function () {
-            if(USRID != ''){
+            if (USRID != '') {
                 var _this = this;
                 getNumber(_this);
-            }else{
+            } else {
                 $("#loginOpen").click();
             }
+        });
+
+
+        // Submit front newsletter //
+        $("#side_newsletter").on("submit", "#NewsletterDetailForm", function () {
+            $(this).ajaxSubmit({
+                success: function (rd) {
+                    try {
+                        var resData = $.parseJSON(rd);
+                        console.log(resData.status);
+                        
+                        if (resData.status == 0) {
+                            alert(resData.msg);
+                        } else {
+                            alert(resData.message);
+                        }
+                    } catch (e) {
+                        alert(resData.message);
+                    }
+                },
+                error: function (xhr) {
+                    ajaxErrorCallback(xhr);
+                }
+            });
+            return false;
         });
     }); // End of doc ready //
 
@@ -78,7 +103,7 @@
             }
         });
     }
-    
+
     function getNumber(_this) {
         $.blockUI();
         var room_id = $(_this).data('id');

@@ -50,6 +50,7 @@ class EmailContentsController extends AppController {
 		if ($this->request->is('post')) {
 				
 			$data =$this->request->data ;
+                        //prd($data);
 			if(isset($data['sendMail']) && $data['sendMail'] == 'Send Mail'){
 				
 				$userArr = explode(',',$data['user_ids']);
@@ -74,39 +75,37 @@ class EmailContentsController extends AppController {
 				$this->set('user_names',implode(',',$names));
 			}else if(isset($data['sendMail']) && $data['sendMail'] == 'Send Letter'){
 				
-				$this->loadModel('Newletter');
-				$this->Newletter->tablePrefix = '';
-				$this->Newletter->useTable = 'tbl_comingsoon';
+				$this->loadModel('Newsletter');
 				
 				$userArr = explode(',',$data['user_ids']);
 				//pr('inside sand latter');
-				$newsletter_emails = $this->Newletter->find('all',array(
-					'recursive' => -1,
+				$newsletter_emails = $this->Newsletter->find('all',array(
 					'conditions' => array('id'=>$userArr),
-					'fields' => array('email','name'),
+					'fields' => array('email','fullname'),
 				));
 				$email = '';
 				$names = '';
 				foreach($newsletter_emails as $emails){
-					$email[]= $emails['Newletter']['email'];
-					if(!empty($emails['Newletter']['name']))
-						$names[]= $emails['Newletter']['name'];
+					$email[]= $emails['Newsletter']['email'];
+					if(!empty($emails['Newsletter']['fullname']))
+						$names[]= $emails['Newsletter']['fullname'];
 					else
 						$names[]=" ";
 				}
-				
+				//prd($email);
 				$this->set('user_email',implode(',',$email));
 				$this->set('user_names',implode(',',$names));
 				$this->set('user_req','newsletter');
 			}else{
-				$userEmails = $data['Mail']['email'];
+                            //prd($data);
+				$userEmails = $data['Mail']['emails'];
 				$subject 	= $data['Mail']['subject'];
 				$message	= $data['Mail']['message'];
 				$names	= explode(',',$data['Mail']['names']);
 				
 				$expression = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.([a-zA-Z]{2,4})$/";
 				$userEmails=explode(',',$userEmails);
-				
+				//prd($userEmails);
 				if(empty($names[0]))	//Assign User name if They are site user
 				{
 					
@@ -117,12 +116,12 @@ class EmailContentsController extends AppController {
 						$user_fulldata = $this->User->find('first',array(
 								'recursive' => -1,
 								'conditions' => array('email'=>$mail),
-								'fields' => array('id','email','fname','lname'),
+								'fields' => array('id','email','first_name','last_name'),
 								'group' => 'User.email',
 						));
 						
-						if(!empty($user_fulldata['User']['fname'])){
-							$names[]= ucfirst( $user_fulldata['User']['fname'] . " " . $user_fulldata['User']['lname']);
+						if(!empty($user_fulldata['User']['first_name'])){
+							$names[]= ucfirst( $user_fulldata['User']['first_name'] . " " . $user_fulldata['User']['last_name']);
 							$userEmail[] = $mail;
 						}else{
 							$names[]= " ";
@@ -147,19 +146,18 @@ class EmailContentsController extends AppController {
 					$this->loadModel('EmailContent');
 					$emailObj = new EmailContent();
 					$namesArray['{{recipient}}']=$names;
-					if($emailObj->SendToManyMailUsingSendgrid($subject,$message,$userEmails,$content['EmailContent']['from'],$namesArray)){
-						$this->siteMessage("MAIL_SEND_SUCCESS");
+					if($emailObj->ComposeToManyMail($data['Mail']['subject'], $data['Mail']['message'], $userEmails)){
+					        $this->Session->setFlash('Mail send success');
 						
 						if(isset($data['Mail']['req']) && $data['Mail']['req']== 'newsletter')
 						{
-							//prd('inside newsletter');
-							$this->redirect(array('admin' => true, 'controller' => 'Users', 'action' => 'newsletterlist'));
+			                            $this->redirect(array('admin' => true, 'controller' => 'Users', 'action' => 'newsletterlist'));
 						}else{
-							//prd('inside not');
 							$this->redirect(array('admin' => true, 'controller' => 'EmailContents', 'action' => 'mail'));
 						}
 					}else{
-						$this->siteMessage("MAIL_SEND_ERROR");
+                                            $this->Session->setFlash('Mail send error');
+						
 					}					
 				}
 			}

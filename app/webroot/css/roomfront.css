@@ -125,7 +125,7 @@ a.list-group-item{
 .form-control {
     border-radius: 0;
     height: auto;
-    padding: 12px;
+    padding: 8px;
 }
 
 /*change breadcrumb separator to raquo symbol*/
@@ -501,6 +501,16 @@ a.list-group-item{
     width: 150px;
 }
 
+.side_newsletter{
+    padding: 16px;
+}
+
+
+.heading-widget{
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
 
 
 /* ================  ROOM MODAL =================== */
@@ -729,4 +739,20 @@ footer a {
 
 .spacer-20{
     margin-bottom: 20px;
+}
+
+
+.makeglow{
+  -webkit-animation: glow 3s ease-in-out infinite;
+  animation: glow 3s ease-in-out infinite;
+}
+
+@-webkit-keyframes glow 
+{
+  50% { box-shadow: 0 0 20px #2ECC71; }
+}
+
+@keyframes glow 
+{
+  50% { box-shadow: 0 0 20px #2ECC71; }
 }

@@ -26,6 +26,7 @@
         ?>
     </div>
 </div>
+        <?php /*
         <div class="col-lg-8 room-features">
             <div class="row">
                 <div class="col-lg-6">
@@ -53,5 +54,6 @@
                 </div>
             </div>
         </div>
+        */ ?>
     </div>
 </div>

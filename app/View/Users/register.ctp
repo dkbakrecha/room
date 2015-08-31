@@ -22,9 +22,6 @@
                         'placeholder' => 'Enter password',
                         'required' => true
                     ));
-                    echo $this->Form->hidden('role', array(
-                        'value' => '2'
-                    ));
                     ?>
                 </fieldset>
                 <?php
@@ -33,5 +30,73 @@
                 ?>
             </div>
         </div>
+        
+        
+        
+        <div class="registration-form-section">
+                <form>
+                    <div data-animation="fadeInDown" class="section-title reg-header animated fadeInDown">
+                        <h3>Get your Account Here </h3>
+
+                    </div>
+                    <div class="clearfix">
+                        <div data-animation="fadeInUp" class="col-sm-6 registration-left-section animated fadeInUp">
+                            <div class="reg-content">
+                                <div class="textbox-wrap focused">
+                                    <div class="input-group">
+                                        <span class="input-group-addon "><i class="icon-user icon-color"></i></span>
+                                        <input type="text" required="required" placeholder="FirstName" class="form-control ">
+                                    </div>
+                                </div>
+                                <div class="textbox-wrap">
+                                    <div class="input-group">
+                                        <span class="input-group-addon "><i class="icon-user icon-color"></i></span>
+                                        <input type="text" required="required" placeholder="LastName" class="form-control ">
+                                    </div>
+                                </div>
+                                <div class="textbox-wrap">
+                                    <div class="input-group">
+                                        <span class="input-group-addon "><i class="icon-envelope icon-color"></i></span>
+                                        <input type="email" required="required" placeholder="Email Id" class="form-control ">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div data-animation="fadeInUp" class="col-sm-6 registration-right-section animated fadeInUp">
+                            <div class="reg-content">
+                                <div class="textbox-wrap">
+                                    <div class="input-group">
+                                        <span class="input-group-addon "><i class="icon-user icon-color"></i></span>
+                                        <input type="text" required="required" placeholder="UserName" class="form-control ">
+                                    </div>
+                                </div>
+                                <div class="textbox-wrap">
+                                    <div class="input-group">
+                                        <span class="input-group-addon "><i class="icon-key icon-color"></i></span>
+                                        <input type="password" required="required" placeholder="Password" class="form-control ">
+                                    </div>
+                                </div>
+                                <div class="textbox-wrap">
+                                    <div class="input-group">
+                                        <span class="input-group-addon "><i class="icon-key icon-color"></i></span>
+                                        <input type="password" required="required" placeholder="Confirm-Password" class="form-control ">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div data-animation-delay=".15s" data-animation="fadeInUp" class="registration-form-action clearfix animated fadeInUp" style="animation-delay: 0.15s;">
+                        <a class="btn btn-success pull-left blue-btn " href="#demo1">
+                            <i class="icon-chevron-left"></i>&nbsp; &nbsp;Back To Login  
+                        </a>
+                        <button class="btn btn-success pull-right green-btn " type="submit">Register Now &nbsp; <i class="icon-chevron-right"></i></button>
+
+                    </div>
+                </form>
+            </div>
     </div>
 </div>

@@ -180,5 +180,14 @@ class UsersController extends AppController {
             }
         }
     }
+    
+    public function admin_delete($user_id){
+        $userData = array();
+        $userData['User']['id'] = $user_id;
+        $userData['User']['status'] = 2;
+        
+        $this->User->save($userData);
+        $this->redirect(array('action' => 'index'));
+    }
 
 }

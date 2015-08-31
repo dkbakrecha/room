@@ -8,11 +8,44 @@ class NewslettersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index');
+        $this->Auth->allow('index', 'add');
     }
 
     public function index() {
         
+    }
+
+    public function add() {
+        $this->layout = 'ajax';
+        $request = $this->request;
+        $requestData = $request->data;
+
+        if (isset($requestData) && !empty($requestData)) {
+
+            $email = $requestData['Newsletter']['email'];
+
+            $subscribeUser = $this->Newsletter->find('first', array(
+                'conditions' => array('Newsletter.email' => $email),
+            ));
+
+            $res = array();
+
+            if (!empty($subscribeUser)) {
+                $res['status'] = 2;
+                $res['message'] = "The mail address already subscribe!!";
+            } else {
+                if ($this->Newsletter->save($requestData)) {
+                    $res['status'] = 1;
+                    $res['message'] = "Thank for subscribe!!";
+                } else {
+                    $res['status'] = 0;
+                    $res['message'] = "Some error occur. Please try again or Contact us";
+                }
+            }
+        }
+        
+        echo json_encode($res);
+        exit;
     }
 
     /*  ==========  ADMIN SECTION  ==========  */
