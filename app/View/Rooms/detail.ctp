@@ -97,7 +97,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="pull-right">
-                                    <a class="btn btn-primary blue show-number">Show Number</a>
+                                    <a class="btn btn-primary blue show-number"data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
                                     <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $roomInfo['Room']['id']; ?>">Send Enquiry</a>
                                     <a class="btn btn-primary green">
                                         <i class="glyphicon glyphicon-thumbs-up"></i>

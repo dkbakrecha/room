@@ -1,8 +1,4 @@
 <?php
-//prd($this->request);
-?>
-
-<?php
 if (!empty($roomList)) {
     foreach ($roomList as $room) {
         ?>
@@ -59,7 +55,7 @@ if (!empty($roomList)) {
                     </div>
 
                     <div class="room-action">
-                        <a class="btn btn-primary blue show-number">Show Number</a>
+                        <a class="btn btn-primary blue show-number" data-id="<?php echo $room['Room']['id']; ?>" id="num<?php echo $room['Room']['id']; ?>">Show Number</a>
                         <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $room['Room']['id']; ?>">Send Enquiry</a>
                         <a class="btn btn-primary green"><i class="glyphicon glyphicon-thumbs-up"></i></a>
 

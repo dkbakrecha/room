@@ -1,18 +1,17 @@
 <?php
+
 App::uses('AppController', 'Controller');
 
-class PagesController extends AppController
-{
+class PagesController extends AppController {
 
     public $uses = array();
     public $components = array('Gcal');
     var $helpers = array('MagickConvert');
 
-    public function beforeFilter()
-    {
+    public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('index', 'about', 'home', 'req_complete', 'sync', 'getEvents'
-            , 'add_lesson_opening','services', 'contact');
+                , 'add_lesson_opening', 'services', 'contact');
 
         $this->Gcal->c_id = "406644858249-sa671ja4v9uc9td5cbclfqmcpci5sm42.apps.googleusercontent.com";
         $this->Gcal->c_secrat = "q3PZCxUtP862JwTWVkTnEJEX";
@@ -20,27 +19,32 @@ class PagesController extends AppController
 
         $this->Gcal->googleSettings();
     }
-    
+
     public function home() {
         
     }
-    
+
     public function about() {
-        
+        $this->loadModel('CmsPage');
+
+        $cmsContent = $this->CmsPage->find('first', array(
+            'conditions' => array(
+                'CmsPage.unique_name' => 'ABOUT_US'
+            )
+        ));
+       
+        $this->set('cmsContent', $cmsContent);
     }
 
-    public function add_lesson_opening()
-    {
+    public function add_lesson_opening() {
         $this->layout = 'ajax';
         $request = $this->request;
         $currUserId = $this->Session->read('Auth.User.id');
         $this->loadModel("Event");
 
-        if ($request->isAjax())
-        {
+        if ($request->isAjax()) {
 
-            if (($request->isPost() || $request->isPut()) && !empty($request->data))
-            {
+            if (($request->isPost() || $request->isPut()) && !empty($request->data)) {
                 $dataHere = $request->data;
 
                 $eventDetail = $this->whatEvent($dataHere['pages']['what'], $dataHere['pages']['cDate']);
@@ -57,43 +61,35 @@ class PagesController extends AppController
                 // Validate the data               
                 $this->Event->set($dataHere);
                 //prd($dataHere);
-                if ($this->Event->validates())
-                {
+                if ($this->Event->validates()) {
                     // Set the schedule
                     $dataHere['Event']['created_by'] = 1;
                     $dataHere['Event']['status'] = 1;
                     $this->Event->create();
-                    if ($this->Event->save($dataHere))
-                    {
+                    if ($this->Event->save($dataHere)) {
                         echo '1';
                         exit;
-                    } else
-                    {
+                    } else {
                         echo '0';
                         exit;
                     }
                 }
-            } else
-            {
+            } else {
                 $cdate = $this->request->query['cDate'];
                 $this->set('clickDate', $cdate);
             }
-        } else
-        {
+        } else {
             $this->render('../nodirecturl');
         }
     }
 
-    public function index()
-    {
+    public function index() {
         $data = $this->request->data;
         //$this->googleSettings();
         //$this->makesync();
 
-        if (isset($data) && !empty($data))
-        {
-            if (isset($data['calenderAdd']['flag']) && $data['calenderAdd']['flag'] == 'insert')
-            {
+        if (isset($data) && !empty($data)) {
+            if (isset($data['calenderAdd']['flag']) && $data['calenderAdd']['flag'] == 'insert') {
 
                 $calender_id = "4srvknenrofdpunohccs1u3akc@group.calendar.google.com";
 
@@ -118,14 +114,12 @@ class PagesController extends AppController
         //echo $authUrl;
     }
 
-    public function sync()
-    {
+    public function sync() {
         $this->loadModel('Event');
         $this->Gcal->makesync();
         $skip = 1;
 
-        if ($skip == 0)
-        {
+        if ($skip == 0) {
             /* FIND NEW EVENTS */
             $eventList = $this->Event->find('all', array(
                 'conditions' => array(
@@ -136,8 +130,7 @@ class PagesController extends AppController
 
             $calender_id = "fche971pa3ooq69o9lqoaq8e30@group.calendar.google.com"; //Test Secondary
 
-            if (!empty($eventList))
-            {
+            if (!empty($eventList)) {
                 foreach ($eventList as $event) {
                     $eventDesc = array();
                     $eventDesc['eventSummary'] = $event['Event']['summary'];
@@ -165,8 +158,7 @@ class PagesController extends AppController
                 ),
             ));
 
-            if (!empty($eventTrush))
-            {
+            if (!empty($eventTrush)) {
                 foreach ($eventTrush as $event) {
                     $this->Gcal->deleteEvent($calender_id, $event['Event']['gcal_id']);
 
@@ -182,17 +174,14 @@ class PagesController extends AppController
         $this->redirect(array('action' => 'index'));
     }
 
-    public function getEvents()
-    {
+    public function getEvents() {
         $request = $this->request;
         $this->layout = 'ajax';
         $this->autoRender = FALSE;
         $this->loadModel('Event');
 
-        if ($request->isAjax())
-        {
-            if ($request->isGet() && !empty($request->query))
-            {
+        if ($request->isAjax()) {
+            if ($request->isGet() && !empty($request->query)) {
                 //$currUserId = $this->Session->read('Auth.User.id');
                 //$currUserType = $this->Session->read('Auth.User.user_type');
                 //if ($currUserType == '1') {
@@ -210,8 +199,7 @@ class PagesController extends AppController
 
                 //prd($eventList);
 
-                if (isset($eventList) && !empty($eventList))
-                {
+                if (isset($eventList) && !empty($eventList)) {
 
                     $all_events = array();
                     foreach ($eventList as $lessons) {
@@ -237,16 +225,13 @@ class PagesController extends AppController
                         $all_events[] = $openings;
                     }
 
-                    if (isset($all_events) && !empty($all_events))
-                    {
+                    if (isset($all_events) && !empty($all_events)) {
                         echo json_encode($all_events);
-                    } else
-                    {
+                    } else {
                         echo 'NF';
                         exit;
                     }
-                } else
-                {
+                } else {
                     echo 'NF';
                     exit;
                 }
@@ -254,18 +239,15 @@ class PagesController extends AppController
 //                    echo '0';
 //                    exit;
 //                }
-            } else
-            {
+            } else {
                 $this->render('../nodirecturl');
             }
-        } else
-        {
+        } else {
             $this->render('../nodirecturl');
         }
     }
 
-    public function req_complete()
-    {
+    public function req_complete() {
         $this->autoRender = false;
         //prd($this->request);
         //prd($this->request->query("code"));
@@ -334,8 +316,7 @@ class PagesController extends AppController
       @Author : Dharmendra Bakrecha
      */
 
-    function whatEvent($str, $cdate)
-    {
+    function whatEvent($str, $cdate) {
         $strCompose = explode(" ", $str);
         $newDate = date("d-m-Y", strtotime($cdate));
 
@@ -353,16 +334,14 @@ class PagesController extends AppController
         $resultTime = array();
         foreach ($strCompose as $key => $newarray) {
             foreach ($substringsTime as $substring) {
-                if (strpos($newarray, $substring) !== FALSE)
-                {
+                if (strpos($newarray, $substring) !== FALSE) {
                     $resultTime[$key] = $newarray;
                 }
             }
         }
 
 
-        if (!empty($resultTime))
-        {
+        if (!empty($resultTime)) {
             $i = 1;
             foreach ($resultTime as $timeIndex => $timeValue) {
                 /*
@@ -371,25 +350,21 @@ class PagesController extends AppController
                   }
                  */
 
-                if ($i == 1)
-                {
+                if ($i == 1) {
                     $resultEvent['eventStart'] = date("Y-m-d H:i:s A", strtotime($newDate . " " . $timeValue));
                     unset($strCompose[$timeIndex]);
                 }
 
-                if ($i == 2)
-                {
+                if ($i == 2) {
                     $resultEvent['eventEnd'] = date("Y-m-d H:i:s A", strtotime($newDate . " " . $timeValue));
 
                     /* If to value is small then from */
-                    if ($resultEvent['eventStart'] > $resultEvent['eventEnd'])
-                    {
+                    if ($resultEvent['eventStart'] > $resultEvent['eventEnd']) {
                         $resultEvent['eventEnd'] = date("Y-m-d H:i:s A", strtotime($resultEvent['eventEnd'] . " + 1 day"));
                     }
 
                     unset($strCompose[$timeIndex]);
-                    if (strtolower($strCompose[$timeIndex - 1]) == "to")
-                    {
+                    if (strtolower($strCompose[$timeIndex - 1]) == "to") {
                         unset($strCompose[$timeIndex - 1]);
                     }
                 }
@@ -397,12 +372,10 @@ class PagesController extends AppController
             }
 
             /* WHEN no to time is define */
-            if (count($resultTime) == 1)
-            {
+            if (count($resultTime) == 1) {
                 $resultEvent['eventEnd'] = date("Y-m-d H:i:s A", (strtotime($newDate . " " . $timeValue) + 3600));
             }
-        } else
-        {
+        } else {
             /* WHEN no Date define */
             $resultEvent['eventStart'] = date("Y-m-d H:i:s A", strtotime($newDate));
             $resultEvent['eventEnd'] = date("Y-m-d H:i:s A", strtotime($newDate . " " . "12:59:00 PM"));
@@ -420,8 +393,7 @@ class PagesController extends AppController
         $resultWhere = array();
         foreach ($strCompose as $key => $newarray) {
             foreach ($substringsWhere as $substring) {
-                if (strpos($newarray, $substring) !== FALSE)
-                {
+                if (strpos($newarray, $substring) !== FALSE) {
                     $resultWhere[$key] = $newarray;
                 }
             }
@@ -431,39 +403,35 @@ class PagesController extends AppController
         $resultEvent['eventWhere'] = "";
 
         $newAddr = array();
-        if (!empty($resultWhere))
-        {
+        if (!empty($resultWhere)) {
             $keyWhere = array_search('at', $strCompose);
 
             foreach ($strCompose as $strIndex => $strValue) {
                 unset($strCompose[$keyWhere]);
-                if ($strIndex > $keyWhere)
-                {
+                if ($strIndex > $keyWhere) {
                     array_push($newAddr, $strValue);
                     unset($strCompose[$strIndex]);
                 }
             }
         }
 
-        if (!empty($newAddr))
-        {
+        if (!empty($newAddr)) {
             $resultEvent['eventWhere'] = implode(" ", $newAddr);
         }
 
         $resultEvent['eventSummary'] = implode(" ", $strCompose);
         return $resultEvent;
     }
-    
-    public function services(){
+
+    public function services() {
         
     }
 
-    public function contact()
-    {
+    public function contact() {
         $this->loadModel('Contact');
         $contact = $this->Contact->find('all');
-        if($this->request->is('post')){
-            
+        if ($this->request->is('post')) {
+
             $data = $this->request->data;
             $this->Contact->create($data);
 
@@ -472,11 +440,10 @@ class PagesController extends AppController
                 $this->Session->setFlash(__('Contact us has been saved successfully.'));
                 return $this->redirect(array('action' => 'contact'));
             } else {
-                 $this->Session->setFlash(
+                $this->Session->setFlash(
                         __('Error! While saving. Please fill all required field.')
                 );
             }
-            
         }
     }
 

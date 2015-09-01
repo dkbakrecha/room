@@ -41,7 +41,7 @@
                 <?php } else {
                     ?>
                     <li>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'login')); ?>" id="loginOpen">Login</a>
+                        <a id="loginOpen">Login</a>
                     </li>
                     <li>
                         <a class="btn btn-primary green" href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'register')); ?>" >Register</a>
