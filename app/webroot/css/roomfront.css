@@ -623,14 +623,10 @@ footer a {
 }
 
 .contact-container form fieldset .input:nth-child(odd){
-    width: 49%;
-    float: right;
     margin-bottom: 16px;
 }
 
 .contact-container form fieldset .input:nth-child(even){
-    width: 49%;
-    float: left;
     margin-bottom: 16px;
 }
 
@@ -729,4 +725,12 @@ footer a {
 
 .spacer-20{
     margin-bottom: 20px;
+}
+
+#contact-form{
+    position: absolute;
+}
+
+#map-location{
+    position: relative;
 }
