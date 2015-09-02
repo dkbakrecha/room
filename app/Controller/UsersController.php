@@ -8,24 +8,7 @@ class UsersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add', 'admin_login', 'opauth_complete', 'req_complete','register');
-    }
-
-    public function opauth_complete() {
-        debug($this->data);
-    }
-
-    public function req_complete() {
-        $authCode = trim($this->request->query("code"));
-
-
-        // Exchange authorization code for access token
-        $accessToken = $this->client->authenticate($authCode);
-        $this->client->setAccessToken($accessToken);
-
-
-        pr($accessToken);
-        prd($oAuthToken);
+        $this->Auth->allow('add', 'admin_login', 'register', 'login');
     }
 
     public function add() {
@@ -68,7 +51,16 @@ class UsersController extends AppController {
         //$this->request->data['User'] = $this->user_info;
     }
 
-    public function login() {
+    public function login($from = 0) {
+        
+        if(!empty($this->user_id)){
+            $this->redirect(array('controller' => 'rooms', 'action' => 'listing'));
+        }
+        
+        if($from == 1){
+            $this->layout = "ajax";
+            $this->set('from','1');
+        }
 
         if ($this->request->is('Post')) {
             //prd($this->Auth);
@@ -179,6 +171,15 @@ class UsersController extends AppController {
                 $this->Session->setFlash('User could be added.', 'default', array('class' => 'alert alert-danger'));
             }
         }
+    }
+    
+    public function admin_delete($user_id){
+        $userData = array();
+        $userData['User']['id'] = $user_id;
+        $userData['User']['status'] = 2;
+        
+        $this->User->save($userData);
+        $this->redirect(array('action' => 'index'));
     }
 
 }

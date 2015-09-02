@@ -1,11 +1,13 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 room-detail">
+            <?php /* ?>
             <ol class="breadcrumb">
                 <li><a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'listing')) ?>"><i class="glyphicon glyphicon-home"></i></a></li>
                 <li class="active"><?php echo __($roomInfo['Room']['title']); ?></li>
             </ol>
-
+            <?php */ ?>
+            
             <div class="listing-block panel">
                 <div class="row panel-body">
                     <div  class="col-lg-12">
@@ -95,7 +97,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="pull-right">
-                                    <a class="btn btn-primary blue show-number">Show Number</a>
+                                    <a class="btn btn-primary blue show-number"data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
                                     <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $roomInfo['Room']['id']; ?>">Send Enquiry</a>
                                     <a class="btn btn-primary green">
                                         <i class="glyphicon glyphicon-thumbs-up"></i>
@@ -150,9 +152,8 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div>
-                <?php echo $this->element('sidebar_enquiery'); ?>
-            </div>
+                <?php //echo $this->element('sidebar_enquiery'); ?>
+                <?php echo $this->element('sidebar_newsletter'); ?>
         </div>
     </div>
 </div> 

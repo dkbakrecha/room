@@ -30,7 +30,8 @@
     background: #3380b6 none repeat scroll 0 0 !important;
     color: #faf9f7;
 }
-.blue-text {
+
+.text-blue {
     color: #3380b6;
 }
 
@@ -66,6 +67,11 @@
     background: #2ecc71 none repeat scroll 0 0 !important;
     color: #faf9f7;
 }
+
+.text-green{
+    color: #2ecc71;
+}
+
 .orange {
     background: #fda400 none repeat scroll 0 0 !important;
     color: #ffffff;

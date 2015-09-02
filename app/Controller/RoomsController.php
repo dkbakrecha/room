@@ -271,6 +271,24 @@ class RoomsController extends AppController {
         }
     }
     
+    public function getNumber() {
+        $this->layout = 'ajax';
+        $request = $this->request;
+        $id = $request->query['room_id'];
+
+        if (!empty($id) && is_numeric($id)) {
+            $roomInfo = $this->Room->find('first',array('conditions' => array(
+                'Room.id' => $id
+            )));
+            
+            echo ($roomInfo['Room']['contact'])?$roomInfo['Room']['contact']:'Not Metion';
+            exit;
+        } else {
+            echo "0";
+            exit;
+        }
+    }
+    
     function delete_all_between($beginning, $end, $string) {
         $beginningPos = strpos($string, $beginning);
         $endPos = strpos($string, $end);
