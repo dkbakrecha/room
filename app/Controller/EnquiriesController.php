@@ -28,20 +28,24 @@ class EnquiriesController extends AppController {
         $this->loadModel('User');
         $request = $this->request;
         $id = $request->query['room_id'];
-
         if (!empty($id) && is_numeric($id)) {
             $requestData = $request->data;
             if (isset($requestData) && !empty($requestData)) {
-                $user = $this->User->find('first', array(
-                    'conditions' => array('User.email' => $requestData['Enquiry']['email']),
-                ));
+                
+                if($this->Auth->user('id')){
+                    $userId = $this->Auth->user('id');
+                    $user = $this->User->find('first', array(
+                        'conditions' => array('User.id' => $userId),
+                    ));
+                }
 
                 $enq = array();
+
                 $enq['Enquiry']['user_id'] = ($user['User']['id']) ? $user['User']['id'] : 0;
                 $enq['Enquiry']['room_id'] = $id;
-                $enq['Enquiry']['fname'] = $requestData['Enquiry']['name'];
-                $enq['Enquiry']['email'] = $requestData['Enquiry']['email'];
-                $enq['Enquiry']['phone'] = $requestData['Enquiry']['phone_number'];
+                $enq['Enquiry']['name'] = ($user['User']['name']) ? $user['User']['name'] : $requestData['Enquiry']['name'];
+                $enq['Enquiry']['email'] = ($user['User']['email']) ? $user['User']['email'] : $requestData['Enquiry']['email'];
+                $enq['Enquiry']['phone'] = (!empty($requestData['Enquiry']['phone_number'])) ? $requestData['Enquiry']['phone_number'] : 0;
                 $enq['Enquiry']['message'] = $requestData['Enquiry']['message'];
                 $enq['Enquiry']['status'] = 1;
 
