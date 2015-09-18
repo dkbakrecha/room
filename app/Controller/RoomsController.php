@@ -194,8 +194,6 @@ class RoomsController extends AppController {
         //pr($resultArray);
         return $resultArray;
     }
-
-    
     
     public function detail($id) {
         if (!empty($id)) {
@@ -218,6 +216,17 @@ class RoomsController extends AppController {
         } else {
             $this->redirect(array('action' => 'listing'));
         }
+    }
+    
+    public function mylisting(){
+        $myListing = $this->Room->find('all',array(
+                'conditions' => array(
+                    'Room.created_by' => $this->user_id,
+                    'Room.status !=' => 2
+                )
+            ));
+            
+            $this->set('myListing',$myListing);
     }
     
     public function add() {
@@ -269,6 +278,68 @@ class RoomsController extends AppController {
                 $this->Session->setFlash('Room could be added.', 'default', array('class' => 'alert alert-danger'));
             }
         }
+    }
+    
+    public function edit($id){
+        $this->loadModel('Facilities');
+        $this->loadModel('RoomOption');
+        
+        $roomInfo = $this->Room->find('first',array(
+            'conditions' => array(
+                'Room.id' => $id
+            )
+        ));
+        
+        $fa_List = $this->Facilities->find('all');
+        $this->set('fa_List', $fa_List);
+        
+        if (!empty($this->request->data)) {
+            $data = $this->request->data;            
+            
+            //$letlng = '(25.769108534982895, -80.26654243469238)(25.743753031802985, -80.27169227600098)(25.738650355647824, -80.23375511169434)(25.772664056765723, -80.22860527038574)';
+            //$this->saveGridImage($letlng,1);
+            $this->saveGridImageByAddress($data['Room']['address'],$data['Room']['id']);
+            
+            if ($this->Room->save($data)) {
+                //prd($data);
+                foreach ($data['RoomOption'] as $key => $value) {
+                    
+                        $optionData = array();
+                        $optionData['RoomOption']['facility_id'] = $key;
+                        $optionData['RoomOption']['room_id'] = $id;
+                    
+                        $roomOpt = $this->RoomOption->find('first',array(
+                            'conditions' => array(
+                                'RoomOption.facility_id' => $key,
+                                'RoomOption.room_id' => $id,
+                            )
+                        ));
+                        
+                        if(empty($roomOpt) && $value['facility_id'] == 1){
+                            $this->RoomOption->create();
+                            $this->RoomOption->save($optionData);
+                        }else if(!empty($roomOpt)){
+                            if($value['facility_id'] == 0){
+                                $optionData['RoomOption']['id'] = $roomOpt['RoomOption']['id'];
+                                $optionData['RoomOption']['status'] = 0;
+                                $this->RoomOption->save($optionData);
+                            }else{
+                                $optionData['RoomOption']['id'] = $roomOpt['RoomOption']['id'];
+                                $optionData['RoomOption']['status'] = 1;
+                                $this->RoomOption->save($optionData);
+                            }
+                        }
+                }
+
+                $this->Session->setFlash('Room added successfully.', 'default', array('class' => 'alert alert-success'));
+                $this->redirect(array('action' => 'mylisting'));
+            } else {
+                $this->Session->setFlash('Room could be added.', 'default', array('class' => 'alert alert-danger'));
+            }
+        }
+        
+        //prd($roomInfo);
+        $this->request->data = $roomInfo;
     }
     
     public function getNumber() {

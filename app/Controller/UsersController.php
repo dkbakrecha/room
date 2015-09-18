@@ -27,7 +27,11 @@ class UsersController extends AppController {
     public function register() {
         if ($this->request->is('post')) {
             $this->User->create();
-            if ($this->User->save($this->request->data)) {
+            $data = $this->request->data;
+            $data['User']['role'] = 1;
+            $data['User']['status'] = 3;
+            //prd($data);
+            if ($this->User->save($data)) {
                 $this->Session->setFlash(__('The user has been saved'));
                 return $this->redirect(array('action' => 'profile'));
             }
@@ -145,7 +149,7 @@ class UsersController extends AppController {
         
         $statics = array();
         $statics['pending_user']  = $this->User->find('count',array('conditions' => array('User.status = 3')));
-        $statics['total_user']  = $this->User->find('count');
+        $statics['total_user']  = $this->User->find('count',array('conditions' => array('User.status = 1')));
         
         $statics['pending_room']  = $this->Room->find('count',array('conditions' => array('Room.status = 3')));
         $statics['total_room']  = $this->Room->find('count');

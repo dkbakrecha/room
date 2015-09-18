@@ -2,12 +2,12 @@
     <div class="row">
         <div class="col-lg-8 room-detail">
             <?php /* ?>
-            <ol class="breadcrumb">
-                <li><a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'listing')) ?>"><i class="glyphicon glyphicon-home"></i></a></li>
-                <li class="active"><?php echo __($roomInfo['Room']['title']); ?></li>
-            </ol>
-            <?php */ ?>
-            
+              <ol class="breadcrumb">
+              <li><a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'listing')) ?>"><i class="glyphicon glyphicon-home"></i></a></li>
+              <li class="active"><?php echo __($roomInfo['Room']['title']); ?></li>
+              </ol>
+              <?php */ ?>
+
             <div class="listing-block panel">
                 <div class="row panel-body">
                     <div  class="col-lg-12">
@@ -59,6 +59,20 @@
 
                             </div>
                             <?php
+                        } else {
+                            
+                            $_filename = 'uploads/'. $roomInfo['Room']['id'] . '_room.png';
+                            
+                            if(file_exists(WWW_ROOT.'img/'.$_filename)){
+                                ?>
+                               <center>     <?php
+				echo $this->Html->image($_filename,array('class' => 'img-responsive'));
+                                ?>
+                        </center>
+                                    <?php
+                            }
+
+                            
                         }
                         ?>
 
@@ -152,8 +166,8 @@
             </div>
         </div>
         <div class="col-lg-4">
-                <?php //echo $this->element('sidebar_enquiery'); ?>
-                <?php echo $this->element('sidebar_newsletter'); ?>
+            <?php //echo $this->element('sidebar_enquiery'); ?>
+            <?php echo $this->element('sidebar_newsletter'); ?>
         </div>
     </div>
 </div> 

@@ -24,7 +24,7 @@
                 <?php foreach ($userList as $row) { ?>
                     <tr>
                         <td><?php echo $row['User']['id']; ?></td>
-                        <td><?php echo ($row['User']['first_name'] . " " . $row['User']['last_name']); ?></td>
+                        <td><?php echo $row['User']['name'] .  " ( " . $row['User']['first_name'] . " " . $row['User']['last_name'] . " )"; ?></td>
                         <td><?php echo $row['User']['email']; ?></td>
                         <td><?php echo ($row['User']['role'] == 1) ? "User" : "Agent"; ?></td>
                         <td><?php echo $row['User']['created']; ?></td>

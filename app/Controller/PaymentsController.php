@@ -12,6 +12,12 @@ class PaymentsController extends AppController {
     }
 
     public function admin_index() {
+        $paymentList = $this->Payment->find('all');
+        $this->set('paymentList',$paymentList);
+        //prd($paymentList);
+    }
+
+    public function admin_add(){
         $this->set('title_for_layout', 'Admin - Payment ');
         $this->loadModel('User');
         $cond = array();
@@ -42,5 +48,4 @@ class PaymentsController extends AppController {
 
         $this->set(compact('userList'));
     }
-
 }

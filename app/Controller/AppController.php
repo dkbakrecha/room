@@ -8,7 +8,6 @@ class AppController extends Controller {
         'Auth',
         'Session',
     );
-    
     public $helpers = array(
         //'Image',
         'General'
@@ -36,13 +35,31 @@ class AppController extends Controller {
             $this->Auth->loginRedirect = array('admin' => true, 'controller' => 'Users', 'action' => 'admin_dashboard');
             $this->Auth->logoutRedirect = array('admin' => true, 'controller' => 'Users', 'action' => 'admin_login');
         }
-        
-        
+
+
         $this->set('user_id', $this->Session->read('Auth.User.id'));
         $this->set('user_info', $this->Session->read('Auth.User'));
-                $this->user_id = $this->Session->read('Auth.User.id');
+        $this->user_id = $this->Session->read('Auth.User.id');
         $this->user_info = $this->Session->read('Auth.User');
 
+        $this->loadStatics();
+    }
+
+    /* Function is use to assign general variables */
+
+    public function loadStatics() {
+        $this->loadModel('Room');
+        /*  =====  Agent Listing count  =====  */
+        if (!empty($this->user_id) && $this->user_info['role'] == 2) {
+            $roomCount = $this->Room->find('count', array(
+                'conditions' => array(
+                    'Room.created_by' => $this->user_id,
+                    'Room.status !=' => 2
+                )
+            ));
+
+            $this->set('roomCount', $roomCount);
+        }
     }
 
     public function flash_msg($msg, $flag = 1) {
@@ -157,6 +174,40 @@ class AppController extends Controller {
     function genRandomString($length = 12) {
         $pwd = str_shuffle('abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' . time());
         return substr($pwd, 0, $length);
+    }
+
+    public function saveGridImage($lat_lng, $id) {
+        $dataList = substr(trim($lat_lng), 1, -1);
+        $pos_array = explode(')(', $dataList);
+
+        $latlng = '';
+        foreach ($pos_array as $key => $value) {
+            $latlng .='|' . trim($value);
+        }
+
+        $latlng = urlencode($latlng);
+
+        $img_url = 'http://maps.googleapis.com/maps/api/staticmap?size=400x400&path=color:0x0000ff|weight:0|fillcolor:0xFF000033' . $latlng . '&sensor=false';
+        //prd($img_url);
+
+        if (copy($img_url, 'img/grid_images/' . $id . 'G.png')) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
+    public function saveGridImageByAddress($address,$id){
+        $t_addr = str_replace(" ", "+", $address);
+        $_label = 'R';
+        $img_url = 'http://maps.googleapis.com/maps/api/staticmap?center='.$t_addr.'&zoom=17&markers=color:blue|label:'.$_label.'|'.$t_addr.'&size=640x300&sensor=false';
+        //prd($img_url);
+
+        if (copy($img_url, 'img/uploads/' . $id . '_room.png')) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

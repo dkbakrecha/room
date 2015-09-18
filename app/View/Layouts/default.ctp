@@ -3,6 +3,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version());
 $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,6 +27,7 @@ $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
         echo $this->Html->script(array(
             'moment',
             'jquery.min',
+            '//code.jquery.com/ui/1.11.4/jquery-ui.js',
             'bootstrap.min',
             'jquery.form.min',
             'jquery.blockUI',

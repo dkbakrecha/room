@@ -7,7 +7,7 @@
     <?php if($user_info['role'] == 2){ ?>
     <a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'mylisting')); ?>" class="list-group-item">
         <span class="glyphicon glyphicon-list"></span> 
-        My Listing <span class="badge">0</span>
+        My Listing <span class="badge"><?php echo $roomCount; ?></span>
     </a>    
     <?php } ?>
     
