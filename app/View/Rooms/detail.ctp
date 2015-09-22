@@ -59,21 +59,7 @@
 
                             </div>
                             <?php
-                        } else {
-                            
-                            $_filename = 'uploads/'. $roomInfo['Room']['id'] . '_room.png';
-                            
-                            if(file_exists(WWW_ROOT.'img/'.$_filename)){
-                                ?>
-                               <center>     <?php
-				echo $this->Html->image($_filename,array('class' => 'img-responsive'));
-                                ?>
-                        </center>
-                                    <?php
-                            }
-
-                            
-                        }
+                        } 
                         ?>
 
                         <div>
