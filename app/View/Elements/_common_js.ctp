@@ -1,35 +1,51 @@
 <!-- MODAL SECTION HERE -->
 <div class="modal fade" id="enquiryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <!-- MODAL SECTION HERE -->
 
 
 <script type="text/javascript">
     var USR = '<?php echo AuthComponent::user('user_type'); ?>';
     var USRID = '<?php echo AuthComponent::user('id'); ?>';
-
-    $(document).ready(function () {
-        $("#loginOpen, .loginOpen").click(function () {
+    $(document).ready(function() {
+        $("#loginOpen, .loginOpen").click(function() {
             $.ajax({
-                url: '<?php echo $this->Html->url(array("controller" => "users", "action" => "login",'1'), true); ?>',
+                url: '<?php echo $this->Html->url(array("controller" => "users", "action" => "login", '1'), true); ?>',
                 type: "GET",
-                success: function (data) {
+                success: function(data) {
                     $.unblockUI();
                     $("#loginModal").html(data);
                     $("#loginModal").modal('show');
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     $.unblockUI();
                     ajaxErrorCallback(xhr);
                 }
             });
         });
-
+        $("#report").click(function() {
+            var room_id = $('#report').data('room-id');
+            $.ajax({
+                url: '<?php echo $this->Html->url(array("controller" => "rooms", "action" => "report", '1'), true); ?>',
+                type: "GET",
+                data: ({room_id: room_id}),
+                success: function(data) {
+                    $.unblockUI();
+                    $("#reportModal").html(data);
+                    $("#reportModal").modal('show');
+                },
+                error: function(xhr) {
+                    $.unblockUI();
+                    ajaxErrorCallback(xhr);
+                }
+            });
+        });
         //console.log(USRID);
-        $("#enquiryModal").on("submit", "#EnquiryIndexForm", function () {
+        $("#enquiryModal").on("submit", "#EnquiryIndexForm", function() {
             $(this).ajaxSubmit({
                 //  beforeSubmit: validateLogin,
-                success: function (rd) {
+                success: function(rd) {
                     console.log(rd);
                     try {
                         var resData = $.parseJSON(rd);
@@ -42,23 +58,19 @@
                     } catch (e) {
                         //$("#enquiryModal").html(rd);
                         $("#enquiryModal").modal('hide');
-
                     }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     ajaxErrorCallback(xhr);
                 }
             });
             return false;
         });
-
-
-        $('#roomList, .room-detail').on("click", ".send-enquiry", function () {
+        $('#roomList, .room-detail').on("click", ".send-enquiry", function() {
             var _this = this;
             open_enquiry_popup(_this);
         });
-
-        $(".show-number").click(function () {
+        $(".show-number").click(function() {
             if (USRID != '') {
                 var _this = this;
                 getNumber(_this);
@@ -66,16 +78,13 @@
                 $("#loginOpen").click();
             }
         });
-
-
         // Submit front newsletter //
-        $("#side_newsletter").on("submit", "#NewsletterDetailForm", function () {
+        $("#side_newsletter").on("submit", "#NewsletterDetailForm", function() {
             $(this).ajaxSubmit({
-                success: function (rd) {
+                success: function(rd) {
                     try {
                         var resData = $.parseJSON(rd);
                         console.log(resData.status);
-
                         if (resData.status == 0) {
                             alert(resData.msg);
                         } else {
@@ -85,7 +94,7 @@
                         alert(resData.message);
                     }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     ajaxErrorCallback(xhr);
                 }
             });
@@ -100,7 +109,7 @@
             url: '<?php echo $this->Html->url(array("controller" => "Enquiries", "action" => "index")) ?>',
             type: "GET",
             data: {room_id: room_id},
-            success: function (data) {
+            success: function(data) {
                 $.unblockUI();
                 if (data == '0') {
                     window.location.href = "<?php echo $this->Html->url(array("controller" => "pages", "action" => "noredirect")) ?>";
@@ -109,11 +118,15 @@
                     $("#enquiryModal").modal('show');
                 }
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 ajaxErrorCallback(xhr);
             }
         });
     }
+
+
+
+
 
     function getNumber(_this) {
         $.blockUI();
@@ -122,18 +135,18 @@
             url: '<?php echo $this->Html->url(array("controller" => "rooms", "action" => "getNumber")) ?>',
             type: "GET",
             data: {room_id: room_id},
-            success: function (data) {
+            success: function(data) {
                 $.unblockUI();
                 if (data == '0') {
                     window.location.href = "<?php echo $this->Html->url(array("controller" => "pages", "action" => "noredirect")) ?>";
                 } else {
-                    $('#num'+room_id).removeClass('btn-primary');
-                    $('#num'+room_id).removeClass('blue');
-                    $('#num'+room_id).addClass('be-bolder');
-                    $('#num'+room_id).html(data);
+                    $('#num' + room_id).removeClass('btn-primary');
+                    $('#num' + room_id).removeClass('blue');
+                    $('#num' + room_id).addClass('be-bolder');
+                    $('#num' + room_id).html(data);
                 }
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 ajaxErrorCallback(xhr);
             }
         });

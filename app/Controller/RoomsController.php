@@ -8,7 +8,7 @@ class RoomsController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index', 'room_listing', 'listing', 'detail');
+        $this->Auth->allow('index', 'report', 'room_listing', 'listing', 'detail');
     }
 
     public function index() {
@@ -39,7 +39,7 @@ class RoomsController extends AppController {
             $data = $request->data;
             //pr($request);
             //prd($data);
-            
+
             if (isset($data['Search']['brand_id']) && !empty($data['Search']['brand_id'])) {
                 $product_condition['Product.brand_id'] = $data['Search']['brand_id'];
             }
@@ -47,33 +47,33 @@ class RoomsController extends AppController {
             if (isset($data['Search']['category_id']) && !empty($data['Search']['category_id'])) {
                 $room_condition['Room.category_id'] = $data['Search']['category_id'];
             }
-            
+
             if (isset($data['Search']['list_for']) && $data['Search']['list_for'] != '') {
                 $room_condition['Room.list_for'] = $data['Search']['list_for'];
             }
             /*
-            if (isset($data['Search']['amountmax']) && !empty($data['Search']['amountmax'])) {
-                $product_condition['Product.price <= '] = $data['Search']['amountmax'];
-            }
+              if (isset($data['Search']['amountmax']) && !empty($data['Search']['amountmax'])) {
+              $product_condition['Product.price <= '] = $data['Search']['amountmax'];
+              }
 
-            if (isset($data['Search']['amountmin']) && !empty($data['Search']['amountmin'])) {
-                $product_condition['Product.price >= '] = $data['Search']['amountmin'];
-            }
+              if (isset($data['Search']['amountmin']) && !empty($data['Search']['amountmin'])) {
+              $product_condition['Product.price >= '] = $data['Search']['amountmin'];
+              }
 
-            if (isset($data['sort_by']) && !empty($data['sort_by'])) {
-                if ($data['sort_by'] == 1) {
-                    $orderby = 'Product.title';
-                }
-                if ($data['sort_by'] == 2) {
-                    $orderby = 'Product.price';
-                }
-            }
-                * 
+              if (isset($data['sort_by']) && !empty($data['sort_by'])) {
+              if ($data['sort_by'] == 1) {
+              $orderby = 'Product.title';
+              }
+              if ($data['sort_by'] == 2) {
+              $orderby = 'Product.price';
+              }
+              }
+             * 
              */
             if (isset($data['show']) && !empty($data['show'])) {
                 $limit = $data['show'];
             }
-             
+
 
             $search = json_encode($data);
             $this->set('search', $data);
@@ -110,7 +110,7 @@ class RoomsController extends AppController {
 
             if (isset($request->params['named']['type']) && !empty($request->params['named']['type'])) {
                 //prd($rooms);
-                $this->set('roomList',$rooms);
+                $this->set('roomList', $rooms);
                 $this->layout = false;
                 $this->autoRender = false;
                 $this->render('/Elements/room_listing');
@@ -136,11 +136,11 @@ class RoomsController extends AppController {
                 }
 
                 $viewFilter = new View($this, false);
-                $viewFilter->set('roomList',$rooms);
+                $viewFilter->set('roomList', $rooms);
                 $htmlFilter = $viewFilter->element('room_filter', array('category' => $statics['category_filter']));
 
                 $view = new View($this, false);
-                $view->set('roomList',$rooms);
+                $view->set('roomList', $rooms);
                 $html = $view->render('/Elements/room_listing');
 
                 $returnArr = array();
@@ -159,16 +159,16 @@ class RoomsController extends AppController {
         //$this->log($searchCondition);
         /* generate brand count */
         /*
-        $proBrandData = $this->Product->find('all', array(
-            'conditions' => $searchCondition,
-            'group' => 'Brand.id',
-            'fields' => array('Brand.id', 'Brand.title', 'count(Product.id) as product_count'),
-        ));
+          $proBrandData = $this->Product->find('all', array(
+          'conditions' => $searchCondition,
+          'group' => 'Brand.id',
+          'fields' => array('Brand.id', 'Brand.title', 'count(Product.id) as product_count'),
+          ));
 
-        $b_array = array();
-        foreach ($proBrandData as $b_static) {
-            $b_array[$b_static['Brand']['id']] = $b_static['Brand']['title'] . " ( " . $b_static[0]['product_count'] . " ) ";
-        }
+          $b_array = array();
+          foreach ($proBrandData as $b_static) {
+          $b_array[$b_static['Brand']['id']] = $b_static['Brand']['title'] . " ( " . $b_static[0]['product_count'] . " ) ";
+          }
          * 
          */
 
@@ -194,7 +194,7 @@ class RoomsController extends AppController {
         //pr($resultArray);
         return $resultArray;
     }
-    
+
     public function detail($id) {
         if (!empty($id)) {
             $this->Room->bindModel(array('hasMany' => array(
@@ -217,18 +217,18 @@ class RoomsController extends AppController {
             $this->redirect(array('action' => 'listing'));
         }
     }
-    
-    public function mylisting(){
-        $myListing = $this->Room->find('all',array(
-                'conditions' => array(
-                    'Room.created_by' => $this->user_id,
-                    'Room.status !=' => 2
-                )
-            ));
-            
-            $this->set('myListing',$myListing);
+
+    public function mylisting() {
+        $myListing = $this->Room->find('all', array(
+            'conditions' => array(
+                'Room.created_by' => $this->user_id,
+                'Room.status !=' => 2
+            )
+        ));
+
+        $this->set('myListing', $myListing);
     }
-    
+
     public function add() {
         $this->loadModel('Categories');
         $this->loadModel('Facilities');
@@ -249,13 +249,13 @@ class RoomsController extends AppController {
             $maxPro = $this->Room->find('first', array('fields' => array('MAX(unique_number) as maxnum')));
             $data['Room']['unique_number'] = $maxPro[0]['maxnum'] + 1;
             $data['Room']['unique_code'] = $data['Room']['cate'];
-            
+
             $data['Room']['created_by'] = $this->user_id;
-            $s_cate = $this->Categories->find('first',array(
+            $s_cate = $this->Categories->find('first', array(
                 'conditions' => array('code' => $data['Room']['cate']),
-                'fields' => array('id','code')
+                'fields' => array('id', 'code')
             ));
-             
+
             $data['Room']['category_id'] = $s_cate['Categories']['id'];
 
             //prd($data);
@@ -279,56 +279,56 @@ class RoomsController extends AppController {
             }
         }
     }
-    
-    public function edit($id){
+
+    public function edit($id) {
         $this->loadModel('Facilities');
         $this->loadModel('RoomOption');
-        
-        $roomInfo = $this->Room->find('first',array(
+
+        $roomInfo = $this->Room->find('first', array(
             'conditions' => array(
                 'Room.id' => $id
             )
         ));
-        
+
         $fa_List = $this->Facilities->find('all');
         $this->set('fa_List', $fa_List);
-        
+
         if (!empty($this->request->data)) {
-            $data = $this->request->data;            
-            
+            $data = $this->request->data;
+
             //$letlng = '(25.769108534982895, -80.26654243469238)(25.743753031802985, -80.27169227600098)(25.738650355647824, -80.23375511169434)(25.772664056765723, -80.22860527038574)';
             //$this->saveGridImage($letlng,1);
-            $this->saveGridImageByAddress($data['Room']['address'],$data['Room']['id']);
-            
+            $this->saveGridImageByAddress($data['Room']['address'], $data['Room']['id']);
+
             if ($this->Room->save($data)) {
                 //prd($data);
                 foreach ($data['RoomOption'] as $key => $value) {
-                    
-                        $optionData = array();
-                        $optionData['RoomOption']['facility_id'] = $key;
-                        $optionData['RoomOption']['room_id'] = $id;
-                    
-                        $roomOpt = $this->RoomOption->find('first',array(
-                            'conditions' => array(
-                                'RoomOption.facility_id' => $key,
-                                'RoomOption.room_id' => $id,
-                            )
-                        ));
-                        
-                        if(empty($roomOpt) && $value['facility_id'] == 1){
-                            $this->RoomOption->create();
+
+                    $optionData = array();
+                    $optionData['RoomOption']['facility_id'] = $key;
+                    $optionData['RoomOption']['room_id'] = $id;
+
+                    $roomOpt = $this->RoomOption->find('first', array(
+                        'conditions' => array(
+                            'RoomOption.facility_id' => $key,
+                            'RoomOption.room_id' => $id,
+                        )
+                    ));
+
+                    if (empty($roomOpt) && $value['facility_id'] == 1) {
+                        $this->RoomOption->create();
+                        $this->RoomOption->save($optionData);
+                    } else if (!empty($roomOpt)) {
+                        if ($value['facility_id'] == 0) {
+                            $optionData['RoomOption']['id'] = $roomOpt['RoomOption']['id'];
+                            $optionData['RoomOption']['status'] = 0;
                             $this->RoomOption->save($optionData);
-                        }else if(!empty($roomOpt)){
-                            if($value['facility_id'] == 0){
-                                $optionData['RoomOption']['id'] = $roomOpt['RoomOption']['id'];
-                                $optionData['RoomOption']['status'] = 0;
-                                $this->RoomOption->save($optionData);
-                            }else{
-                                $optionData['RoomOption']['id'] = $roomOpt['RoomOption']['id'];
-                                $optionData['RoomOption']['status'] = 1;
-                                $this->RoomOption->save($optionData);
-                            }
+                        } else {
+                            $optionData['RoomOption']['id'] = $roomOpt['RoomOption']['id'];
+                            $optionData['RoomOption']['status'] = 1;
+                            $this->RoomOption->save($optionData);
                         }
+                    }
                 }
 
                 $this->Session->setFlash('Room added successfully.', 'default', array('class' => 'alert alert-success'));
@@ -337,29 +337,29 @@ class RoomsController extends AppController {
                 $this->Session->setFlash('Room could be added.', 'default', array('class' => 'alert alert-danger'));
             }
         }
-        
+
         //prd($roomInfo);
         $this->request->data = $roomInfo;
     }
-    
+
     public function getNumber() {
         $this->layout = 'ajax';
         $request = $this->request;
         $id = $request->query['room_id'];
 
         if (!empty($id) && is_numeric($id)) {
-            $roomInfo = $this->Room->find('first',array('conditions' => array(
-                'Room.id' => $id
+            $roomInfo = $this->Room->find('first', array('conditions' => array(
+                    'Room.id' => $id
             )));
-            
-            echo ($roomInfo['Room']['contact'])?$roomInfo['Room']['contact']:'Not Metion';
+
+            echo ($roomInfo['Room']['contact']) ? $roomInfo['Room']['contact'] : 'Not Metion';
             exit;
         } else {
             echo "0";
             exit;
         }
     }
-    
+
     function delete_all_between($beginning, $end, $string) {
         $beginningPos = strpos($string, $beginning);
         $endPos = strpos($string, $end);
@@ -370,6 +370,43 @@ class RoomsController extends AppController {
         $textToDelete = substr($string, $beginningPos, ($endPos + strlen($end)) - $beginningPos);
 
         return str_replace($textToDelete, '', $string);
+    }
+
+    public function report($from = 0) {
+        $this->layout = 'ajax';
+
+        if ($from == 1) {
+            $this->layout = "ajax";
+            // $this->set('from','1');
+        }
+
+        if ($this->request->is('Post')) {
+            $this->loadModel('Report');
+            $data = $this->request->data;
+            // 1 = not available
+            // 2 = wrong contact
+            // 3 = wrong price
+            // 4 = wrong location
+            if ($data['Report']['radio_input'] == 1) {
+                $data['Report']['not_available'] = 1;
+            } elseif ($data['Report']['radio_input'] == 2) {
+                $data['Report']['wrong_contact'] = 1;
+            } elseif ($data['Report']['radio_input'] == 3) {
+                $data['Report']['wrong_price'] = 1;
+            } elseif ($data['Report']['radio_input'] == 4) {
+                $data['Report']['wrong_location'] = 1;
+            }
+            $data['Report']['room_id'] = $this->request->query['room_id'];
+            $room_id = $data['Report']['room_id'];
+            // prd($data);
+            if ($this->Report->save($data)) {
+                $this->flash_msg('Report has been submitted, this will be checked by admin', 3);
+                $this->redirect(array('controller' => 'rooms', 'action' => 'detail', $room_id));
+            } else {
+                $this->flash_msg('Report not submitted, please try again', 2);
+                $this->redirect(array('controller' => 'rooms', 'action' => 'detail', $room_id));
+            }
+        }
     }
 
     /*  ==========  ADMIN SECTION  ==========  */
@@ -404,12 +441,12 @@ class RoomsController extends AppController {
             $maxPro = $this->Room->find('first', array('fields' => array('MAX(unique_number) as maxnum')));
             $data['Room']['unique_number'] = $maxPro[0]['maxnum'] + 1;
             $data['Room']['unique_code'] = $data['Room']['cate'];
-            
-            $s_cate = $this->Categories->find('first',array(
+
+            $s_cate = $this->Categories->find('first', array(
                 'conditions' => array('code' => $data['Room']['cate']),
-                'fields' => array('id','code')
+                'fields' => array('id', 'code')
             ));
-             
+
             $data['Room']['category_id'] = $s_cate['Categories']['id'];
 
             //prd($data);

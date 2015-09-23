@@ -1,3 +1,6 @@
+<?php
+//prd($this->request);
+?>
 <div class="container">
     <div class="row">
         <div class="col-lg-8 room-detail">
@@ -60,19 +63,17 @@
                             </div>
                             <?php
                         } else {
-                            
-                            $_filename = 'uploads/'. $roomInfo['Room']['id'] . '_room.png';
-                            
-                            if(file_exists(WWW_ROOT.'img/'.$_filename)){
-                                ?>
-                               <center>     <?php
-				echo $this->Html->image($_filename,array('class' => 'img-responsive'));
-                                ?>
-                        </center>
-                                    <?php
-                            }
 
-                            
+                            $_filename = 'uploads/' . $roomInfo['Room']['id'] . '_room.png';
+
+                            if (file_exists(WWW_ROOT . 'img/' . $_filename)) {
+                                ?>
+                                <center>     <?php
+                                    echo $this->Html->image($_filename, array('class' => 'img-responsive'));
+                                    ?>
+                                </center>
+                                <?php
+                            }
                         }
                         ?>
 
@@ -111,7 +112,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="pull-right">
-                                    <a class="btn btn-primary blue show-number"data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
+                                    <a class="btn btn-primary blue show-number" data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
                                     <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $roomInfo['Room']['id']; ?>">Send Enquiry</a>
                                     <a class="btn btn-primary green">
                                         <i class="glyphicon glyphicon-thumbs-up"></i>
@@ -160,13 +161,13 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <span class="pull-right "><a class="text-danger">Report This Listing</a></span>
+                    <span class="pull-right "><a class="text-danger addcursor" data-room-id="<?php echo $roomInfo['Room']['id']; ?>"  id="report">Report This Listing</a></span>
                     <div class="clear"></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <?php //echo $this->element('sidebar_enquiery'); ?>
+            <?php //echo $this->element('sidebar_enquiery');  ?>
             <?php echo $this->element('sidebar_newsletter'); ?>
         </div>
     </div>
