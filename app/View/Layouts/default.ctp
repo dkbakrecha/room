@@ -27,7 +27,7 @@ $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
         echo $this->Html->script(array(
             'moment',
             'jquery.min',
-            '//code.jquery.com/ui/1.11.4/jquery-ui.js',
+            'jQueryUi',
             'bootstrap.min',
             'jquery.form.min',
             'jquery.blockUI',
