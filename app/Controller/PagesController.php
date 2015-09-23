@@ -11,7 +11,7 @@ class PagesController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('index', 'about', 'home', 'req_complete', 'sync', 'getEvents'
-                , 'add_lesson_opening', 'services', 'contact');
+                , 'add_lesson_opening', 'services', 'contact','terms');
 
         $this->Gcal->c_id = "406644858249-sa671ja4v9uc9td5cbclfqmcpci5sm42.apps.googleusercontent.com";
         $this->Gcal->c_secrat = "q3PZCxUtP862JwTWVkTnEJEX";
@@ -30,6 +30,18 @@ class PagesController extends AppController {
         $cmsContent = $this->CmsPage->find('first', array(
             'conditions' => array(
                 'CmsPage.unique_name' => 'ABOUT_US'
+            )
+        ));
+       
+        $this->set('cmsContent', $cmsContent);
+    }
+    
+    public function terms() {
+        $this->loadModel('CmsPage');
+
+        $cmsContent = $this->CmsPage->find('first', array(
+            'conditions' => array(
+                'CmsPage.unique_name' => 'TERMS'
             )
         ));
        

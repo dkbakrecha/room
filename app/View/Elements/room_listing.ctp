@@ -4,7 +4,15 @@ if (!empty($roomList)) {
         ?>
         <div class="listing-block">
             <div class="row">
-                <div class="col-lg-4"><?php echo $this->Html->image('no_image.png'); ?></div>
+                <div class="col-lg-4"><?php
+                    $_filename = 'uploads/' . $room['Room']['id'] . '_room.png';
+
+                    if (file_exists(WWW_ROOT . 'img/' . $_filename)) {
+                            echo $this->Html->image($_filename, array('class' => 'img-responsive'));
+                    }else{
+                        echo $this->Html->image('no_image.png');
+                    }
+                    ?></div>
                 <div  class="col-lg-8">
                     <h4><a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'detail', $room['Room']['id'])); ?>"><?php echo __($room['Room']['title']); ?></a></h4>
                     <div class="row listing-info">
@@ -42,14 +50,14 @@ if (!empty($roomList)) {
                                 } else {
                                     ?>
                                     Broker
-                                        <?php }
+                                <?php }
                                 ?>
                             </div>
                             <div class="info-title"> Posted By </div>
                         </div>
 
                         <div class="col-lg-3 info-block">
-                            <div  class="info-value"><?php echo ($room['Category']['title'])?$room['Category']['title']:'-'; ?> </div>
+                            <div  class="info-value"><?php echo ($room['Category']['title']) ? $room['Category']['title'] : '-'; ?> </div>
                             <div class="info-title"> Listing Type </div>
                         </div>
                     </div>

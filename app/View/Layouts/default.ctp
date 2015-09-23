@@ -13,7 +13,6 @@ $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
             | <?php echo $siteName; ?>
         </title>
 
-
         <?php
         echo $this->Html->meta('icon');
 
@@ -22,6 +21,7 @@ $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
             'roomfront',
             'room-responsive',
             'colors',
+            'fonts'
         ));
 
         echo $this->Html->script(array(

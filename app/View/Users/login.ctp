@@ -46,7 +46,7 @@
             <div class="login-container" >
                 <h4 class="text-blue">Don't have an Account?</h4>
                 <span>No worry</span>
-                <a class="text-blue">Click Here</a>
+                <a class="text-blue" class="signup">Click Here</a>
                 <span>to Register</span>
                 
                 <hr class="hr-line" />

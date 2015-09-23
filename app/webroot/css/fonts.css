@@ -1,0 +1,17 @@
+@import url(https://fonts.googleapis.com/css?family=Lato|Roboto+Condensed);
+
+body {
+    font-family: "Lato",sans-serif;
+    font-size: 16px;
+    word-spacing: 2px;
+}
+
+#cms-header h3{
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+}
+
+#content .page-title{
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+}
