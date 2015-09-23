@@ -114,63 +114,61 @@
                                 <div class="pull-right">
                                     <a class="btn btn-primary blue show-number" data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
                                     <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $roomInfo['Room']['id']; ?>">Send Enquiry</a>
-                                    <a class="btn btn-primary green" id="loginOpen" >
+                                    <a class="btn btn-primary green" id="loginOpen">
                                         <i class="glyphicon glyphicon-thumbs-up"></i>
                                     </a>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-lg-12">
+                        <h2 class="sub-heading">Room Description</h2>
+                        <div class="add-info">
+                            <span class="add-item">Description : </span>
+                            <span class="bold"><?php echo __($roomInfo['Room']['description']); ?></span>
+                        </div>
+
+                        <div class="add-info">
+                            <span class="add-item">Address : </span>
+                            <span class="bold"><?php echo __($roomInfo['Room']['address']); ?></span>
+                        </div>
+
+                        <div class="row">
+                            <?php
+                            if (!empty($roomInfo['RoomOption'])) {
+                                foreach ($roomInfo['RoomOption'] as $opt_room) {
+                                    ?>
+                                    <div class="col-lg-6 add-info">
+                                        <span class="add-item"><?php echo $opt_room['Facility']['label']; ?> :</span> 
+                                        <span class="bold"><?php echo $opt_room['Facility']['title']; ?></span>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                            ?>
+
+
+                            <div class="col-lg-6 add-info">
+                                <span class="add-item">Listing ID :</span> 
+                                <span class="bold"><?php echo $roomInfo['Room']['room_code']; ?></span>
+                            </div>
+                            <div class="col-lg-6 add-info">
+                                <span class="add-item">Listed date :</span> 
+                                <span class="bold"><?php echo $roomInfo['Room']['created']; ?></span>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-12">
-                    <h2 class="sub-heading">Room Description</h2>
-                    <div class="add-info">
-                        <span class="add-item">Description : </span>
-                        <span class="bold"><?php echo __($roomInfo['Room']['description']); ?></span>
-                    </div>
-
-                    <div class="add-info">
-                        <span class="add-item">Address : </span>
-                        <span class="bold"><?php echo __($roomInfo['Room']['address']); ?></span>
-                    </div>
-
-                    <div class="row">
-                        <?php
-                        if (!empty($roomInfo['RoomOption'])) {
-                            foreach ($roomInfo['RoomOption'] as $opt_room) {
-                                ?>
-                                <div class="col-lg-6 add-info">
-                                    <span class="add-item"><?php echo $opt_room['Facility']['label']; ?> :</span> 
-                                    <span class="bold"><?php echo $opt_room['Facility']['title']; ?></span>
-                                </div>
-                                <?php
-                            }
-                        }
-                        ?>
-
-
-                        <div class="col-lg-6 add-info">
-                            <span class="add-item">Listing ID :</span> 
-                            <span class="bold"><?php echo $roomInfo['Room']['room_code']; ?></span>
-                        </div>
-                        <div class="col-lg-6 add-info">
-                            <span class="add-item">Listed date :</span> 
-                            <span class="bold"><?php echo $roomInfo['Room']['created']; ?></span>
-                        </div>
-                    </div>
+                <div class="panel-footer">
+                    <span class="pull-right "><a class="text-danger addcursor" data-room-id="<?php echo $roomInfo['Room']['id']; ?>"  id="report">Report This Listing</a></span>
+                    <div class="clear"></div>
                 </div>
             </div>
-            <div class="panel-footer">
-                <span class="pull-right "><a class="text-danger addcursor" data-room-id="<?php echo $roomInfo['Room']['id']; ?>"  id="report">Report This Listing</a></span>
-                <div class="clear"></div>
-            </div>
+        </div>
+        <div class="col-lg-4">
+            <?php //echo $this->element('sidebar_enquiery');    ?>
+            <?php echo $this->element('sidebar_newsletter'); ?>
         </div>
     </div>
-    <div class="col-lg-4">
-        <?php //echo $this->element('sidebar_enquiery');    ?>
-        <?php echo $this->element('sidebar_newsletter'); ?>
-    </div>
-</div>
 </div> 

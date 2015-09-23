@@ -44,7 +44,7 @@
 
 
 <!-- Start of StatCounter Code for Default Guide -->
-<script type="text/javascript">
+<!--<script type="text/javascript">
     var sc_project = 10576243;
     var sc_invisible = 0;
     var sc_security = "aeca2083";
@@ -56,5 +56,5 @@
 <noscript><div class="statcounter"><a title="click tracking"
                                       href="http://statcounter.com/" target="_blank"><img class="statcounter"
                                                         src="http://c.statcounter.com/10576243/0/aeca2083/0/" alt="click
-                                                        tracking"></a></div></noscript>
+                                                        tracking"></a></div></noscript>-->
 <!-- End of StatCounter Code for Default Guide -->
