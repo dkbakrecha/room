@@ -12,7 +12,7 @@ $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
             <?php echo $this->fetch('title'); ?>
             | <?php echo $siteName; ?>
         </title>
-      
+
         <?php
         echo $this->Html->meta('icon');
 
@@ -33,14 +33,14 @@ $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
             'jquery.blockUI',
             'lib/jquery-ui.custom.min',
         ));
-        
-        echo $this->element('imp_meta');
+
+        // echo $this->element('imp_meta');
 
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
         ?>
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
