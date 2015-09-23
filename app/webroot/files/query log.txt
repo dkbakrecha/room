@@ -49,3 +49,29 @@ INSERT INTO `room247`.`plans` (`id`, `title`, `list`, `status`) VALUES (NULL, 'B
 ALTER TABLE `enquiries` ADD `ans_by` INT NOT NULL AFTER `image` ,
 ADD `answer` TEXT NOT NULL AFTER `ans_by` ,
 ADD `ans_date` DATETIME NOT NULL AFTER `answer` 
+
+
+========= 21 Sept 2015
+
+CREATE TABLE IF NOT EXISTS `reports` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `not_available` int(11) NOT NULL,
+  `wrong_contact` int(11) NOT NULL,
+  `wrong_price` int(11) NOT NULL,
+  `wrong_location` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) NOT NULL DEFAULT '2',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `favorites` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `room_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `status` int(2) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
