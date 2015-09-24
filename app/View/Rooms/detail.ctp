@@ -172,3 +172,29 @@
         </div>
     </div>
 </div> 
+
+
+
+<script>
+    makeCount('<?php echo $roomInfo['Room']['id']; ?>');
+    function makeCount(id) {
+        $.ajax({
+            url: '<?php echo $this->Html->url(array("controller" => "rooms", "action" => "hitcount")) ?>',
+            type: 'POST',
+            data: {id: id},
+            success: function(data) {
+                try {
+                    var pd = $.parseJSON(data);
+                    if (pd.status == 0) {
+                        alert(pd.msg);
+                    }
+                } catch (e) {
+                    window.console && console.log(e);
+                }
+            },
+            error: function(xhr) {
+                ajaxErrorCallback(xhr);
+            }
+        });
+    }
+</script>

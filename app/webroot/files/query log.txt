@@ -75,3 +75,24 @@ CREATE TABLE IF NOT EXISTS `favorites` (
   `status` int(2) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+
+========= 24 Sept 2015
+
+CREATE TABLE IF NOT EXISTS `hits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `room_id` int(11) NOT NULL,
+  `ip_addr` varchar(16) NOT NULL COMMENT 'ip address of user''s system',
+  `user_id` int(11) NOT NULL COMMENT '0 = nouser, > 0 = user_id',
+  `created` datetime DEFAULT NULL,
+  `status` tinyint(2) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+ALTER TABLE `users` ADD `contact_no` INT( 10 ) NOT NULL AFTER `image` ,
+ADD `device_id` VARCHAR( 100 ) NOT NULL AFTER `contact_no` ,
+ADD `device_type` VARCHAR( 10 ) NOT NULL AFTER `device_id` ,
+ADD `last_login` DATETIME NOT NULL AFTER `device_type` 
+

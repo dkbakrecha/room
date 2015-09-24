@@ -5,7 +5,7 @@ $(document).ready(function() {
 	/************************************
 	Basic Data Table
 	************************************/
-    //$('#basic-datatable').dataTable();
+        $('#basic-datatable').dataTable();
 	
 	
 	

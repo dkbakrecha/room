@@ -30,7 +30,9 @@ $userData = $this->Session->read('Auth');
                                 <td><?php echo $row['Room']['room_code']; ?></td>
                                 <td><?php echo $row['Room']['title']; ?></td>
                                 <td><?php echo $row['Room']['hits']; ?></td>
-                                <td> 
+                                <td>
+                                    <a href="<?php echo $this->Html->url(array('controller' => 'rooms','action' => 'detail', $row['Room']['id'])); ?>">View</a> 
+                                    |
                                     <a href="<?php echo $this->Html->url(array('controller' => 'rooms','action' => 'edit', $row['Room']['id'])); ?>">Edit</a>
                                     | Delete 
                                 </td>

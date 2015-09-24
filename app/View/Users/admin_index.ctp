@@ -10,14 +10,15 @@
         </div>
         <div class="panel-body">
 
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="basic-datatable">
                 <thead>
                     <tr>
-                        <th width="10%">ID</th>
+                        <th width="5%">ID</th>
                         <th>Full Name</th>
                         <th>Email Address</th>
                         <th>Role</th>
-                        <th>Created</th>
+                        <th>Last Login</th>
+                        
                         <th width="15%">Action</th>
                     </tr>
                 </thead>
@@ -27,8 +28,10 @@
                         <td><?php echo $row['User']['name'] .  " ( " . $row['User']['first_name'] . " " . $row['User']['last_name'] . " )"; ?></td>
                         <td><?php echo $row['User']['email']; ?></td>
                         <td><?php echo ($row['User']['role'] == 1) ? "User" : "Agent"; ?></td>
-                        <td><?php echo $row['User']['created']; ?></td>
+                        <td><?php echo $row['User']['last_login']; ?></td>
+                        
                         <td>
+                            <span class="btn btn-default btn-xs" title="View user's detail"><i class="fa fa-eye"></i></span>
                             <span class="btn btn-default btn-xs"><i class="fa fa-dot-circle-o"></i></span>
                             <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'admin_edit', $row['User']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-edit"></i></span></a>
                             <a href="<?php echo $this->Html->url(array('controller' => 'email_contents', 'action' => 'admin_mail', $row['User']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-envelope"></i></span></a>

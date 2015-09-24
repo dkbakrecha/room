@@ -8,7 +8,7 @@ class RoomsController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index', 'report', 'room_listing', 'listing', 'detail');
+        $this->Auth->allow('index', 'report', 'room_listing', 'listing', 'detail','hitcount');
     }
 
     public function index() {
@@ -406,6 +406,64 @@ class RoomsController extends AppController {
                 $this->flash_msg('Report not submitted, please try again', 2);
                 $this->redirect(array('controller' => 'rooms', 'action' => 'detail', $room_id));
             }
+        }
+    }
+
+    public function hitcount() {
+        $request = $this->request;
+        $this->loadModel('Hit');
+        if ($request->is("ajax")) {
+            $response = array(
+                "status" => 0,
+                "msg" => __("Invalid Request")
+            );
+            if ($request->is("post")) {
+                $room_id = $request->data("id");
+                $response["msg"] = __("Invalid room Id");
+
+                if (!empty($room_id)) {
+                    $r_addr = $_SERVER['REMOTE_ADDR'];  //  store remote address
+                    $user_id = $this->_getCurrentUserId();
+                    if (empty($user_id)) {
+                        $user_id = 0;
+                    }
+
+                    $curr_date = date('Y-m-d');
+                    $condition = array();
+                    $condition['Hit.ip_addr'] = $r_addr;
+                    $condition['Hit.room_id'] = $room_id;
+                    $condition['Hit.user_id'] = $user_id;
+                    //$condition['DATE( Hit.createds )'] = 'CURDATE()';
+                    $condition['DATE( Hit.created ) >='] = $curr_date;
+
+                    $dataHit = $this->Hit->find("first", array(
+                        "conditions" => $condition,
+                    ));
+
+                    if (empty($dataHit)) {
+                        $saveData = array();
+                        $saveData['Hit']['ip_addr'] = $r_addr;
+                        $saveData['Hit']['room_id'] = $room_id;
+                        $saveData['Hit']['user_id'] = $user_id;
+                        $saveData['Hit']['status'] = 1;
+
+                        if ($this->Hit->save($saveData)) {
+                            $this->Room->updateAll(
+                                    array('Room.hits' => 'Room.hits + 1'), array('Room.id' => $room_id));
+
+                            $response["status"] = 1;
+                            $response["msg"] = __("Hit count add successfully");
+                        }
+                    } else {
+                        $response["status"] = 1;
+                        $response["msg"] = __("Hit alerdy added");
+                    }
+                }
+            }
+            echo json_encode($response);
+            exit;
+        } else {
+            $this->render('/nodirecturl');
         }
     }
 

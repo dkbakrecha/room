@@ -61,6 +61,16 @@ class AppController extends Controller {
             $this->set('roomCount', $roomCount);
         }
     }
+    
+    protected function _getCurrentUserId() {
+        if (isset($this->Auth)) {
+            $user_id = $this->Auth->User("id");
+        } else {
+            $user_id = AuthComponent::User("id");
+        }
+
+        return $user_id;
+    }
 
     public function flash_msg($msg, $flag = 1) {
         if ($flag == 1) {

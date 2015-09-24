@@ -23,7 +23,7 @@ class UsersController extends AppController {
             );
         }
     }
-    
+
     public function register() {
         if ($this->request->is('post')) {
             $this->User->create();
@@ -40,35 +40,45 @@ class UsersController extends AppController {
             );
         }
     }
-    
+
     public function profile() {
-    
+        
+    }
+
+    public function dashboard() {
         
     }
 
     public function index() {
         
     }
-    
-    public function edit_profile(){
+
+    public function edit_profile() {
         //pr($this->user_info);
         //$this->request->data['User'] = $this->user_info;
     }
 
     public function login($from = 0) {
-        
-        if(!empty($this->user_id)){
+        if (!empty($this->user_id)) {
             $this->redirect(array('controller' => 'rooms', 'action' => 'listing'));
         }
-        
-        if($from == 1){
+
+        if ($from == 1) {
             $this->layout = "ajax";
-            $this->set('from','1');
+            $this->set('from', '1');
         }
 
         if ($this->request->is('Post')) {
             //prd($this->Auth);
             if ($this->Auth->login()) {
+                $userData = array();
+                $userData['User']['id'] = $this->_getCurrentUserId();
+                $userData['User']['last_login'] = date("Y-m-d H:i");
+                
+                if (!empty($userData)) {
+                    $updateUser = $this->User->save($userData);
+                }
+                
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Session->setFlash(__('Invalid username or password, try again'));
@@ -146,17 +156,22 @@ class UsersController extends AppController {
     public function admin_dashboard() {
         $this->loadModel('Room');
         $this->loadModel('Enquiry');
-        
+
         $statics = array();
-        $statics['pending_user']  = $this->User->find('count',array('conditions' => array('User.status = 3')));
-        $statics['total_user']  = $this->User->find('count',array('conditions' => array('User.status = 1')));
-        
-        $statics['pending_room']  = $this->Room->find('count',array('conditions' => array('Room.status = 3')));
-        $statics['total_room']  = $this->Room->find('count');
-        
-        $statics['total_enquiry']  = $this->Enquiry->find('count');
-        
-        $this->set('statics',$statics);
+        $statics['pending_user'] = $this->User->find('count', array('conditions' => array('User.status = 3')));
+        $statics['total_user'] = $this->User->find('count', array('conditions' => array('User.status = 1')));
+
+        $statics['pending_room'] = $this->Room->find('count', array('conditions' => array('Room.status = 3')));
+        $statics['total_room'] = $this->Room->find('count');
+
+        $statics['total_enquiry'] = $this->Enquiry->find('count');
+
+        $statics['latest_enquiry'] = $this->Enquiry->find('all', array(
+            'limit' => '5',
+            'order' => array('id desc')
+        ));
+
+        $this->set('statics', $statics);
     }
 
     public function admin_index() {
@@ -176,12 +191,12 @@ class UsersController extends AppController {
             }
         }
     }
-    
-    public function admin_delete($user_id){
+
+    public function admin_delete($user_id) {
         $userData = array();
         $userData['User']['id'] = $user_id;
         $userData['User']['status'] = 2;
-        
+
         $this->User->save($userData);
         $this->redirect(array('action' => 'index'));
     }
