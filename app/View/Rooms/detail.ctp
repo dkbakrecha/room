@@ -115,7 +115,7 @@
                                     <a class="btn btn-primary blue show-number" data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
                                     <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $roomInfo['Room']['id']; ?>">Send Enquiry</a>
                                     <a class="btn btn-primary green" id="loginOpen">
-                                        <i class="glyphicon glyphicon-thumbs-up"></i>
+                                        <i class="glyphicon glyphicon-star-empty"></i>
                                     </a>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <span class="pull-right "><a class="text-danger addcursor" data-room-id="<?php echo $roomInfo['Room']['id']; ?>"  id="report">Report This Listing</a></span>
+                    <span class="pull-right "><a class="text-danger addcursor" data-room-id="<?php echo $roomInfo['Room']['id']; ?>"  id="report loginOpen">Report This Listing</a></span>
                     <div class="clear"></div>
                 </div>
             </div>
