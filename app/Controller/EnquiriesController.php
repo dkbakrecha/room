@@ -68,4 +68,12 @@ class EnquiriesController extends AppController {
         $this->set('enqList', $enqList);
     }
 
+    public function admin_delete($enquiry_id){
+        $enquiryData = array();
+        $enquiryData['Enquiry']['id'] = $enquiry_id;
+        $enquiryData['Enquiry']['status'] = 2;
+        
+        $this->Enquiry->save($enquiryData);
+        $this->redirect(array('action' => 'index'));
+    }
 }
