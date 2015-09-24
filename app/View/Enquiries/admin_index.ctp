@@ -32,7 +32,8 @@
                                 <td><?php echo $row['Enquiry']['created']; ?></td>
                                 <td>
                                     <span class="btn btn-default btn-xs"><i class="fa fa-dot-circle-o"></i></span>
-                                    <span class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i></span>
+                                    <a href="<?php echo $this->Html->url(array('controller' => 'email_contents', 'action' => 'admin_mail', $row['Enquiry']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-envelope"></i></span></a>
+                                    <a href="<?php echo $this->Html->url(array('controller' => 'enquiries', 'action' => 'admin_delete', $row['Enquiry']['id'])); ?>" class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             <?php } ?>
