@@ -1,5 +1,5 @@
 <?php
-//prd($this->request);
+//prd($roomInfo);
 ?>
 <div class="container">
     <div class="row">
@@ -114,8 +114,20 @@
                                 <div class="pull-right">
                                     <a class="btn btn-primary blue show-number" data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
                                     <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $roomInfo['Room']['id']; ?>">Send Enquiry</a>
-                                    <a class="btn btn-primary green" id="loginOpen">
-                                        <i class="glyphicon glyphicon-star-empty"></i>
+                                    <a class="btn btn-primary green" id="loginOpen" onclick="makeRoomFav(<?= $roomInfo['Room']['id'] ?>,<?= $user_id ?>)">
+                                        <?php
+                                        $favRoomId = $roomInfo['Favorite']['room_id'];
+                                        if (isset($favRoomId) && !empty($favRoomId)) {
+                                            ?>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <i class="glyphicon glyphicon-star-empty"></i>
+                                            <?php
+                                        }
+                                        ?>
+
                                     </a>
                                 </div>
                             </div>
@@ -161,13 +173,13 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <span class="pull-right "><a class="text-danger addcursor" data-room-id="<?php echo $roomInfo['Room']['id']; ?>"  id="report loginOpen">Report This Listing</a></span>
+                    <span class="pull-right "><a class="text-danger addcursor" data-room-id="<?php echo $roomInfo['Room']['id']; ?>"  id="report">Report This Listing</a></span>
                     <div class="clear"></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <?php //echo $this->element('sidebar_enquiery');    ?>
+            <?php //echo $this->element('sidebar_enquiery');     ?>
             <?php echo $this->element('sidebar_newsletter'); ?>
         </div>
     </div>
@@ -187,6 +199,30 @@
                     var pd = $.parseJSON(data);
                     if (pd.status == 0) {
                         alert(pd.msg);
+                    }
+                } catch (e) {
+                    window.console && console.log(e);
+                }
+            },
+            error: function(xhr) {
+                ajaxErrorCallback(xhr);
+            }
+        });
+    }
+
+    function makeRoomFav(roomId, user_id) {
+        URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'makeRoomFav')); ?>';
+        $.ajax({
+            url: URL,
+            method: "POST",
+            data: ({roomId: roomId, user_id: user_id}),
+            success: function(data) {
+                try {
+                    if (data == 1) {
+                        window.location.reload();
+                    }
+                    else if (data == 0) {
+                        console.log('make favorite failed.');
                     }
                 } catch (e) {
                     window.console && console.log(e);
