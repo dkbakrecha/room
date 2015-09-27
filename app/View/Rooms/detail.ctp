@@ -114,7 +114,7 @@
                                 <div class="pull-right">
                                     <a class="btn btn-primary blue show-number" data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
                                     <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $roomInfo['Room']['id']; ?>">Send Enquiry</a>
-                                    <a class="btn btn-primary green" id="loginOpen" onclick="makeRoomFav(<?= $roomInfo['Room']['id'] ?>,<?= $user_id ?>)">
+                                    <a class="btn btn-primary green" title="Make Favorite" onclick="makeRoomFav(<?php echo $roomInfo['Room']['id']; ?>)">
                                         <?php
                                         $favRoomId = $roomInfo['Favorite']['room_id'];
                                         if (isset($favRoomId) && !empty($favRoomId)) {
@@ -127,7 +127,6 @@
                                             <?php
                                         }
                                         ?>
-
                                     </a>
                                 </div>
                             </div>
@@ -210,27 +209,5 @@
         });
     }
 
-    function makeRoomFav(roomId, user_id) {
-        URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'makeRoomFav')); ?>';
-        $.ajax({
-            url: URL,
-            method: "POST",
-            data: ({roomId: roomId, user_id: user_id}),
-            success: function(data) {
-                try {
-                    if (data == 1) {
-                        window.location.reload();
-                    }
-                    else if (data == 0) {
-                        console.log('make favorite failed.');
-                    }
-                } catch (e) {
-                    window.console && console.log(e);
-                }
-            },
-            error: function(xhr) {
-                ajaxErrorCallback(xhr);
-            }
-        });
-    }
+   
 </script>

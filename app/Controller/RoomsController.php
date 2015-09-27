@@ -427,19 +427,24 @@ class RoomsController extends AppController {
     }
 
     public function makeRoomFav() {
+        $this->loadModel('Favorite');
+        
         if ($this->request->is('ajax')) {
-            $this->loadModel('Favorite');
             $roomId = $this->request->data['roomId'];
-            $user_id = $this->request->data['user_id'];
-            $data = array();
+            $user_id = $this->_getCurrentUserId();
+            
             $favRoomData = $this->Favorite->find('first', array(
-                'conditions' => array('Favorite.room_id' => $roomId, 'Favorite.user_id' => $user_id)
+                'conditions' => array(
+                    'Favorite.room_id' => $roomId, 
+                    'Favorite.user_id' => $user_id)
             ));
-            if (isset($favRoomData) && !empty($favRoomData)) {
+            
+            $data = array();
+            if (!empty($favRoomData)) {
                 if ($favRoomData['Favorite']['status'] == 1) {
                     $data['Favorite']['id'] = $favRoomData['Favorite']['id'];
-                    $data['Favorite']['status'] = 2;
-                } elseif ($favRoomData['Favorite']['status'] == 2) {
+                    $data['Favorite']['status'] = 0;
+                } else {
                     $data['Favorite']['id'] = $favRoomData['Favorite']['id'];
                     $data['Favorite']['status'] = 1;
                 }
@@ -447,6 +452,7 @@ class RoomsController extends AppController {
 
             $data['Favorite']['room_id'] = $roomId;
             $data['Favorite']['user_id'] = $user_id;
+            
             if ($this->Favorite->save($data)) {
                 echo 1;
                 exit;
