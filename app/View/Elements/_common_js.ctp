@@ -155,4 +155,39 @@
     function ajaxErrorCallback(xhr) {
         alert("<?php echo __("Oops! something went wrong."); ?>");
     }
+
+    // makeFavRoom function //
+    function makeRoomFav(roomId) {
+        if (USRID != '') {
+            URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'makeRoomFav')); ?>';
+            
+            $.ajax({
+                url: URL,
+                method: "POST",
+                data: ({roomId: roomId}),
+                success: function(data) {
+                    try {
+                        if (data == 1) {
+                            window.location.reload();
+                        }
+                        else if (data == 0) {
+                            console.log('make favorite failed.');
+                        }
+                    } catch (e) {
+                        window.console && console.log(e);
+                    }
+                },
+                error: function(xhr) {
+                    ajaxErrorCallback(xhr);
+                }
+            });
+        } else {
+            $("#loginOpen").click();
+        }
+
+
+    }
+
+
+    // makeFavRoom ends //
 </script>

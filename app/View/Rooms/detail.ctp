@@ -1,5 +1,5 @@
 <?php
-//prd($this->request);
+//prd($roomInfo);
 ?>
 <div class="container">
     <div class="row">
@@ -114,8 +114,19 @@
                                 <div class="pull-right">
                                     <a class="btn btn-primary blue show-number" data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
                                     <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $roomInfo['Room']['id']; ?>">Send Enquiry</a>
-                                    <a class="btn btn-primary green" id="loginOpen">
-                                        <i class="glyphicon glyphicon-star-empty"></i>
+                                    <a class="btn btn-primary green" title="Make Favorite" onclick="makeRoomFav(<?php echo $roomInfo['Room']['id']; ?>)">
+                                        <?php
+                                        $favRoomId = $roomInfo['Favorite']['room_id'];
+                                        if (isset($favRoomId) && !empty($favRoomId)) {
+                                            ?>
+                                            <i class="glyphicon glyphicon-star"></i>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <i class="glyphicon glyphicon-star-empty"></i>
+                                            <?php
+                                        }
+                                        ?>
                                     </a>
                                 </div>
                             </div>
@@ -161,13 +172,13 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <span class="pull-right "><a class="text-danger addcursor" data-room-id="<?php echo $roomInfo['Room']['id']; ?>"  id="report loginOpen">Report This Listing</a></span>
+                    <span class="pull-right "><a class="text-danger addcursor" data-room-id="<?php echo $roomInfo['Room']['id']; ?>"  id="report">Report This Listing</a></span>
                     <div class="clear"></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <?php //echo $this->element('sidebar_enquiery');    ?>
+            <?php //echo $this->element('sidebar_enquiery');     ?>
             <?php echo $this->element('sidebar_newsletter'); ?>
         </div>
     </div>
@@ -197,4 +208,6 @@
             }
         });
     }
+
+   
 </script>

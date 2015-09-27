@@ -8,7 +8,7 @@ class RoomsController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index', 'report', 'room_listing', 'listing', 'detail','hitcount');
+        $this->Auth->allow('index', 'report', 'room_listing', 'listing', 'detail', 'hitcount');
     }
 
     public function index() {
@@ -196,6 +196,7 @@ class RoomsController extends AppController {
     }
 
     public function detail($id) {
+
         if (!empty($id)) {
             $this->Room->bindModel(array('hasMany' => array(
                     'Image' => array(
@@ -204,14 +205,30 @@ class RoomsController extends AppController {
                     )
             )));
 
+            $this->Room->bindModel(
+                    array('hasOne' => array(
+                            'Favorite' => array(
+                                'className' => 'Favorite',
+                                'foreignKey' => false,
+                                'conditions' => array(
+                                    'Favorite.room_id' => $id,
+                                    'Favorite.user_id' => $this->user_id,
+                                    'Favorite.status' => 1
+                                )
+                            )
+                        )
+                    )
+            );
+
+
             $roomInfo = $this->Room->find('first', array(
                 'conditions' => array(
                     'Room.status !=' => 2,
                     'Room.id' => $id
                 ),
-                'recursive' => 2
+                'recursive' => 2,
             ));
-            //prd($roomInfo);
+            //  prd($roomInfo);
             $this->set('roomInfo', $roomInfo);
         } else {
             $this->redirect(array('action' => 'listing'));
@@ -416,6 +433,43 @@ class RoomsController extends AppController {
             } else {
                 $this->flash_msg('Report not submitted, please try again', 2);
                 $this->redirect(array('controller' => 'rooms', 'action' => 'detail', $room_id));
+            }
+        }
+    }
+
+    public function makeRoomFav() {
+        $this->loadModel('Favorite');
+        
+        if ($this->request->is('ajax')) {
+            $roomId = $this->request->data['roomId'];
+            $user_id = $this->_getCurrentUserId();
+            
+            $favRoomData = $this->Favorite->find('first', array(
+                'conditions' => array(
+                    'Favorite.room_id' => $roomId, 
+                    'Favorite.user_id' => $user_id)
+            ));
+            
+            $data = array();
+            if (!empty($favRoomData)) {
+                if ($favRoomData['Favorite']['status'] == 1) {
+                    $data['Favorite']['id'] = $favRoomData['Favorite']['id'];
+                    $data['Favorite']['status'] = 0;
+                } else {
+                    $data['Favorite']['id'] = $favRoomData['Favorite']['id'];
+                    $data['Favorite']['status'] = 1;
+                }
+            }
+
+            $data['Favorite']['room_id'] = $roomId;
+            $data['Favorite']['user_id'] = $user_id;
+            
+            if ($this->Favorite->save($data)) {
+                echo 1;
+                exit;
+            } else {
+                echo 0;
+                exit;
             }
         }
     }
