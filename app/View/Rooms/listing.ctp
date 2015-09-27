@@ -5,10 +5,10 @@
             <div class="row">
                 <div class=" listing-block">
                     <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'login')); ?>"  class="btn btn-primary btn-lg green makeglow">Post Listing</a>
-                    <a class="btn btn-primary btn-lg site-green send-enquiry-main" data-id="0">Post Requirement</a>
+                    <a class="btn btn-primary btn-lg site-green send-enquiry-main" onclick="postRequirement" data-id="0">Post Requirement</a>
                 </div>
                 <div class=" listing-block">
-                    
+
                 </div>
             </div>
 
@@ -43,17 +43,17 @@
         //console.log((formData));
         //return false;
         $.ajax({
-            beforeSend: function (XMLHttpRequest) {
+            beforeSend: function(XMLHttpRequest) {
                 $("#loading-image").fadeIn();
             },
-            complete: function (XMLHttpRequest, textStatus) {
+            complete: function(XMLHttpRequest, textStatus) {
                 $("#loading-image").fadeOut();
             },
             type: "POST",
             evalScripts: true,
             url: URL,
             data: $.param(formData),
-            success: function (data) {
+            success: function(data) {
                 $('input:checkbox').removeAttr('checked');
                 console.log(data.filter);
                 var res = JSON.parse(data);

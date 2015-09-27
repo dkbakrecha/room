@@ -1,4 +1,5 @@
 <?php
+//prd($roomList);
 if (!empty($roomList)) {
     foreach ($roomList as $room) {
         ?>
@@ -8,8 +9,8 @@ if (!empty($roomList)) {
                     $_filename = 'uploads/' . $room['Room']['id'] . '_room.png';
 
                     if (file_exists(WWW_ROOT . 'img/' . $_filename)) {
-                            echo $this->Html->image($_filename, array('class' => 'img-responsive'));
-                    }else{
+                        echo $this->Html->image($_filename, array('class' => 'img-responsive'));
+                    } else {
                         echo $this->Html->image('no_image.png');
                     }
                     ?></div>
@@ -65,8 +66,20 @@ if (!empty($roomList)) {
                     <div class="room-action">
                         <a class="btn btn-primary blue show-number" data-id="<?php echo $room['Room']['id']; ?>" id="num<?php echo $room['Room']['id']; ?>">Show Number</a>
                         <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $room['Room']['id']; ?>">Send Enquiry</a>
-                        <a class="btn btn-primary green"><i class="glyphicon glyphicon-thumbs-up"></i></a>
-
+                        <a class="btn btn-primary green" title="Make Favorite" onclick="makeRoomFav(<?php echo $room['Room']['id']; ?>)">
+                            <?php
+                            $favRoomId = $room['Favorite']['room_id'];
+                            if (isset($favRoomId) && !empty($favRoomId)) {
+                                ?>
+                                <i class="glyphicon glyphicon-star"></i>
+                                <?php
+                            } else {
+                                ?>
+                                <i class="glyphicon glyphicon-star-empty"></i>
+                                <?php
+                            }
+                            ?>
+                        </a>
 
 
                     </div>

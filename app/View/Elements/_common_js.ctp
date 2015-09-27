@@ -2,6 +2,9 @@
 <div class="modal fade" id="enquiryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div class="modal fade" id="postRequirement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+
 <!-- MODAL SECTION HERE -->
 
 
@@ -41,6 +44,8 @@
                 }
             });
         });
+
+
         //console.log(USRID);
         $("#enquiryModal").on("submit", "#EnquiryIndexForm", function() {
             $(this).ajaxSubmit({
@@ -160,7 +165,7 @@
     function makeRoomFav(roomId) {
         if (USRID != '') {
             URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'makeRoomFav')); ?>';
-            
+
             $.ajax({
                 url: URL,
                 method: "POST",
@@ -188,6 +193,40 @@
 
     }
 
+    // makeFavRoom ends //
+
+    // makeFavRoom function //
+    function postRequirement(roomId) {
+        if (USRID != '') {
+            URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'makeRoomFav')); ?>';
+
+            $.ajax({
+                url: URL,
+                method: "POST",
+                data: ({roomId: roomId}),
+                success: function(data) {
+                    try {
+                        if (data == 1) {
+                            window.location.reload();
+                        }
+                        else if (data == 0) {
+                            console.log('make favorite failed.');
+                        }
+                    } catch (e) {
+                        window.console && console.log(e);
+                    }
+                },
+                error: function(xhr) {
+                    ajaxErrorCallback(xhr);
+                }
+            });
+        } else {
+            $("#loginOpen").click();
+        }
+
+
+    }
 
     // makeFavRoom ends //
+
 </script>

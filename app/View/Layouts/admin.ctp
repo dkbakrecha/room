@@ -48,6 +48,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             'datatable/dataTables.bootstrap.min',
             'admin/custom',
             'admin/table',
+            'jquery.blockUI',
         ));
 
         echo $this->fetch('meta');
@@ -62,7 +63,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             <?php echo $this->Session->flash(); ?>
             <?php echo $this->fetch('content'); ?>
             <?php echo $this->element('admin/footer'); ?>
-
+            <?php echo $this->element('_admin_common_js'); ?>
         </section>
         <!-- Content Block Ends Here (right box)-->	
     </body>
