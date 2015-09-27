@@ -219,7 +219,8 @@ class RoomsController extends AppController {
     }
 
     public function mylisting() {
-        $myListing = $this->Room->find('all', array(
+        if($this->userInfo['role'] == 2){
+            $myListing = $this->Room->find('all', array(
             'conditions' => array(
                 'Room.created_by' => $this->user_id,
                 'Room.status !=' => 2
@@ -227,12 +228,23 @@ class RoomsController extends AppController {
         ));
 
         $this->set('myListing', $myListing);
+        }else{
+            $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
+        }
     }
 
     public function add() {
         $this->loadModel('Categories');
         $this->loadModel('Facilities');
         $this->loadModel('RoomOption');
+        
+        //pr($this->user_info);
+        
+        if(empty($this->user_info['first_name']) || !empty($this->user_info['contact_no'])){
+            $this->Session->setFlash('Please complate your profile before Listing','default',array('class' => 'alert alert-success'));
+            $this->redirect(array('controller' => 'users', 'action' => 'edit_profile'));
+        }
+        
 
         $cateList = $this->Categories->find('list', array('fields' => array('code', 'title')));
         $this->set('cateList', $cateList);
@@ -260,7 +272,6 @@ class RoomsController extends AppController {
 
             //prd($data);
             if ($r = $this->Room->save($data)) {
-
                 foreach ($data['RoomOption'] as $key => $value) {
                     if ($value['facility_id'] == 1) {
                         $optionData = array();
@@ -273,7 +284,7 @@ class RoomsController extends AppController {
                 }
 
                 $this->Session->setFlash('Room added successfully.', 'default', array('class' => 'alert alert-success'));
-                $this->redirect(array('action' => 'admin_index'));
+                $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
             } else {
                 $this->Session->setFlash('Room could be added.', 'default', array('class' => 'alert alert-danger'));
             }
@@ -546,6 +557,102 @@ class RoomsController extends AppController {
     }
 
     public function admin_image_multi_upload() {
+        if (isset($_FILES['uploadfile']['name']) && !empty($_FILES['uploadfile']['name'][0])) {
+            $product_id = 0;
+            if (isset($this->request->data['room_id'])) {
+                $product_id = $this->request->data['room_id'];
+            }
+            $data = $_FILES;
+            $i = -1;
+            $responseArray = array();
+
+            $roomData = array();
+
+            if (empty($product_id)) {
+                unset($product_id);
+                $last_url = explode("/", $_SERVER['HTTP_REFERER']);
+            } else {
+                $lastInsertID = $roomData['Room']['id'] = $product_id;
+            }
+
+
+            $roomData['Room']['created'] = date('Y-m-d');
+
+            $roomSave = $this->Room->save($roomData);
+
+
+            if (isset($roomSave['Room']['id'])) {
+                $lastInsertID = $roomSave['Room']['id'];
+            }
+            //prd($data);
+
+            foreach ($data['uploadfile']['name'] as $image) {
+                $i++;
+
+                $responseArray[$i]['error'] = 0;
+                $ext = $this->get_extension($image);
+                $file_extension = array('png', 'gif', 'jpeg', 'jpg');
+
+                if (!in_array($ext, $file_extension)) {
+                    $responseArray[$i]['error'] = 1;
+                    $responseArray[$i]['error_type'] = 'TYPE_ERROR';
+                    continue;
+                }
+
+                $size = getimagesize($data['uploadfile']['tmp_name'][$i]);
+                if ($size[0] < 190 || $size[1] < 120) {
+                    $responseArray[$i]['error'] = 1;
+                    $responseArray[$i]['error_type'] = 'SIZE_RATIO_ERROR';
+                    continue;
+                }
+
+                $imageSize = round($data['uploadfile']['size'][$i] / 1024);  /// IN KB
+
+                $maximumImageSize = 5120;  ////  IN KB  ///// 5 MB
+
+                if ($imageSize > $maximumImageSize) {
+
+                    $responseArray[$i]['error'] = 1;
+                    $responseArray[$i]['error_type'] = 'SIZE_ERROR';
+                    continue;
+                }
+
+                $ext = $this->get_extension($image);
+                $file_extension = array('png', 'gif', 'jpeg', 'jpg');
+
+                if (in_array($ext, $file_extension)) {
+                    $newFileName = '';
+                    $newFileName = 'c_' . $lastInsertID . '_' . $this->genRandomString() . '.' . $ext;
+                    $destination = '';
+                    $destination = 'img/uploads/' . $newFileName;
+
+                    $moved = move_uploaded_file($data['uploadfile']['tmp_name'][$i], $destination);
+
+                    if ($moved) {
+                        $PhotoData = array();
+
+                        $PhotoData['Image']['room_id'] = $lastInsertID;
+                        $PhotoData['Image']['title'] = $newFileName;
+                        $this->loadModel('Image');
+
+                        $this->Image->Create();
+                        $imageData = $this->Image->save($PhotoData);
+
+                        $imagePath = $this->resize_url("uploads/" . $newFileName, 80, 104);
+                        $responseArray[$i]['img_id'] = $imageData['Image']['id'];
+                        $responseArray[$i]['img_name'] = $imagePath;
+                        $responseArray[$i]['room_id'] = $lastInsertID;
+                    }
+                }
+            }
+            //prd($responseArray);
+            $respone = json_encode($responseArray);
+            echo $respone;
+        }
+        exit;
+    }
+    
+    public function image_multi_upload() {
         if (isset($_FILES['uploadfile']['name']) && !empty($_FILES['uploadfile']['name'][0])) {
             $product_id = 0;
             if (isset($this->request->data['room_id'])) {

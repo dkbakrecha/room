@@ -63,7 +63,7 @@
                                 'name' => $label,
                                 'value' => $value,
                                 'onClick' => 'searchRooms()',
-                                'div' => 'asd'
+                                'div' => ''
                             );
                         }
                         //pr($optionCategory);

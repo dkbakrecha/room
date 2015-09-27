@@ -1,6 +1,7 @@
 <style>
     #map {
         height: 300px;
+        display: none;
     }
 
 </style>
@@ -164,7 +165,7 @@
         var bar = $('.bar');
 
         var options = {
-            url: '<?php echo $this->Html->url(array('admin' => true, "controller" => "rooms", "action" => "image_multi_upload")); ?>',
+            url: '<?php echo $this->Html->url(array("controller" => "rooms", "action" => "image_multi_upload")); ?>',
             data: ({room_id: $('#RoomId').val()}),
             beforeSend: function () {
                 $(".progress").css('opacity', '1');

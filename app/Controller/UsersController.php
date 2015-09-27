@@ -46,7 +46,16 @@ class UsersController extends AppController {
     }
 
     public function dashboard() {
+        $this->loadModel('Room');
+        $_userId = $this->_getCurrentUserId();
+        $userRooms = $this->Room->find('all',array(
+            'conditions' => array(
+                'Room.created_by' => $_userId,
+                'Room.status !=' => 2,
+            )
+        ));
         
+        $this->set('userRooms',$userRooms);
     }
 
     public function index() {

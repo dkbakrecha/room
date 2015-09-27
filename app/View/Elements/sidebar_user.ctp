@@ -15,6 +15,12 @@
         <span class="glyphicon glyphicon-comment"></span> 
         Enquiries <span class="badge">0</span>
     </a>
+    
+    <a href="<?php echo $this->Html->url(array('controller' => 'enquiries', 'action' => 'index')); ?>" class="list-group-item">
+        <span class="glyphicon glyphicon-comment"></span> 
+        ShortLists <span class="badge">0</span>
+    </a>
+    
     <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'edit_profile')); ?>" class="list-group-item">
         <span class="glyphicon glyphicon-user"></span>
         My Profile 

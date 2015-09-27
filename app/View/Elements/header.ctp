@@ -30,9 +30,8 @@
                 $sessionUser = $this->Session->read('Auth.User');
                 if (!empty($sessionUser)) {
                     ?>
-
                     <li>
-                        <a href = '<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'profile')); ?>'>Profile</a>
+                        <a href = '<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'dashboard')); ?>'>My Account</a>
                     </li>
                     <li>
                         <a href = '<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'logout')); ?>'>LOGOUT</a>

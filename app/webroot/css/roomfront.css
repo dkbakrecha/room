@@ -58,28 +58,15 @@
     line-height: 28px;
 }
 
-.message {
-    border: 1px solid #323232;
-    opacity: 0.8;
-    margin-bottom: 10px;
+#roomContent .panel-default{
+    min-height: 450px;
 }
 
-.message .glyphicon {
-    color: #fff;
-    font-size: 32px;
-    margin: 5px 20px;
+#roomContent .dashboard-content{
+    margin-top: 20px;
+    min-height: 300px;
 }
 
-.message .tag {
-    font-size: 18px;
-    line-height: 32px;
-    margin: 4px;
-}
-
-.message .tag .strong{
-    color: #4c4c4d;
-    font-weight: bold;
-}
 
 .list-group-item {
     background: inherit;
