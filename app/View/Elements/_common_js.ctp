@@ -161,19 +161,37 @@
         alert("<?php echo __("Oops! something went wrong."); ?>");
     }
 
+    $(".fav-btn").on("click", function() {
+        var _this = this;
+        var currentClass = $(this).children("i").attr("class");
+        var room_id = $(this).data('room-id');
+        // console.log($("#log").html("clicked: " + event.target.nodeName));
+        console.log(_this);
+        makeRoomFav(room_id, currentClass, _this);
+    });
+
+
     // makeFavRoom function //
-    function makeRoomFav(roomId) {
+    function makeRoomFav(room_id, currentClass, _this) {
+
         if (USRID != '') {
             URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'makeRoomFav')); ?>';
 
             $.ajax({
                 url: URL,
                 method: "POST",
-                data: ({roomId: roomId}),
+                data: ({roomId: room_id}),
                 success: function(data) {
                     try {
                         if (data == 1) {
-                            window.location.reload();
+                            if (currentClass == 'glyphicon glyphicon-star') {
+                                $(_this).children("i").attr("class", 'glyphicon glyphicon-star-empty');
+
+                            } else {
+                                $(_this).children("i").attr("class", 'glyphicon glyphicon-star');
+
+                            }
+                            // window.location.reload();
                         }
                         else if (data == 0) {
                             console.log('make favorite failed.');

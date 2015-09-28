@@ -114,16 +114,16 @@
                                 <div class="pull-right">
                                     <a class="btn btn-primary blue show-number" data-id="<?php echo $roomInfo['Room']['id']; ?>" id="num<?php echo $roomInfo['Room']['id']; ?>">Show Number</a>
                                     <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $roomInfo['Room']['id']; ?>">Send Enquiry</a>
-                                    <a class="btn btn-primary green" id="updateMakeRoomFavDiv" title="Make Favorite" onclick="makeRoomFav(<?php echo $roomInfo['Room']['id']; ?>)">
+                                    <a class="btn btn-primary green fav-btn" title="Make Favorite" data-room-id="<?php echo $roomInfo['Room']['id']; ?>">
                                         <?php
                                         $favRoomId = $roomInfo['Favorite']['room_id'];
                                         if (isset($favRoomId) && !empty($favRoomId)) {
                                             ?>
-                                            <i class="glyphicon glyphicon-star"></i>
+                                            <i  class="glyphicon glyphicon-star"></i>
                                             <?php
                                         } else {
                                             ?>
-                                            <i class="glyphicon glyphicon-star-empty"></i>
+                                            <i  class="glyphicon glyphicon-star-empty"></i>
                                             <?php
                                         }
                                         ?>
@@ -209,5 +209,5 @@
         });
     }
 
-   
+
 </script>

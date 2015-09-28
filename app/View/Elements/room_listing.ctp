@@ -1,3 +1,4 @@
+<div id="log"></div>
 <?php
 //prd($roomList);
 if (!empty($roomList)) {
@@ -66,16 +67,16 @@ if (!empty($roomList)) {
                     <div class="room-action">
                         <a class="btn btn-primary blue show-number" data-id="<?php echo $room['Room']['id']; ?>" id="num<?php echo $room['Room']['id']; ?>">Show Number</a>
                         <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $room['Room']['id']; ?>">Send Enquiry</a>
-                        <a class="btn btn-primary green" title="Make Favorite" onclick="makeRoomFav(<?php echo $room['Room']['id']; ?>)">
+                        <a class="btn btn-primary green fav-btn" title="Make Favorite"  data-room-id="<?php echo $room['Room']['id']; ?>" >
                             <?php
                             $favRoomId = $room['Favorite']['room_id'];
                             if (isset($favRoomId) && !empty($favRoomId)) {
                                 ?>
-                                <i class="glyphicon glyphicon-star"></i>
+                                <i  class="glyphicon glyphicon-star"></i>
                                 <?php
                             } else {
                                 ?>
-                                <i class="glyphicon glyphicon-star-empty"></i>
+                                <i  class="glyphicon glyphicon-star-empty"></i>
                                 <?php
                             }
                             ?>

@@ -470,6 +470,8 @@ class RoomsController extends AppController {
             $data['Favorite']['user_id'] = $user_id;
 
             if ($this->Favorite->save($data)) {
+                //  $this->layout = 'ajax';
+                //$this->render('/elements/makeRoomFav');
                 echo 1;
                 exit;
             } else {
