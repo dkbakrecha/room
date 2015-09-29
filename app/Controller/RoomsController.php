@@ -8,7 +8,7 @@ class RoomsController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index', 'report', 'room_listing', 'listing', 'detail', 'hitcount');
+        $this->Auth->allow('index', 'report', 'requirements', 'savePostRequirement', 'room_listing', 'listing', 'detail', 'hitcount');
     }
 
     public function index() {
@@ -438,6 +438,40 @@ class RoomsController extends AppController {
             } else {
                 $this->flash_msg('Report not submitted, please try again', 2);
                 $this->redirect(array('controller' => 'rooms', 'action' => 'detail', $room_id));
+            }
+        }
+    }
+
+    public function requirements() {
+        $this->loadModel('Category');
+        $cateList = $this->Category->find('list', array(
+            'conditions' => array('Category.status' => 1)
+        ));
+        $this->set('cateList', $cateList);
+
+
+
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            echo $this->render('/rooms/requirements');
+            exit;
+        }
+    }
+
+    public function savePostRequirement() {
+        if ($this->request->is('ajax')) {
+            $data = $this->request->data;
+            //  prd($this->request->data);
+            $this->loadModel('PostRequirement');
+            $data = $this->request->data;
+            $data['PostRequirement']['user_id'] = 0;
+            $data['PostRequirement']['status'] = 1;
+            if ($this->PostRequirement->save($data)) {
+                echo 1;
+                exit;
+            } else {
+                echo 0;
+                exit;
             }
         }
     }

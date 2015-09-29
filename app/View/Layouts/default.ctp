@@ -48,6 +48,8 @@ $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
             <?php echo $this->element('header'); ?>
             <div id="content">
                 <?php echo $this->Session->flash(); ?>
+                <div id="flash-msg" style="display: none" class="alert alert-success"></div>
+
                 <?php echo $this->fetch('content'); ?>
             </div>
         </div>

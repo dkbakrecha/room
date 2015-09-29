@@ -44,6 +44,29 @@
                 }
             });
         });
+        $('#postRequirment').click(function() {
+            URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'requirements')); ?>';
+            $.ajax({
+                url: URL,
+                method: "POST",
+                success: function(data) {
+                    // console.log(data);
+                    $.unblockUI();
+                    $("#postRequirement").html(data);
+                    $("#postRequirement").modal('show');
+                },
+                error: function(xhr) {
+                    $.unblockUI();
+                    ajaxErrorCallback(xhr);
+                }
+            });
+        });
+
+
+
+
+
+  
 
 
         //console.log(USRID);
