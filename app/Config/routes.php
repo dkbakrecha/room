@@ -4,6 +4,9 @@ Router::connect('/', array('controller' => 'rooms', 'action' => 'listing'));
 Router::connect('/admin', array('controller' => 'users', 'action' => 'login', 'admin' => TRUE));
 
 
+Router::connect('/start-your-business', array('controller' => 'users', 'action' => 'beagent'));
+
+
 CakePlugin::routes();
 
 /**

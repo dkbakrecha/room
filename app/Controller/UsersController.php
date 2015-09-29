@@ -8,7 +8,7 @@ class UsersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add', 'admin_login', 'register', 'login');
+        $this->Auth->allow('add', 'admin_login', 'register', 'login','beagent');
     }
 
     public function add() {
@@ -29,6 +29,23 @@ class UsersController extends AppController {
             $this->User->create();
             $data = $this->request->data;
             $data['User']['role'] = 1;
+            $data['User']['status'] = 3;
+            //prd($data);
+            if ($this->User->save($data)) {
+                $this->Session->setFlash(__('The user has been saved'));
+                return $this->redirect(array('action' => 'profile'));
+            }
+            $this->Session->setFlash(
+                    __('The user could not be saved. Please, try again.')
+            );
+        }
+    }
+    
+    public function beagent() {
+        if ($this->request->is('post')) {
+            $this->User->create();
+            $data = $this->request->data;
+            $data['User']['role'] = 2;
             $data['User']['status'] = 3;
             //prd($data);
             if ($this->User->save($data)) {
@@ -63,8 +80,19 @@ class UsersController extends AppController {
     }
 
     public function edit_profile() {
-        //pr($this->user_info);
-        //$this->request->data['User'] = $this->user_info;
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->User->save($this->request->data)) {
+                $this->Session->write('Auth.User.first_name',$this->request->data['User']['first_name']);
+                $this->Session->write('Auth.User.last_name',$this->request->data['User']['last_name']);
+                $this->Session->write('Auth.User.contact_no',$this->request->data['User']['contact_no']);
+                
+                $this->Session->setFlash(__('Your profile has been update has been saved !'),'success');
+                return $this->redirect(array('action' => 'dashboard'));
+            }
+            $this->Session->setFlash(
+                    __('The user could not be saved. Please, try again.')
+            );
+        }
     }
 
     public function login($from = 0) {

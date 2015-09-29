@@ -255,14 +255,27 @@ class RoomsController extends AppController {
         $this->loadModel('Facilities');
         $this->loadModel('RoomOption');
         
-        //pr($this->user_info);
+        //prd($this->user_info);
         
-        if(empty($this->user_info['first_name']) || !empty($this->user_info['contact_no'])){
+        if(empty($this->user_info['first_name']) || empty($this->user_info['contact_no'])){
             $this->Session->setFlash('Please complate your profile before Listing','default',array('class' => 'alert alert-success'));
             $this->redirect(array('controller' => 'users', 'action' => 'edit_profile'));
         }
         
-
+        if($this->user_info['role'] == 1){
+            $activeRoom = $this->Room->find('count',array(
+                'conditions' => array(
+                    'Room.status' => 1,
+                    'Room.created_by' => $this->_getCurrentUserId()
+                )
+                ));
+            
+            if($activeRoom >= 1){
+                $this->Session->setFlash('Free account add just one room. Please contact service@room247.in upgrade service.','default',array('class' => 'alert alert-success'));
+                $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
+            }
+        }
+        
         $cateList = $this->Categories->find('list', array('fields' => array('code', 'title')));
         $this->set('cateList', $cateList);
 

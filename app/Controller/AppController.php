@@ -49,6 +49,8 @@ class AppController extends Controller {
 
     public function loadStatics() {
         $this->loadModel('Room');
+        $this->loadModel('Favorite');
+        
         /*  =====  Agent Listing count  =====  */
         if (!empty($this->user_id) && $this->user_info['role'] == 2) {
             $roomCount = $this->Room->find('count', array(
@@ -59,6 +61,18 @@ class AppController extends Controller {
             ));
 
             $this->set('roomCount', $roomCount);
+        }
+        
+        
+        if (!empty($this->user_id) && $this->user_info['role'] == 1) {
+            $favCount = $this->Favorite->find('count', array(
+                'conditions' => array(
+                    'Favorite.user_id' => $this->user_id,
+                    'Favorite.status' => 1
+                )
+            ));
+            
+            $this->set('favCount', $favCount);
         }
     }
     

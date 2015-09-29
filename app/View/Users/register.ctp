@@ -5,7 +5,11 @@
             <div class="users form login-container">
                 <?php echo $this->Form->create('User'); ?>
                 <fieldset>
-                    <legend><?php echo __('JOIN Room247.in'); ?><span class="pull-right">Agent ?</span></legend>
+                    <legend><?php echo __('Register'); ?>
+                        <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'beagent')); ?>" class="pull-right">
+                            As Business
+                        </a>
+                    </legend>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <?php

@@ -8,44 +8,73 @@
 <script type="text/javascript">
     var USR = '<?php echo AuthComponent::user('user_type'); ?>';
     var USRID = '<?php echo AuthComponent::user('id'); ?>';
-    $(document).ready(function() {
-        $("#loginOpen, .loginOpen").click(function() {
+    $(document).ready(function () {
+        $("#loginOpen, .loginOpen").click(function () {
             $.ajax({
                 url: '<?php echo $this->Html->url(array("controller" => "users", "action" => "login", '1'), true); ?>',
                 type: "GET",
-                success: function(data) {
+                success: function (data) {
                     $.unblockUI();
                     $("#loginModal").html(data);
                     $("#loginModal").modal('show');
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     $.unblockUI();
                     ajaxErrorCallback(xhr);
                 }
             });
         });
-        $("#report").click(function() {
+
+        $("#loginModal").on("submit", "#UserLoginForm", function () {
+            //$.blockUI({baseZ:2000});
+            $(this).ajaxSubmit({
+                beforeSubmit: validateLogin,
+                success: function (rd) {
+                    $.unblockUI();
+                    try {
+                        var resData = $.parseJSON(rd);
+                        if (resData.status == 0) {
+                            alert(resData.msg);
+                        } else {
+                            $("#login").modal('hide');
+                            window.top.location = resData.redirect_uri;
+                        }
+                    } catch (e) {
+                        $.unblockUI();
+                        $("#loginModal").html(rd);
+                        $("#loginModal").modal('show');
+                    }
+                },
+                error: function (xhr) {
+                    $.unblockUI();
+                    ajaxErrorCallback(xhr);
+                }
+            });
+            return false;
+        });
+
+        $("#report").click(function () {
             var room_id = $('#report').data('room-id');
             $.ajax({
                 url: '<?php echo $this->Html->url(array("controller" => "rooms", "action" => "report", '1'), true); ?>',
                 type: "GET",
                 data: ({room_id: room_id}),
-                success: function(data) {
+                success: function (data) {
                     $.unblockUI();
                     $("#reportModal").html(data);
                     $("#reportModal").modal('show');
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     $.unblockUI();
                     ajaxErrorCallback(xhr);
                 }
             });
         });
         //console.log(USRID);
-        $("#enquiryModal").on("submit", "#EnquiryIndexForm", function() {
+        $("#enquiryModal").on("submit", "#EnquiryIndexForm", function () {
             $(this).ajaxSubmit({
                 //  beforeSubmit: validateLogin,
-                success: function(rd) {
+                success: function (rd) {
                     console.log(rd);
                     try {
                         var resData = $.parseJSON(rd);
@@ -60,17 +89,17 @@
                         $("#enquiryModal").modal('hide');
                     }
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     ajaxErrorCallback(xhr);
                 }
             });
             return false;
         });
-        $('#roomList, .room-detail').on("click", ".send-enquiry", function() {
+        $('#roomList, .room-detail').on("click", ".send-enquiry", function () {
             var _this = this;
             open_enquiry_popup(_this);
         });
-        $(".show-number").click(function() {
+        $(".show-number").click(function () {
             if (USRID != '') {
                 var _this = this;
                 getNumber(_this);
@@ -79,9 +108,9 @@
             }
         });
         // Submit front newsletter //
-        $("#side_newsletter").on("submit", "#NewsletterDetailForm", function() {
+        $("#side_newsletter").on("submit", "#NewsletterDetailForm", function () {
             $(this).ajaxSubmit({
-                success: function(rd) {
+                success: function (rd) {
                     try {
                         var resData = $.parseJSON(rd);
                         console.log(resData.status);
@@ -94,13 +123,28 @@
                         alert(resData.message);
                     }
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     ajaxErrorCallback(xhr);
                 }
             });
             return false;
         });
     }); // End of doc ready //
+
+    //TODO ::
+    function validateLogin() {
+        blockUIWait();
+    }
+    
+    function blockUIWait(msg) {
+		if (!msg) {
+			msg = "<?php echo __('Please Wait...') ?>";
+		}
+		$.blockUI({
+			baseZ:2000,
+			message: '<div style="padding: 6px 2px;"><h4 class="blockUIh4"><span class="blockUILoading"></span> ' + msg + '</h4><div>'
+		});
+	}
 
     function open_enquiry_popup(_this) {
         $.blockUI();
@@ -109,7 +153,7 @@
             url: '<?php echo $this->Html->url(array("controller" => "Enquiries", "action" => "index")) ?>',
             type: "GET",
             data: {room_id: room_id},
-            success: function(data) {
+            success: function (data) {
                 $.unblockUI();
                 if (data == '0') {
                     window.location.href = "<?php echo $this->Html->url(array("controller" => "pages", "action" => "noredirect")) ?>";
@@ -118,7 +162,7 @@
                     $("#enquiryModal").modal('show');
                 }
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 ajaxErrorCallback(xhr);
             }
         });
@@ -135,7 +179,7 @@
             url: '<?php echo $this->Html->url(array("controller" => "rooms", "action" => "getNumber")) ?>',
             type: "GET",
             data: {room_id: room_id},
-            success: function(data) {
+            success: function (data) {
                 $.unblockUI();
                 if (data == '0') {
                     window.location.href = "<?php echo $this->Html->url(array("controller" => "pages", "action" => "noredirect")) ?>";
@@ -146,7 +190,7 @@
                     $('#num' + room_id).html(data);
                 }
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 ajaxErrorCallback(xhr);
             }
         });
@@ -160,12 +204,12 @@
     function makeRoomFav(roomId) {
         if (USRID != '') {
             URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'makeRoomFav')); ?>';
-            
+
             $.ajax({
                 url: URL,
                 method: "POST",
                 data: ({roomId: roomId}),
-                success: function(data) {
+                success: function (data) {
                     try {
                         if (data == 1) {
                             window.location.reload();
@@ -177,7 +221,7 @@
                         window.console && console.log(e);
                     }
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     ajaxErrorCallback(xhr);
                 }
             });
