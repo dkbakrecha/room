@@ -8,7 +8,7 @@ class UsersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add', 'admin_login', 'register', 'login','beagent');
+        $this->Auth->allow('add', 'admin_showUserInfo', 'admin_login', 'register', 'login','beagent');
     }
 
     public function add() {
@@ -111,11 +111,11 @@ class UsersController extends AppController {
                 $userData = array();
                 $userData['User']['id'] = $this->_getCurrentUserId();
                 $userData['User']['last_login'] = date("Y-m-d H:i");
-                
+
                 if (!empty($userData)) {
                     $updateUser = $this->User->save($userData);
                 }
-                
+
                 return $this->redirect($this->Auth->redirectUrl());
             }
             $this->Session->setFlash(__('Invalid username or password, try again'));
@@ -236,6 +236,25 @@ class UsersController extends AppController {
 
         $this->User->save($userData);
         $this->redirect(array('action' => 'index'));
+    }
+
+    public function admin_showUserData() {
+        if ($this->request->is('ajax')) {
+            $this->layout = "ajax";
+            $user_id = $this->request->data['user_id'];
+            $userInfo = $this->User->find('first', array(
+                'conditions' => array('User.id' => $user_id, 'User.status' => 1),
+                'fields' => array('id', 'first_name', 'last_name', 'contact_no', 'last_login', 'email', 'status')
+            ));
+            if (isset($userInfo) && !empty($userInfo)) {
+                $this->layout = "ajax";
+                $this->set('userInfo', $userInfo);
+                $this->render('/users/admin_showUserData');
+            } else {
+                echo 0;
+                exit;
+            }
+        }
     }
 
 }

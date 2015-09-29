@@ -8,7 +8,7 @@ class RoomsController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index', 'report', 'room_listing', 'listing', 'detail', 'hitcount');
+        $this->Auth->allow('index', 'report', 'requirements', 'savePostRequirement', 'room_listing', 'listing', 'detail', 'hitcount');
     }
 
     public function index() {
@@ -78,6 +78,22 @@ class RoomsController extends AppController {
             $search = json_encode($data);
             $this->set('search', $data);
         }
+
+        $this->Room->bindModel(
+                array('hasOne' => array(
+                'Favorite' => array(
+                    'className' => 'Favorite',
+                    'foreignKey' => false,
+                    'conditions' => array(
+                        'Favorite.room_id = Room.id',
+                        'Favorite.user_id' => $this->user_id,
+                        'Favorite.status' => 1
+                    )
+                )
+            )
+                ), false
+        );
+
 
         $this->paginate = array(
             'paramType' => 'querystring',
@@ -450,19 +466,53 @@ class RoomsController extends AppController {
         }
     }
 
+    public function requirements() {
+        $this->loadModel('Category');
+        $cateList = $this->Category->find('list', array(
+            'conditions' => array('Category.status' => 1)
+        ));
+        $this->set('cateList', $cateList);
+
+
+
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+            echo $this->render('/rooms/requirements');
+            exit;
+        }
+    }
+
+    public function savePostRequirement() {
+        if ($this->request->is('ajax')) {
+            $data = $this->request->data;
+            //  prd($this->request->data);
+            $this->loadModel('PostRequirement');
+            $data = $this->request->data;
+            $data['PostRequirement']['user_id'] = 0;
+            $data['PostRequirement']['status'] = 1;
+            if ($this->PostRequirement->save($data)) {
+                echo 1;
+                exit;
+            } else {
+                echo 0;
+                exit;
+            }
+        }
+    }
+
     public function makeRoomFav() {
         $this->loadModel('Favorite');
-        
+
         if ($this->request->is('ajax')) {
             $roomId = $this->request->data['roomId'];
             $user_id = $this->_getCurrentUserId();
-            
+
             $favRoomData = $this->Favorite->find('first', array(
                 'conditions' => array(
-                    'Favorite.room_id' => $roomId, 
+                    'Favorite.room_id' => $roomId,
                     'Favorite.user_id' => $user_id)
             ));
-            
+
             $data = array();
             if (!empty($favRoomData)) {
                 if ($favRoomData['Favorite']['status'] == 1) {
@@ -476,8 +526,10 @@ class RoomsController extends AppController {
 
             $data['Favorite']['room_id'] = $roomId;
             $data['Favorite']['user_id'] = $user_id;
-            
+
             if ($this->Favorite->save($data)) {
+                //  $this->layout = 'ajax';
+                //$this->render('/elements/makeRoomFav');
                 echo 1;
                 exit;
             } else {

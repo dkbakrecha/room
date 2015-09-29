@@ -2,6 +2,9 @@
 <div class="modal fade" id="enquiryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div class="modal fade" id="postRequirement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+
 <!-- MODAL SECTION HERE -->
 
 
@@ -70,6 +73,31 @@
                 }
             });
         });
+        $('#postRequirment').click(function() {
+            URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'requirements')); ?>';
+            $.ajax({
+                url: URL,
+                method: "POST",
+                success: function(data) {
+                    // console.log(data);
+                    $.unblockUI();
+                    $("#postRequirement").html(data);
+                    $("#postRequirement").modal('show');
+                },
+                error: function(xhr) {
+                    $.unblockUI();
+                    ajaxErrorCallback(xhr);
+                }
+            });
+        });
+
+
+
+
+
+  
+
+
         //console.log(USRID);
         $("#enquiryModal").on("submit", "#EnquiryIndexForm", function () {
             $(this).ajaxSubmit({
@@ -200,8 +228,60 @@
         alert("<?php echo __("Oops! something went wrong."); ?>");
     }
 
+    $(".fav-btn").on("click", function() {
+        var _this = this;
+        var currentClass = $(this).children("i").attr("class");
+        var room_id = $(this).data('room-id');
+        // console.log($("#log").html("clicked: " + event.target.nodeName));
+        console.log(_this);
+        makeRoomFav(room_id, currentClass, _this);
+    });
+
+
     // makeFavRoom function //
-    function makeRoomFav(roomId) {
+    function makeRoomFav(room_id, currentClass, _this) {
+
+        if (USRID != '') {
+            URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'makeRoomFav')); ?>';
+
+            $.ajax({
+                url: URL,
+                method: "POST",
+                data: ({roomId: room_id}),
+                success: function(data) {
+                    try {
+                        if (data == 1) {
+                            if (currentClass == 'glyphicon glyphicon-star') {
+                                $(_this).children("i").attr("class", 'glyphicon glyphicon-star-empty');
+
+                            } else {
+                                $(_this).children("i").attr("class", 'glyphicon glyphicon-star');
+
+                            }
+                            // window.location.reload();
+                        }
+                        else if (data == 0) {
+                            console.log('make favorite failed.');
+                        }
+                    } catch (e) {
+                        window.console && console.log(e);
+                    }
+                },
+                error: function(xhr) {
+                    ajaxErrorCallback(xhr);
+                }
+            });
+        } else {
+            $("#loginOpen").click();
+        }
+
+
+    }
+
+    // makeFavRoom ends //
+
+    // makeFavRoom function //
+    function postRequirement(roomId) {
         if (USRID != '') {
             URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'makeRoomFav')); ?>';
 
@@ -232,6 +312,6 @@
 
     }
 
-
     // makeFavRoom ends //
+
 </script>

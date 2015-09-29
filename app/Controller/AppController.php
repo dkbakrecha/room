@@ -9,7 +9,7 @@ class AppController extends Controller {
         'Session',
     );
     public $helpers = array(
-        //'Image',
+//'Image',
         'General'
     );
 
@@ -28,7 +28,7 @@ class AppController extends Controller {
 
         if (isset($this->request->params['admin'])) {
             $this->layout = 'admin';
-            // to check session key if we not define this here then is will check with 'Auth.User' so dont remove it
+// to check session key if we not define this here then is will check with 'Auth.User' so dont remove it
             AuthComponent::$sessionKey = 'Auth.Admin';
 
             $this->Auth->loginAction = array('admin' => true, 'controller' => 'Users', 'action' => 'admin_login');
@@ -75,7 +75,7 @@ class AppController extends Controller {
             $this->set('favCount', $favCount);
         }
     }
-    
+
     protected function _getCurrentUserId() {
         if (isset($this->Auth)) {
             $user_id = $this->Auth->User("id");
@@ -108,7 +108,7 @@ class AppController extends Controller {
 
         $fullpath = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . $uploadsDir . DS;
 
-        //$tempPath=realpath(dirname(dirname(dirname(__FILE__)))).'/webroot/img/';
+//$tempPath=realpath(dirname(dirname(dirname(__FILE__)))).'/webroot/img/';
         $tempPath = $uploadsDir . '/';
 
         if (file_exists($tempPath . $path) and $path != 'uploads/')
@@ -116,7 +116,7 @@ class AppController extends Controller {
         else
             $url = $tempPath . "no_image.png";
 
-        //echo '<img src="'.$url.'">'; exit;
+//echo '<img src="'.$url.'">'; exit;
         if (!($size = getimagesize($url)))
             return; // image doesn't exist
 
@@ -178,13 +178,13 @@ class AppController extends Controller {
             imagedestroy($image);
             imagedestroy($temp);
         } else {
-            //copy($url, $cachefile);
+//copy($url, $cachefile);
             if (!$cached) {
                 return ($path);
             }
         }
 
-        //return $this->webroot.'img/'.$path;
+//return $this->webroot.'img/'.$path;
         return $relfile;
         return $this->output(sprintf($this->Html->_tags['image'], $relfile, $this->Html->_parseAttributes($htmlAttributes, null, '', ' ')), $return);
     }
@@ -194,6 +194,8 @@ class AppController extends Controller {
         $ext = array_pop($ext);
         return strtolower($ext);
     }
+
+
 
     function genRandomString($length = 12) {
         $pwd = str_shuffle('abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' . time());
@@ -220,11 +222,11 @@ class AppController extends Controller {
             return 0;
         }
     }
-    
-    public function saveGridImageByAddress($address,$id){
+
+    public function saveGridImageByAddress($address, $id) {
         $t_addr = str_replace(" ", "+", $address);
         $_label = 'R';
-        $img_url = 'http://maps.googleapis.com/maps/api/staticmap?center='.$t_addr.'&zoom=17&markers=color:blue|label:'.$_label.'|'.$t_addr.'&size=640x300&sensor=false';
+        $img_url = 'http://maps.googleapis.com/maps/api/staticmap?center=' . $t_addr . '&zoom=17&markers=color:blue|label:' . $_label . '|' . $t_addr . '&size=640x300&sensor=false';
         //prd($img_url);
 
         if (copy($img_url, 'img/uploads/' . $id . '_room.png')) {

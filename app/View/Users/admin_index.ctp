@@ -18,20 +18,20 @@
                         <th>Email Address</th>
                         <th>Role</th>
                         <th>Last Login</th>
-                        
+
                         <th width="15%">Action</th>
                     </tr>
                 </thead>
                 <?php foreach ($userList as $row) { ?>
                     <tr>
                         <td><?php echo $row['User']['id']; ?></td>
-                        <td><?php echo $row['User']['name'] .  " ( " . $row['User']['first_name'] . " " . $row['User']['last_name'] . " )"; ?></td>
+                        <td><?php echo $row['User']['name'] . " ( " . $row['User']['first_name'] . " " . $row['User']['last_name'] . " )"; ?></td>
                         <td><?php echo $row['User']['email']; ?></td>
                         <td><?php echo ($row['User']['role'] == 1) ? "User" : "Agent"; ?></td>
                         <td><?php echo $row['User']['last_login']; ?></td>
-                        
+
                         <td>
-                            <span class="btn btn-default btn-xs" title="View user's detail"><i class="fa fa-eye"></i></span>
+                            <span class="btn btn-default btn-xs showUserData"  data-user-id="<?php echo $row['User']['id'] ?>" title="View user's detail"><i class="fa fa-eye"></i></span>
                             <span class="btn btn-default btn-xs"><i class="fa fa-dot-circle-o"></i></span>
                             <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'admin_edit', $row['User']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-edit"></i></span></a>
                             <a href="<?php echo $this->Html->url(array('controller' => 'email_contents', 'action' => 'admin_mail', $row['User']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-envelope"></i></span></a>
@@ -45,3 +45,4 @@
     </div>
 
 </div>
+

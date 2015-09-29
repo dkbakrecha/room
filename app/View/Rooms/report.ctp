@@ -25,31 +25,22 @@
 
                 echo $this->Form->hidden('room_id');
                 ?>
-                <?php
-                if (!isset($user_id) && empty($user_id)) {
-                    ?>
-                    <div class="form-group ">
-                        <div class="col-sm-12">
-                            <?php
-                            echo $this->Form->input('radio_input', array(
-                                'type' => 'radio',
-                                'options' => array(1 => 'Not available', 2 => 'Wrong Contact', 3 => 'Wrong price', 4 => 'Wrong location'),
-                                'class' => 'radio inline',
-                                'div' => false,
-                                'label' => true,
-                                'legend' => false,
-                                'before' => '<div class="newdiv">',
-                                'after' => '</div>',
-                            ));
-                            ?>
-                        </div>
+                <div class="form-group ">
+                    <div class="col-sm-12">
+                        <?php
+                        echo $this->Form->input('radio_input', array(
+                            'type' => 'radio',
+                            'options' => array(1 => 'Not available', 2 => 'Wrong Contact', 3 => 'Wrong price', 4 => 'Wrong location'),
+                            'class' => 'radio inline',
+                            'div' => false,
+                            'label' => true,
+                            'legend' => false,
+                            'before' => '<div class="newdiv">',
+                            'after' => '</div>',
+                        ));
+                        ?>
                     </div>
-
-
-
-                    <?php
-                }
-                ?>
+                </div>
 
                 <div class="form-group">
                     <div class="col-sm-12 ">
