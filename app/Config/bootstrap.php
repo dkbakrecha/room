@@ -132,3 +132,8 @@ function prd($var){
     pr($var);
     exit;
 }
+
+CakePlugin::loadAll(array(
+	'ClassyNewsletter' => array('route' => true),
+	'ClassyFeedback' => array()
+));

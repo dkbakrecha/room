@@ -1,9 +1,7 @@
 <div class="warper container-fluid">
-    <div class="page-header"><h1>Site Content <small>Site Static Content</small></h1></div>
     <div class="panel panel-default">
         <div class="panel-heading">
             Site Content
-            <a class='btn btn-purple btn-xs pull-right' href='<?php echo $this->Html->url(array('controller' => 'categories', 'action' => 'add', 'admin' => true)); ?>'>Add Category</a>
         </div>
         <div class="panel-body">
             <div class="dataTable_wrapper">

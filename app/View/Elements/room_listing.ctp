@@ -6,7 +6,8 @@ if (!empty($roomList)) {
         ?>
         <div class="listing-block">
             <div class="row">
-                <div class="col-lg-4"><?php
+                <div class="col-lg-4">
+                    <?php
                     $_filename = 'uploads/' . $room['Room']['id'] . '_room.png';
 
                     if (file_exists(WWW_ROOT . 'img/' . $_filename)) {
@@ -14,7 +15,8 @@ if (!empty($roomList)) {
                     } else {
                         echo $this->Html->image('no_image.png');
                     }
-                    ?></div>
+                    ?>
+                </div>
                 <div  class="col-lg-8">
                     <h4><a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'detail', $room['Room']['id'])); ?>"><?php echo __($room['Room']['title']); ?></a></h4>
                     <div class="row listing-info">
@@ -82,7 +84,7 @@ if (!empty($roomList)) {
                             ?>
                         </a>
 
-
+                        <span class="pull-right"><?php echo "Update on : " . date('d-M-Y',  strtotime($room['Room']['created'])); ?></span>
                     </div>
                     <?php
                     if (date('j-n-Y', strtotime($room['Room']['created'])) == date('j-n-Y')) {

@@ -102,7 +102,7 @@ class UsersController extends AppController {
 
         if ($from == 1) {
             $this->layout = "ajax";
-            $this->set('from', '1');
+            $this->set('from', $from);
         }
 
         if ($this->request->is('Post')) {
@@ -115,8 +115,15 @@ class UsersController extends AppController {
                 if (!empty($userData)) {
                     $updateUser = $this->User->save($userData);
                 }
-
-                return $this->redirect($this->Auth->redirectUrl());
+                
+                if ($from == 1) {
+                    $ret = array();
+                    $ret['status'] = 1;
+                    $ret['msg'] = "welcome";
+                    $ret['redirect_uri'] = Router::url($this->Auth->redirectUrl());
+                    echo json_encode($ret);
+                    exit;
+                }
             }
             $this->Session->setFlash(__('Invalid username or password, try again'));
         }
@@ -228,6 +235,21 @@ class UsersController extends AppController {
             }
         }
     }
+    
+    public function admin_edit($id) {
+        if (!empty($this->request->data)) {
+            $data = $this->request->data;
+
+            if ($this->User->save($data)) {
+                $this->Session->setFlash('User update successfully.', 'default', array('class' => 'alert alert-success'));
+                $this->redirect(array('action' => 'admin_index'));
+            } else {
+                $this->Session->setFlash('User could be added.', 'default', array('class' => 'alert alert-danger'));
+            }
+        }
+        
+        $this->request->data = $this->User->find('first',array('conditions' => array('User.id' => $id)));
+    }
 
     public function admin_delete($user_id) {
         $userData = array();
@@ -236,25 +258,6 @@ class UsersController extends AppController {
 
         $this->User->save($userData);
         $this->redirect(array('action' => 'index'));
-    }
-
-    public function admin_showUserData() {
-        if ($this->request->is('ajax')) {
-            $this->layout = "ajax";
-            $user_id = $this->request->data['user_id'];
-            $userInfo = $this->User->find('first', array(
-                'conditions' => array('User.id' => $user_id, 'User.status' => 1),
-                'fields' => array('id', 'first_name', 'last_name', 'contact_no', 'last_login', 'email', 'status')
-            ));
-            if (isset($userInfo) && !empty($userInfo)) {
-                $this->layout = "ajax";
-                $this->set('userInfo', $userInfo);
-                $this->render('/users/admin_showUserData');
-            } else {
-                echo 0;
-                exit;
-            }
-        }
     }
 
 }

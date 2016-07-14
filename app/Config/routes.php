@@ -1,6 +1,6 @@
 <?php
 
-Router::connect('/', array('controller' => 'rooms', 'action' => 'listing'));
+Router::connect('/', array('controller' => 'rooms', 'action' => 'index'));
 Router::connect('/admin', array('controller' => 'users', 'action' => 'login', 'admin' => TRUE));
 
 

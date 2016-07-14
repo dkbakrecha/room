@@ -9,12 +9,14 @@
                 Timings:<br> Monday to Friday - <strong>9 AM to 9 PM</strong><br>Saturday-Sunday - <strong>10 AM to 6 PM</strong>
             </p></div>
     </div>
+    <!--
     <div class="widget widget_text clearfix" id="text-5">
         <h4 class="widget-title"><span>Looking for buy, sale or rent rooms?</span></h4>
         <div class="textwidget"><b>Get <a href="https://www.room247.in">room247.in - Your Handy App</a></b></div>
     </div>
+    -->
     <div class="widget widget_text clearfix" id="text-3">
         <h4 class="widget-title"><span>Are you a Agent?</span></h4>			
-        <div class="textwidget"><b>See <a href="https://www.room247.in/for-agent">our listing management offering for agents</a></b></div>
+        <div class="textwidget"><b>See <a href="<?php echo $this->Html->url(array('controller' => 'users' , 'action' => 'beagent')); ?>">our listing management offering for agents</a></b></div>
     </div>
 </aside>

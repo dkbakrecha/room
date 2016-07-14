@@ -3,15 +3,21 @@
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <div class="modal fade" id="postRequirement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-
-
 <!-- MODAL SECTION HERE -->
-
 
 <script type="text/javascript">
     var USR = '<?php echo AuthComponent::user('user_type'); ?>';
     var USRID = '<?php echo AuthComponent::user('id'); ?>';
     $(document).ready(function () {
+        if ($('#resentRoom').length) {
+            $("#resentRoom").owlCarousel({
+                autoPlay: 10000, //Set AutoPlay to 3 seconds
+                items: 4,
+                itemsDesktop: [1199, 3],
+                itemsDesktopSmall: [979, 3]
+            });
+        }
+
         $("#loginOpen, .loginOpen").click(function () {
             $.ajax({
                 url: '<?php echo $this->Html->url(array("controller" => "users", "action" => "login", '1'), true); ?>',
@@ -35,11 +41,12 @@
                 success: function (rd) {
                     $.unblockUI();
                     try {
-                        var resData = $.parseJSON(rd);
-                        if (resData.status == 0) {
+                        var resData = jQuery.parseJSON(rd);
+
+                        if (resData.status === 0) {
                             alert(resData.msg);
                         } else {
-                            $("#login").modal('hide');
+                            $("#loginModal").modal('hide');
                             window.top.location = resData.redirect_uri;
                         }
                     } catch (e) {
@@ -73,18 +80,18 @@
                 }
             });
         });
-        $('#postRequirment').click(function() {
+        $('#postRequirment').click(function () {
             URL = '<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'requirements')); ?>';
             $.ajax({
                 url: URL,
                 method: "POST",
-                success: function(data) {
+                success: function (data) {
                     // console.log(data);
                     $.unblockUI();
                     $("#postRequirement").html(data);
                     $("#postRequirement").modal('show');
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     $.unblockUI();
                     ajaxErrorCallback(xhr);
                 }
@@ -95,7 +102,7 @@
 
 
 
-  
+
 
 
         //console.log(USRID);
@@ -163,16 +170,16 @@
     function validateLogin() {
         blockUIWait();
     }
-    
+
     function blockUIWait(msg) {
-		if (!msg) {
-			msg = "<?php echo __('Please Wait...') ?>";
-		}
-		$.blockUI({
-			baseZ:2000,
-			message: '<div style="padding: 6px 2px;"><h4 class="blockUIh4"><span class="blockUILoading"></span> ' + msg + '</h4><div>'
-		});
-	}
+        if (!msg) {
+            msg = "<?php echo __('Please Wait...') ?>";
+        }
+        $.blockUI({
+            baseZ: 2000,
+            message: '<div style="padding: 6px 2px;"><h4 class="blockUIh4"><span class="blockUILoading"></span> ' + msg + '</h4><div>'
+        });
+    }
 
     function open_enquiry_popup(_this) {
         $.blockUI();
@@ -228,7 +235,7 @@
         alert("<?php echo __("Oops! something went wrong."); ?>");
     }
 
-    $(".fav-btn").on("click", function() {
+    $(".fav-btn").on("click", function () {
         var _this = this;
         var currentClass = $(this).children("i").attr("class");
         var room_id = $(this).data('room-id');
@@ -248,7 +255,7 @@
                 url: URL,
                 method: "POST",
                 data: ({roomId: room_id}),
-                success: function(data) {
+                success: function (data) {
                     try {
                         if (data == 1) {
                             if (currentClass == 'glyphicon glyphicon-star') {
@@ -267,7 +274,7 @@
                         window.console && console.log(e);
                     }
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     ajaxErrorCallback(xhr);
                 }
             });

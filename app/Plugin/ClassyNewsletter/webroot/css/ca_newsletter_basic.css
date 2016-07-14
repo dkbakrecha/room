@@ -1,0 +1,40 @@
+.ca_newsletter{
+    background-color: #f7f7f7;
+    padding: 30px 0;
+}
+
+.newsletter form {
+    max-width: 500px;
+    overflow: hidden;
+    padding-right: 90px;
+    position: relative;
+}
+
+.newsletter form p {
+    margin: 0;
+    float: left;
+}
+
+.newsletter form input {
+    border-radius: 0;
+    border: 0 none transparent;
+    box-shadow: none;
+    color: #525252;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding: 0 15px;
+    
+}
+
+.newsletter form input.newsletter-email{
+    width: 300px;
+}
+
+.newsletter form input[type="submit"] {
+    background: #676767 none repeat scroll 0 0 padding-box;
+    border-radius: 0;
+    color: #fff;
+    font-size: 12px;
+    line-height: 35px;
+}

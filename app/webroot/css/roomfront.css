@@ -15,6 +15,10 @@
     font-weight:bold;
 }
 
+.margin-top-20{
+    margin-top: 20px;
+}
+
 .clear-lr-padding{
     padding-left: 0px;
     padding-right: 0px;
@@ -23,8 +27,10 @@
     padding-right: 0px;
 }
 
-
 .homepage-header{
+    background: #f5f5f5 none repeat scroll 0 0;
+    border-color: #dddddd;
+    border-style: solid;
     border-width: 0 0 1px;
 }
 
@@ -67,6 +73,9 @@
     min-height: 300px;
 }
 
+.section-room-listing{
+    padding: 20px 0;
+}
 
 .list-group-item {
     background: inherit;
@@ -108,6 +117,62 @@ a.list-group-item{
     margin-bottom: 20px;
     padding-bottom: 5px;
 }
+
+/*****  section-resent-rooms *****/
+.section-resent-rooms {
+    padding: 40px 0;
+    background: #F0F1F5;
+}
+
+.section-title {
+    color: #18ab9b;
+    float: left;
+    font-family: "Lato",sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 25px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.room.recent {
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(0, 0, 0, 0.09);
+    margin: 0 auto;
+    width: 250px;
+}
+
+.room.recent .thumbnail{
+    border-top: 2px solid #2ecc71;
+}
+
+.room.recent .room-for {
+    border-radius: 0;
+    padding: 5px 10px 7px;
+    position: absolute;
+    right: 18px;
+    top: 6px;
+}
+
+.section-resent-rooms .room img{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    height: 150px;
+}
+
+.section-resent-rooms .room .caption {
+    height: 100px;
+    font-size: 14px;
+}
+
+.section-resent-rooms .room .caption > span {
+    color: #666666;
+    display: block;
+    font-size: 12px;
+
+}
+
+
 
 /****** General From ******/
 .btn-primary{
@@ -452,24 +517,99 @@ a.list-group-item{
 
 .room-action{
     margin-top: 5px;
+    float: left;
+    width: 100%;
 }
 
-.room-detail .listing-block{
+.section-room-detail-header {
+    border-bottom: 1px solid #dddddd;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 0px;
-    padding: 4px;
+    padding: 25px 0 10px;
 }
 
+.section-room-detail-header .room-title {
+    font-size: 24px;
+}
 
+.room-detail .detail-icon{
+    float: left;
+    margin-top: 10px;
+}
+
+.room-detail .detail-main-top{
+    width: 84%;
+}
+
+.room-detail .send-enquiry {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 20px 0;
+    padding: 15px 20px;
+}
+
+.room-actions .fav-btn {
+    font-size: 18px;
+    margin-left: 10px;
+    padding: 15px 20px;
+}
+
+.room-detail .room-images .item > img {
+    height: 300px;
+}
+
+.detail-main-top .room-title {
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.detail-main-top .room-address {
+    color: #888888;
+    font-size: 15px;
+    margin: 0 0 15px;
+}
+
+.room-detail .room-actions {
+    border-bottom: 1px solid #e8eeee;
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.room-detail .listing-block {
+    border: 1px solid #ddd;
+    border-radius: 0;
+    float: left;
+    margin-bottom: 15px;
+    padding: 4px;
+    width: 100%;
+}
 
 .room-detail .carousel-holder{
     margin-bottom: 20px;
 }
 
-.listing-info{
+.room-detail .room-detail-info {
+    background: #f5f5f5 none repeat scroll 0 0;
+    border-top: 1px solid #ddd;
+    display: block;
+    float: left;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.room-detail .panel-footer{
+    float: left;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.listing-info {
     border-bottom: 1px solid #e8eeee;
+    display: block;
+    float: left;
     padding-bottom: 10px;
+    width: 100%;
 }
 
 #roomList .listing-info{
@@ -517,6 +657,10 @@ a.list-group-item{
 
 .side_newsletter{
     padding: 16px;
+}
+
+section.ca_newsletter {
+    background: #37353d;
 }
 
 
@@ -618,11 +762,6 @@ a.list-group-item{
     padding: 40px 0 0 30px;
 }
 
-.widget {
-    margin-bottom: 40px;
-}
-
-
 .widget .widget-title {
     color: #444;
     font-size: 15px;
@@ -638,9 +777,12 @@ a.list-group-item{
     padding: 0 10px 0 0;
 }
 
+
+
 /* ================  Footer ================= */
 #footer-bottom {
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #dddddd;
+    background: #37353d;
     clear: both;
     color: #444;
     font-size: 13px;
@@ -658,8 +800,12 @@ footer, footer a, footer a:hover {
 }
 
 footer a {
-    font-size: 14px;
-    padding: 20px 10px;
+    color: #16a3d0;
+    display: inline-block;
+    font-size: 16px;
+    height: 35px;
+    padding: 10px 10px 10px 0;
+    text-decoration: none;
 }
 
 /*contact us*/
@@ -786,6 +932,33 @@ footer a {
     position: relative;
 }
 
+/* About Us Page */
+.team-info{
+    text-align: center;
+}
+
+.team-info .name{
+    line-height : 30px;
+    font-size: 20px;
+    display: block;
+    width: 100%;
+}
+
+.team-info .role{
+    line-height : 30px;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    text-transform: uppercase;  
+}
+
+.heading-tag{
+    line-height : 30px;
+    font-size: 20px;
+    color: #18AB9B;
+    margin-left: 40px;
+    font-style: italic;
+}
 
 /* Agent Signup Page */
 
@@ -845,6 +1018,119 @@ h2.title::before {
     animation: glow 3s ease-in-out infinite;
 }
 
+.faq_wrapper .panel-title{
+    font-weight: 600;
+}
+/* =============== Slider ============== */
+/* Home Page Carousel */
+.section-room-search{
+    position: relative;
+}
+
+div.carousel {
+    height: 50%;
+}
+
+div.carousel .item,
+div.carousel .item.active,
+div.carousel .carousel-inner {
+    height: 400px;
+}
+
+div.carousel .fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+.home-slider .carousel-caption{
+    top: 150px;
+}
+
+.room-filter-wrapper {
+    background: #fff none repeat scroll 0 0;
+    bottom: 65px;
+    position: absolute;
+    padding: 10px 20px;
+    z-index: 99;
+}
+
+.search-main-filters-title {
+    border-right: 1px solid #ebebeb;
+    box-sizing: border-box;
+    float: left;
+    margin-right: 12px;
+    padding-right: 12px;
+}
+
+.search-main-filters-title h5{
+    font-weight: 600;
+}
+
+.search-main-filters-title h6 {
+    font-size: 14px;
+    margin: 15px 0 5px;
+}
+
+.input-group.room-search {
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+}
+
+.room-search .form-control:focus{
+    box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.room-search .select {
+    width: 120px;
+}
+
+.room-search .select select {
+    border-width: 0px;
+    font-size: 18px;
+    margin-top: -4px;
+    width: 138px;
+    height : 60px;
+}
+
+.room-search select option {
+    font-size: 18px;
+    padding: 10px;
+}
+
+.room-search .search-text {
+    border-width: 0px;
+    font-size: 18px;
+    padding: 18px 22px;
+}
+
+.room-search .btn {
+    font-size: 18px;
+    padding: 18px;
+}
+
+/* Filter Suggestion  */
+.display_search {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #d7d7d7;
+    position: absolute;
+    top: 64px;
+    width: 567px;
+}
+
+#display_search > li {
+    cursor: pointer;
+    list-style: outside none none;
+    padding: 10px 20px;
+}
+
+#display_search > li:hover {
+    background: #ededed;
+}
+
+
+
 @-webkit-keyframes glow 
 {
     50% { box-shadow: 0 0 20px #2ECC71; }
@@ -856,4 +1142,65 @@ h2.title::before {
 }
 .addcursor{
     cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+    .navbar .pull-right.menu-prifile {
+        float: none !important;
+        margin: 0 auto;
+        text-align: center;
+        width: 100%;
+    }
+
+    .home-slider .carousel-caption{
+        top: 0px;
+    }
+
+    .carousel-caption > h2 {
+        font-size: 20px;
+    }
+
+    .home-slider .section-room-search {
+        position: relative;
+    }
+
+    .room-filter-wrapper {
+        background-color: rgba(0, 0, 0, 0);
+        color: #fff;
+        margin: 10%;
+        position: absolute;
+        text-align: center;
+        top: 125px;
+    }
+
+    .search-main-filters-title {
+        border-right: 0 none;
+        width: 100%;
+    }
+
+    .input-group.room-search {
+        background: #fff none repeat scroll 0 0;
+        width: 100%;
+    }
+
+    .room-search .input-group-btn {
+        float: left;
+        width: 100%;
+    }
+
+    .room-search .input.select, .room-search .input.select select {
+        width: 100%;
+    }
+
+    .room-search .btn {
+        width: 100%;
+    }
+
+    .owl-carousel {
+        margin: 0 auto;
+    }
+
+    .room.recent{
+        width: 90%;
+    }
 }

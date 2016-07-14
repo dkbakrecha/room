@@ -97,7 +97,6 @@ ADD `device_type` VARCHAR( 10 ) NOT NULL AFTER `device_id` ,
 ADD `last_login` DATETIME NOT NULL AFTER `device_type` 
 
 ===========  29 Sept 2015 (Jay)
-
 CREATE TABLE IF NOT EXISTS `post_requirements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,

@@ -8,7 +8,7 @@ class NewslettersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index', 'add');
+        $this->Auth->allow('index', 'add','success');
     }
 
     public function index() {
@@ -43,9 +43,13 @@ class NewslettersController extends AppController {
                 }
             }
         }
-        
+
         echo json_encode($res);
         exit;
+    }
+
+    public function success() {
+        
     }
 
     /*  ==========  ADMIN SECTION  ==========  */

@@ -1,4 +1,4 @@
-//@import url(https://fonts.googleapis.com/css?family=Lato|Roboto+Condensed);
+@import url(https://fonts.googleapis.com/css?family=Lato|Roboto+Condensed|Ubuntu);
 
 body {
     font-family: "Lato",sans-serif;
@@ -14,4 +14,8 @@ body {
 #content .page-title{
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
+}
+
+.heading-tag{
+    font-family: 'Ubuntu', sans-serif;
 }

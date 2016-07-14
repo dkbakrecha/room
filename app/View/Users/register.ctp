@@ -1,14 +1,12 @@
-<div class="container login-wrapper">
+<div class="container login-wrapper margin-top-20">
     <div class="row">
         <div class="col-lg-4 col-lg-offset-4">
             <!-- app/View/Users/add.ctp -->
             <div class="users form login-container">
                 <?php echo $this->Form->create('User'); ?>
                 <fieldset>
-                    <legend><?php echo __('Register'); ?>
-                        <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'beagent')); ?>" class="pull-right">
-                            As Business
-                        </a>
+                    <legend>
+                        <?php echo __('Register'); ?>
                     </legend>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -43,6 +41,18 @@
                         ''
                     ));
                     ?>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                        <?php
+                        echo $this->Form->input('contact_no', array(
+                            'type' => 'text',
+                            'label' => false,
+                            'placeholder' => 'Enter mobile number',
+                            'required' => true
+                        ));
+                        ?>
                     </div>
                 </fieldset>
                 <?php

@@ -1,8 +1,4 @@
 <div class="warper container-fluid">
-
-    <div class="page-header"><h1>Users <small>Management</small></h1></div>
-
-
     <div class="panel panel-default">
         <div class="panel-heading">
             Users List
@@ -31,9 +27,8 @@
                         <td><?php echo $row['User']['last_login']; ?></td>
 
                         <td>
-                            <span class="btn btn-default btn-xs showUserData"  data-user-id="<?php echo $row['User']['id'] ?>" title="View user's detail"><i class="fa fa-eye"></i></span>
                             <span class="btn btn-default btn-xs"><i class="fa fa-dot-circle-o"></i></span>
-                            <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'admin_edit', $row['User']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-edit"></i></span></a>
+                            <a href="<?php echo $this->Html->url(array('admin' => true, 'controller' => 'users', 'action' => 'edit', $row['User']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-edit"></i></span></a>
                             <a href="<?php echo $this->Html->url(array('controller' => 'email_contents', 'action' => 'admin_mail', $row['User']['id'])); ?>"><span class="btn btn-default btn-xs"><i class="fa fa-envelope"></i></span></a>
                             <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'admin_delete', $row['User']['id'])); ?>" class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a>
                         </td>
@@ -45,4 +40,3 @@
     </div>
 
 </div>
-

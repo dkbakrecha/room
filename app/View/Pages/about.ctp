@@ -14,40 +14,27 @@
                 </p>
             </div>
             
+            <hr>
+            <h4 class="heading-tag">Creative, friendly people dedicated to <br> producing ideas that work damn <br> hard for our clients</h4>
+            <hr>
+            
             <div class="team-info">
-                <div class="col-lg-6">
-                    <span class="">Dharmendra</span>
-                    <span class="">Programmer</span>
+                <div class="col-lg-4">
+                    <?php echo $this->Html->image('avtar/classy_user_18.png'); ?>
+                    <span class="name">Dharmendra</span>
+                    <span class="role">Founder</span>
                 </div>
                 
-                <div class="col-lg-6">
-                    <span class="">Shashank</span>
-                    <span class="">Business Marketing</span>
+                <div class="col-lg-4">
+                    <?php echo $this->Html->image('avtar/classy_user_19.png'); ?>
+                    <span class="name">Shashank</span>
+                    <span class="role">Business Marketing</span>
                 </div>
                 
-                <div class="col-lg-6">
-                    <span class="">Narveer</span>
-                    <span class="">E-Marketing</span>
-                </div>
-                
-                <div class="col-lg-6">
-                    <span class="">Sunny</span>
-                    <span class="">Software Engineer</span>
-                </div>
-                
-                <div class="col-lg-6">
-                    <span class="">Jay</span>
-                    <span class="">Software Engineer</span>
-                </div>
-                
-                <div class="col-lg-6">
-                    <span class="">Himanshu</span>
-                    <span class="">Android Developer (Software Engineer)</span>
-                </div>
-                
-                <div class="col-lg-6">
-                    <span class="">Govind</span>
-                    <span class="">Software Engineer</span>
+                <div class="col-lg-4">
+                    <?php echo $this->Html->image('avtar/classy_user_11.png'); ?>
+                    <span class="name">Veer</span>
+                    <span class="role">E-Marketing</span>
                 </div>
             </div>
         </section>

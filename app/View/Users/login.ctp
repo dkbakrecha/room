@@ -8,12 +8,15 @@
                     <legend>
                         <?php echo __('Login to Your Account'); ?>
 
-                        <?php if (isset($from) && $from == '1') { ?>
+                        <?php if (isset($from) && $from == 1) { ?>
                             <button class="close" data-dismiss="modal" type="button">
                                 <span aria-hidden="true">×</span>
                                 <span class="sr-only">Close</span>
                             </button>
-                        <?php } ?>
+                        <?php 
+                        echo $this->Form->hidden('fromtype' , array('value' => 'ajax'));
+                        
+                        } ?>
                     </legend>
 
                     <div class="input-group">

@@ -53,8 +53,10 @@ $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
                 <?php echo $this->fetch('content'); ?>
             </div>
         </div>
-        <?php echo $this->element('_common_js'); ?>
+        <?php echo $this->element('ClassyNewsletter.newsletterbar'); ?>
         <?php echo $this->element('footer'); ?>
-        <?php //echo $this->element('sql_dump'); ?>
+        <?php //echo $this->element('enquerybox');?>
+        <?php echo $this->element('_common_js'); ?>
+        
     </body>
 </html>

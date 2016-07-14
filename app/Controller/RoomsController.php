@@ -8,16 +8,47 @@ class RoomsController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index', 'report', 'requirements', 'savePostRequirement', 'room_listing', 'listing', 'detail', 'hitcount');
+        $this->Auth->allow(
+                'index', 
+                'report', 'requirements', 'savePostRequirement', 'room_listing', 
+                'listing', 'detail', 'hitcount','searchterm');
     }
 
     public function index() {
-        /* Introduce Later for main searching Algo */
+        $this->set('title_for_layout', __('Room Index'));
+
+        $roomList = $this->Room->find('all', array(
+            'conditions' => array(
+            ),
+            'order' => array('Room.id desc'),
+            'limit' => 6
+        ));
+
+        $this->set(compact('roomList'));
+    }
+    
+    public function searchterm(){
+        $this->layout = "ajax";
+        $this->loadModel('Searchterm');
+        $request = $this->request;
+
+        $_term = $request->query['term'];
+        $termSugg = $this->Searchterm->find('all',array(
+            'conditions' => array(
+                'Searchterm.status' => 1,
+                'Searchterm.term LIKE' => "%".$_term ."%",
+            )
+        ));
+        
+        $this->set('termSugg',$termSugg);
     }
 
     public function listing() {
+        $request = $this->request;
         $this->set('title_for_layout', __('Room Listing'));
-        $roomList = $this->room_listing();
+
+        $searchCondition = $request->data;
+        $roomList = $this->room_listing($searchCondition);
         $this->set(compact('roomList'));
 
 //        $roomList = $this->Room->find('all', array(
@@ -27,9 +58,30 @@ class RoomsController extends AppController {
 //        $this->set('roomList', $roomList);
     }
 
-    public function room_listing() {
+    public function room_listing($searchCondition) {
         $request = $this->request;
         $room_condition = array();
+        if (!empty($searchCondition)) {
+            
+
+            if (!empty($searchCondition['Room']['searchteam'])) {
+                $room_condition['OR'] = array(
+                    'Room.title like' => "%" . $searchCondition['Room']['searchteam'] . "%",
+                    'Room.address like' => "%" . $searchCondition['Room']['searchteam'] . "%"
+                );
+                /*
+                  $room_condition['OR'] = array(
+                  'Room.titles LIKE' => "%". $searchCondition['Room']['searchteam'] ."%";
+                  );
+                 * 
+                 */
+            }
+            
+            if (!empty($searchCondition['Room']['roomtype'])) {
+                $room_condition['Room.list_for'] = $searchCondition['Room']['roomtype'];
+            }
+        }
+
         $room_condition['Room.status'] = 1;
 
         $orderby = 'Room.created desc';
@@ -37,6 +89,8 @@ class RoomsController extends AppController {
 
         if ($request->is('post')) {
             $data = $request->data;
+
+
             //pr($request);
             //prd($data);
 
@@ -94,7 +148,7 @@ class RoomsController extends AppController {
                 ), false
         );
 
-
+        //prd($room_condition);
         $this->paginate = array(
             'paramType' => 'querystring',
             'Room' => array(
@@ -111,6 +165,7 @@ class RoomsController extends AppController {
         $this->set('statics', $statics);
         //pr($statics);
         $rooms = $this->paginate('Room');
+        //prd($rooms);
         //pr($this->Product->lastQuery());  
         //pr($this->paginate);
         //$this->log($this->Product->lastQuery);
@@ -252,16 +307,16 @@ class RoomsController extends AppController {
     }
 
     public function mylisting() {
-        if($this->userInfo['role'] == 2){
+        if ($this->userInfo['role'] == 2) {
             $myListing = $this->Room->find('all', array(
-            'conditions' => array(
-                'Room.created_by' => $this->user_id,
-                'Room.status !=' => 2
-            )
-        ));
+                'conditions' => array(
+                    'Room.created_by' => $this->user_id,
+                    'Room.status !=' => 2
+                )
+            ));
 
-        $this->set('myListing', $myListing);
-        }else{
+            $this->set('myListing', $myListing);
+        } else {
             $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
         }
     }
@@ -270,28 +325,28 @@ class RoomsController extends AppController {
         $this->loadModel('Categories');
         $this->loadModel('Facilities');
         $this->loadModel('RoomOption');
-        
+
         //prd($this->user_info);
-        
-        if(empty($this->user_info['first_name']) || empty($this->user_info['contact_no'])){
-            $this->Session->setFlash('Please complate your profile before Listing','default',array('class' => 'alert alert-success'));
+
+        if (empty($this->user_info['first_name']) || empty($this->user_info['contact_no'])) {
+            $this->Session->setFlash('Please complate your profile before Listing', 'default', array('class' => 'alert alert-success'));
             $this->redirect(array('controller' => 'users', 'action' => 'edit_profile'));
         }
-        
-        if($this->user_info['role'] == 1){
-            $activeRoom = $this->Room->find('count',array(
+
+        if ($this->user_info['role'] == 1) {
+            $activeRoom = $this->Room->find('count', array(
                 'conditions' => array(
                     'Room.status' => 1,
                     'Room.created_by' => $this->_getCurrentUserId()
                 )
-                ));
-            
-            if($activeRoom >= 1){
-                $this->Session->setFlash('Free account add just one room. Please contact service@room247.in upgrade service.','default',array('class' => 'alert alert-success'));
+            ));
+
+            if ($activeRoom >= 1) {
+                $this->Session->setFlash('Free account add just one room. Please contact service@room247.in upgrade service.', 'default', array('class' => 'alert alert-success'));
                 $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
             }
         }
-        
+
         $cateList = $this->Categories->find('list', array('fields' => array('code', 'title')));
         $this->set('cateList', $cateList);
 
@@ -770,7 +825,7 @@ class RoomsController extends AppController {
         }
         exit;
     }
-    
+
     public function image_multi_upload() {
         if (isset($_FILES['uploadfile']['name']) && !empty($_FILES['uploadfile']['name'][0])) {
             $product_id = 0;

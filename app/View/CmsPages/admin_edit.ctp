@@ -1,4 +1,10 @@
 <?php echo $this->Session->flash(); ?>
+
+<?php 
+
+echo $this->Html->script('ckeditor/ckeditor'); 
+echo $this->Html->script('ckeditor/adapters/jquery'); 
+?>
 <div class="col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -22,12 +28,12 @@
                                 ?>
 
                                 <?php
-                                echo $this->Form->input('title',array(
+                                echo $this->Form->input('title', array(
                                     'class' => 'form-control',
                                     'type' => 'text'
                                 ));
-                                
-                                echo $this->Form->input('description',array(
+
+                                echo $this->Form->input('description', array(
                                     'class' => 'form-control'
                                 ));
                                 ?>
@@ -50,13 +56,10 @@
                                         ?>
                                     </div>
                                 </div>
-
-
-<?php
-echo $this->Form->end();
-?>
+                                <?php
+                                echo $this->Form->end();
+                                ?>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -65,8 +68,7 @@ echo $this->Form->end();
     </div> 
 </div>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('textarea#CmsPageDescription').ckeditor();
     });
 </script>
-
