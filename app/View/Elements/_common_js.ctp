@@ -9,6 +9,8 @@
     var USR = '<?php echo AuthComponent::user('user_type'); ?>';
     var USRID = '<?php echo AuthComponent::user('id'); ?>';
     $(document).ready(function () {
+        $('.tip-attached').tooltip();
+        
         if ($('#resentRoom').length) {
             $("#resentRoom").owlCarousel({
                 autoPlay: 10000, //Set AutoPlay to 3 seconds
@@ -258,11 +260,11 @@
                 success: function (data) {
                     try {
                         if (data == 1) {
-                            if (currentClass == 'glyphicon glyphicon-star') {
-                                $(_this).children("i").attr("class", 'glyphicon glyphicon-star-empty');
+                            if (currentClass == 'fa fa-heart') {
+                                $(_this).children("i").attr("class", 'fa fa-heart-o');
 
                             } else {
-                                $(_this).children("i").attr("class", 'glyphicon glyphicon-star');
+                                $(_this).children("i").attr("class", 'fa fa-heart');
 
                             }
                             // window.location.reload();

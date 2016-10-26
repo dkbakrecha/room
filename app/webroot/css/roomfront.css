@@ -1,3 +1,7 @@
+body{
+    background: #f9f9f9;
+}
+
 .clear{
     clear: both;
 }
@@ -19,6 +23,14 @@
     margin-top: 20px;
 }
 
+.padd-top-50{
+    margin-top: 50px;
+}
+
+.padd-top-100{
+    margin-top: 100px;
+}
+
 .clear-lr-padding{
     padding-left: 0px;
     padding-right: 0px;
@@ -28,10 +40,10 @@
 }
 
 .homepage-header{
-    background: #f5f5f5 none repeat scroll 0 0;
     border-color: #dddddd;
     border-style: solid;
     border-width: 0 0 1px;
+    background: #ffffff;
 }
 
 .homepage-header .nav {
@@ -44,6 +56,43 @@
 
 .homepage-header .color-patch{
     height: 4px;
+}
+
+.header-topbar {
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.header-topbar .nav.navbar-nav {
+    margin: 0;
+    padding: 0;
+}
+
+.header-topbar .nav.navbar-nav > li{
+    border-right: 1px solid #f2f2f2;
+    color: #888888;
+    display: inline-block;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 20px;
+}
+
+.header-topbar .social-icon-list .nav.navbar-nav > li{
+    padding: 0px;
+}
+
+.header-topbar .social-icon-list .nav.navbar-nav > li a{
+    color: #888888;
+    padding: 10px 20px;
+}
+
+.header-topbar .nav.navbar-nav > li:first-child{
+    border-left: 1px solid #f2f2f2;
+}
+
+
+.nav > li > a:hover, .nav > li > a:focus{
+    background: #FFF;
 }
 
 .hr-line{
@@ -120,7 +169,7 @@ a.list-group-item{
 
 /*****  section-resent-rooms *****/
 .section-resent-rooms {
-    padding: 40px 0;
+    padding: 50px 0;
     background: #F0F1F5;
 }
 
@@ -143,14 +192,99 @@ a.list-group-item{
 
 .room.recent .thumbnail{
     border-top: 2px solid #2ecc71;
+    margin-bottom: 0px;
 }
 
-.room.recent .room-for {
-    border-radius: 0;
+.room-metas {
+    border-top: 1px solid #dddddd;
+    bottom: 0;
+    float: left;
+    height: 45px;
+    position: absolute;
+    width: 240px;
+}
+
+.feature-info {
+    float: left;
+    padding: 0;
+    width: 170px;
+}
+
+.room-metas li {
+    color: #444444;
+    display: inline-block;
+    float: left;
+    font-size: 16px;
+    list-style: outside none none;
+    padding: 8px;
+}
+
+.room .room-metas .feature-info img {
+    height: 24px;
+    width: 24px;
+    margin-right: 5px;
+}
+
+.room-detail .room-metas {
+    position: relative;
+    width: 100%;
+    border-top:0px;
+}
+
+.room-detail .room-actions > span {
+    display: inline-block;
+    font-size: 15px;
+    line-height: 18px;
+    margin-left: 10px;
+    width: 180px;
+}
+
+.wishlist-compare-wrapper > li {
+    border-left: 1px solid #dddddd;
+    float: left;
+    font-size: 18px;
+    padding: 0;
+    text-align: center;
+    width: 35px;
+}
+
+.wishlist-compare-wrapper li a {
+    float: left;
+    line-height: 24px;
+    padding: 10px 8px;
+}
+
+.caption > a {
+    float: left;
+    font-size: 15px;
+    padding: 10px;
+    width: 100%;
+}
+
+.section-resent-rooms .room .caption > span {
+    color: #666666;
+    display: block;
+    font-size: 13px;
+    padding: 10px;
+}
+
+span.room-rate {
+    border-radius: 2px;
+    font-size: 14px;
+    opacity: 0.8;
+    position: absolute;
+    right: 25px;
+    top: 10px;
+}
+
+.section-resent-rooms .room .caption > span.room-for {
+    border-radius: 4px;
+    color: #fff;
+    font-size: 11px;
+    left: 30px;
+    margin-top: -14px;
     padding: 5px 10px 7px;
     position: absolute;
-    right: 18px;
-    top: 6px;
 }
 
 .section-resent-rooms .room img{
@@ -161,18 +295,16 @@ a.list-group-item{
 }
 
 .section-resent-rooms .room .caption {
-    height: 100px;
+    height: 130px;
     font-size: 14px;
-}
-
-.section-resent-rooms .room .caption > span {
-    color: #666666;
-    display: block;
-    font-size: 12px;
-
+    padding: 0;
 }
 
 
+
+.center{
+    text-align: center;
+}
 
 /****** General From ******/
 .btn-primary{
@@ -407,10 +539,23 @@ a.list-group-item{
     /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
 
+#UserLoginForm legend span {
+    color: #888;
+    float: left;
+    font-size: 16px;
+    width: 100%;
+}
+
+#UserLoginForm legend .close span {
+    color: #333;
+    font-size: 40px;
+    margin-top: -54px;
+}
+
 .login-container a {
     text-decoration: none;
     color: #666;
-    font-weight: 400;
+    /*font-weight: 400;*/
     text-align: center;
     display: inline-block;
     opacity: 0.6;
@@ -453,9 +598,6 @@ a.list-group-item{
 }
 
 .box-inner {
-    border-color: #292f40 #94969f;
-    border-style: solid;
-    border-width: 3px 1px;
     background: #fff;
 }
 
@@ -512,7 +654,11 @@ a.list-group-item{
 }
 
 .nea_pagination {
-    text-align: center;
+    text-align: right;
+}
+
+.pagination.pager span{
+    border-radius: 0;
 }
 
 .room-action{
@@ -788,7 +934,7 @@ section.ca_newsletter {
     font-size: 13px;
     line-height: 10px;
     margin: 0;
-    padding: 25px 0;
+    padding: 50px 0;
 }
 
 footer {
@@ -1034,7 +1180,7 @@ div.carousel {
 div.carousel .item,
 div.carousel .item.active,
 div.carousel .carousel-inner {
-    height: 400px;
+    height: 500px;
 }
 
 div.carousel .fill {
@@ -1050,7 +1196,7 @@ div.carousel .fill {
 
 .room-filter-wrapper {
     background: #fff none repeat scroll 0 0;
-    bottom: 65px;
+    bottom: 240px;
     position: absolute;
     padding: 10px 20px;
     z-index: 99;
@@ -1113,7 +1259,7 @@ div.carousel .fill {
 /* Filter Suggestion  */
 .display_search {
     background: #fff none repeat scroll 0 0;
-    border: 1px solid #d7d7d7;
+    border: 1px solid transparent;
     position: absolute;
     top: 64px;
     width: 567px;
@@ -1129,6 +1275,198 @@ div.carousel .fill {
     background: #ededed;
 }
 
+.users.register .form-control {
+    width: 100%;
+}
+
+.users.register .submit .btn {
+    font-size: 18px;
+    margin-top: 15px;
+    width: 140px;
+}
+
+.error-message{
+    color: red;
+}
+
+.user-profile {
+    height: 55px;
+    left: -40px;
+    position: absolute;
+    top: 0;
+    width: 55px;
+}
+
+.btn-submitproperties a {
+    background-color: #729bbb;
+    border-radius: 3px;
+    display: block;
+    height: 50px;
+    width: 270px;
+}
+
+.btn-submitproperties #subup {
+    border-right: 1px solid #7ab2dd;
+    display: block;
+    float: left;
+    height: 50px;
+    text-align: center;
+    width: 52px;
+}
+
+.btn-submitproperties #subup::before {
+    border-top: 1px solid #7ab2dd;
+    content: "";
+    display: block;
+    float: left;
+    height: 1px;
+    margin-top: 1px;
+    width: 53px;
+}
+
+.btn-submitproperties #subup::after {
+    border-right: 1px solid #678eac;
+    content: "";
+    display: block;
+    float: right;
+    height: 48px;
+    width: 1px;
+}
+
+.btn-submitproperties #subup i {
+    color: #fff;
+    font-size: 1.5em;
+    margin-top: 13px;
+}
+
+.btn-submitproperties #subct {
+    border-top: 1px solid #7ab2dd;
+    color: #fff !important;
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 24px;
+    margin-top: 1px;
+    padding-top: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    width: 217px;
+}
+
+.btn-submitproperties a:hover {
+    background: #b1ba7f none repeat scroll 0 0;
+}
+
+.btn-submitproperties a:hover #subup {
+    border-right: 1px solid #c5d086;
+    display: block;
+    float: left;
+    height: 50px;
+    text-align: center;
+    width: 52px;
+}
+
+.btn-submitproperties a:hover #subup::before {
+    border-top: 1px solid #c5d086;
+    content: "";
+    display: block;
+    float: left;
+    height: 1px;
+    margin-top: 1px;
+    width: 53px;
+}
+
+.btn-submitproperties a:hover #subup::after {
+    border-right: 1px solid rgba(142, 150, 99, 0.49);
+    content: "";
+    display: block;
+    float: right;
+    height: 48px;
+    width: 1px;
+}
+
+.btn-submitproperties a:hover #subct {
+    border-top: 1px solid #c5d086;
+    color: #fff !important;
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 24px;
+    margin-top: 1px;
+    padding-top: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    width: 217px;
+}
+
+/* Home Services Section */
+.section-services {
+    background: #f9f9f9;
+    padding: 50px 0;
+    border-top: 1px solid #F5F5F5;
+}
+
+.section-services .section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #000;
+}
+
+.section-services .section-title span{
+    color: #2ecc71;
+}
+
+.section-services h3 span {
+    color: #2ecc71;
+}
+
+#homeServices .servicebox {
+    padding: 30px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
+    text-align: center;
+    background: #FFF;
+    font-size: 14px;
+    line-height: 24px;
+    color: #888;
+    min-height: 230px;
+    margin-bottom: 30px;
+}
+
+#homeServices .servicebox h3{
+    color: #000;
+    margin-top: 0px;
+}
+
+.section-services ul.list_order {
+    line-height: 30px;
+    list-style: outside none none;
+    margin: 0 0 30px;
+    padding: 0;
+}
+
+.section-services ul.list_order li {
+    margin-bottom: 10px;
+    padding-left: 40px;
+    position: relative;
+}
+
+.section-services ul.list_order li span {
+    background-color: #2ecc71;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 18px;
+    height: 30px;
+    left: 0;
+    line-height: 30px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 30px;
+}
 
 
 @-webkit-keyframes glow 

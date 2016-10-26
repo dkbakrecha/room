@@ -2,5 +2,4 @@
 /lib/*
 /app/Config/database.php
 /app/tmp/*
-/app/webroot/img/resized/*
-/app/webroot/img/uploads/*
+/app/webroot/*

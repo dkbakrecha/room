@@ -20,8 +20,48 @@
                     echo $this->Form->hidden('id');
                     ?>    
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Title</label>
+                        <div class="col-sm-6">
+                            <?php
+                            echo $this->Form->input('title', array(
+                                'class' => 'form-control',
+                                'label' => false,
+                                'placeholder' => 'Room Title'
+                            ));
+                            ?>
+                        </div>
+
+                        <label class="col-sm-1 control-label">Price</label>
+                        <div class="col-sm-3">
+                            <?php
+                            echo $this->Form->input('price', array(
+                                'class' => 'form-control',
+                                'label' => false,
+                                'placeholder' => 'Price'
+                            ));
+                            ?>
+                        </div>
+                    </div>
+                    <hr class="dotted">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            <?php
+                            echo $this->Form->input('description', array(
+                                'class' => 'form-control',
+                                'label' => false,
+                                'placeholder' => 'Room description ...'
+                            ));
+                            ?>
+                        </div>
+                    </div>
+                    <hr class="dotted">
+
+
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">List For</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-4">
                             <?php
                             echo $this->Form->input('list_for', array(
                                 'class' => 'form-control tip-attached',
@@ -31,12 +71,9 @@
                             ));
                             ?>
                         </div>
-                    </div>
-                    <hr class="dotted">
 
-                    <div class="form-group">
                         <label class="col-sm-2 control-label">Category</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-4">
                             <?php
                             echo $this->Form->input('cate', array(
                                 'class' => 'form-control tip-attached',
@@ -50,15 +87,39 @@
                     </div>
                     <hr class="dotted">
 
-
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Title</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-2 control-label">Beds</label>
+                        <div class="col-sm-2">
                             <?php
-                            echo $this->Form->input('title', array(
-                                'class' => 'form-control',
+                            echo $this->Form->input('beds', array(
+                                'class' => 'form-control tip-attached',
                                 'label' => false,
-                                'placeholder' => 'Room Title'
+                                'title' => 'Show with listing',
+                                'value' => '0',
+                            ));
+                            ?>
+                        </div>
+
+                        <label class="col-sm-2 control-label">Baths</label>
+                        <div class="col-sm-2">
+                            <?php
+                            echo $this->Form->input('baths', array(
+                                'class' => 'form-control tip-attached',
+                                'label' => false,
+                                'title' => 'Show with listing',
+                                'value' => '0',
+                            ));
+                            ?>
+                        </div>
+                        
+                        <label class="col-sm-2 control-label">Area</label>
+                        <div class="col-sm-2">
+                            <?php
+                            echo $this->Form->input('area', array(
+                                'class' => 'form-control tip-attached',
+                                'label' => false,
+                                'title' => 'Show with listing',
+                                'value' => '0',
                             ));
                             ?>
                         </div>
@@ -67,7 +128,7 @@
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Select Facilities</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-10">
                             <?php
                             foreach ($fa_List as $facility) {
                                 //pr($facility);
@@ -91,35 +152,6 @@
                                 'class' => 'form-control',
                                 'label' => false,
                                 'placeholder' => 'Room Title'
-                            ));
-                            ?>
-                        </div>
-                    </div>
-                    <hr class="dotted">
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Description</label>
-                        <div class="col-sm-7">
-                            <?php
-                            echo $this->Form->input('description', array(
-                                'class' => 'form-control',
-                                'label' => false,
-                                'placeholder' => 'Room description ...'
-                            ));
-                            ?>
-                        </div>
-                    </div>
-                    <hr class="dotted">
-
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Price</label>
-                        <div class="col-sm-7">
-                            <?php
-                            echo $this->Form->input('price', array(
-                                'class' => 'form-control',
-                                'label' => false,
-                                'placeholder' => 'Price'
                             ));
                             ?>
                         </div>
@@ -284,7 +316,6 @@
     }
 
     $(function () {
-        $('.tip-attached').tooltip();
         newupload();
         sortable_image();
     });

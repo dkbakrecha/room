@@ -267,6 +267,7 @@ class RoomsController extends AppController {
     }
 
     public function detail($id) {
+        $this->loadModel('Favorites');
 
         if (!empty($id)) {
             $this->Room->bindModel(array('hasMany' => array(
@@ -299,7 +300,13 @@ class RoomsController extends AppController {
                 ),
                 'recursive' => 2,
             ));
+            
+            $fav_count = $this->Favorites->find('count',array(
+                'conditions' => array('room_id' => $id)
+            ));
+            
             //  prd($roomInfo);
+            $this->set('fav_count', $fav_count);
             $this->set('roomInfo', $roomInfo);
         } else {
             $this->redirect(array('action' => 'listing'));

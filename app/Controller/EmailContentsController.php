@@ -166,21 +166,9 @@ class EmailContentsController extends AppController {
 	}
 
 	public function admin_edit($id=NULL){
-		
 		$this->set('title_for_layout', 'Update Email Content ('.$id.')');
 		
-		if (!$id && empty($this->request->data)) {
-			$this->siteMessage("INCORRECT_MAIL_ADDRESS");
-			$this->redirect(array('admin' => true, 'controller' => 'EmailContents', 'action' => 'index'));
-		}
-		
-		$nub = $this->EmailContent->find('neighbors', array('field' => 'id', 'value' => $id));
-			
-		$this->set('nx_item',$nub['next']['EmailContent']['id']);
-		$this->set('pr_item',$nub['prev']['EmailContent']['id']);
-		
 		if (!empty($this->request->data)) {
-			
 			$data = $this->request->data ;
 			
 			$keywords = explode(',',$data['EmailContent']['keywords']);
@@ -203,7 +191,7 @@ class EmailContentsController extends AppController {
 			}
 			else{
 				if ($this->EmailContent->save($data)) {
-					$this->siteMessage("MAIL_CONTENT_UPDATE_SUCCESS");
+					$this->Session->setFlash('Email Template update successfully','default',array('class' => 'alert alert-success'));
 					$this->redirect(array('admin' => true, 'controller' => 'EmailContents', 'action' => 'edit', $data['EmailContent']['id']));
 				} else {
 					$this->siteMessage("MAIL_CONTENT_UPDATE_ERROR");
@@ -211,14 +199,7 @@ class EmailContentsController extends AppController {
 			}
 		}
 
-		$this->loadModel('EmailCategory');
-
-		$emailCategories=$this->EmailCategory->getEmailCat();
-		$this->set('emailCategories', $emailCategories);
-
-		
-		if (empty($this->request->data)) {
-			
+		if (empty($this->request->data)) {			
 			$EmailContentRow = $this->EmailContent->read(null,$id);
 			if(count($EmailContentRow) > 0 ){
 				$this->request->data = $EmailContentRow;				

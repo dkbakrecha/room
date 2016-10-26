@@ -7,6 +7,16 @@ class Room extends AppModel {
     var $virtualFields = array(
         'room_code' => "CONCAT(Room.unique_code,Room.unique_number)"
     );
+
+    public $validate = array(
+        'title' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Room title is required'
+            ),
+        ),
+
+    );
     
     public $belongsTo = array(
         'Category' => array(

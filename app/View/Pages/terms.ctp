@@ -1,6 +1,6 @@
 <div id="cms-header">
     <div class="container">
-        <h3><?php echo $this->Html->image('lulu/Link.png',array('class' => 'cms-icon')); ?> Terms</h3>
+        <h3><?php echo $this->Html->image('lulu/Link.png',array('class' => 'cms-icon')); ?> Terms & Conditions</h3>
     </div>
 </div>
 
@@ -9,7 +9,6 @@
         <section id="content" role="main" class="col-lg-8">
             <div class="entry-content">
                 <p>
-                    
                     <?php echo $cmsContent['CmsPage']['description']; ?>
                 </p>
             </div>

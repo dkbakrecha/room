@@ -22,6 +22,13 @@ $userData = $this->Session->read('Auth');
                         <small><cite title="Source Title"> <?php echo $userData['User']['email']; ?> </cite></small>
                     </blockquote>
 
+                    <div class="btn-submitproperties pull-right">
+                        <a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'add')); ?>">
+                            <span id="subup"><i class="fa fa-upload"></i></span>
+                            <span id="subct">Submit a Property</span>
+                        </a>
+                    </div>
+
 
                     <?php if (!empty($userRooms)) { ?>
                         <table class="table table-bordered table-responsive">
@@ -29,6 +36,7 @@ $userData = $this->Session->read('Auth');
                                 <th>Listing Code</th>
                                 <th>Listing Title</th>
                                 <th>Total Views</th>
+                                <th>Created</th>
                                 <th>Action</th>
                             </tr>
                             <tr>
@@ -39,6 +47,7 @@ $userData = $this->Session->read('Auth');
                                     <td><?php echo $room['Room']['room_code']; ?></td>
                                     <td><?php echo $room['Room']['title']; ?></td>
                                     <td><?php echo $room['Room']['hits']; ?></td>
+                                    <td><?php echo date('d M Y', strtotime($room['Room']['created'])); ?></td>
                                     <td> 
                                         <a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'detail', $room['Room']['id'])); ?>">View</a> 
                                         | <a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'edit', $room['Room']['id'])); ?>">Edit</a>
@@ -55,7 +64,7 @@ $userData = $this->Session->read('Auth');
                         <div class="dashboard-content">
                             <a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'add')); ?>" class="btn btn-primary btn-circle">Add Free Listing</a>
                         </div>            
-                        <?php }
+                    <?php }
                     ?>
 
                 </div>

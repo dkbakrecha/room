@@ -38,7 +38,7 @@
                     <?php
                         if ($_SERVER['SERVER_NAME'] != 'localhost') {
                             ?>
-                            <!--Start of StatCounter Code for Default Guide--> 
+                            <!--Start of StatCounter Code for Default Guide-> 
                             <script type="text/javascript">
                                 var sc_project = 10576243;
                                 var sc_invisible = 0;
@@ -67,6 +67,6 @@
 
 <?php
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
-    echo $this->element('sql_dump');
+    //echo $this->element('sql_dump');
 }
 ?>

@@ -8,7 +8,7 @@ class UsersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add', 'admin_showUserInfo', 'admin_login', 'register', 'login','beagent');
+        $this->Auth->allow('add', 'admin_showUserInfo', 'admin_login', 'register', 'login', 'beagent', 'account_activation');
     }
 
     public function add() {
@@ -25,22 +25,78 @@ class UsersController extends AppController {
     }
 
     public function register() {
+        /*$to = "cgtdharm@gmail.com";
+        $subject = "My subject";
+        $txt = "Hello world!";
+        $headers = "From: dkbakrecha@gmail.com" . "\r\n" .
+                "CC: dkbakrecha@gmail.com";
+
+        mail($to, $subject, $txt, $headers);*/
+
         if ($this->request->is('post')) {
             $this->User->create();
             $data = $this->request->data;
+            $full_name = explode(" ", $data['User']['name']);
+            $data['User']['first_name'] = $full_name[0];
+            $data['User']['last_name'] = $full_name[0];
             $data['User']['role'] = 1;
             $data['User']['status'] = 3;
+
+            $activ_code = $this->User->getRandomValues(32);
+            $data['User']['verification_code'] = $activ_code;
             //prd($data);
-            if ($this->User->save($data)) {
-                $this->Session->setFlash(__('The user has been saved'));
+            if (/* $this->User->save($data) */1 == 1) {
+                $this->loadModel('EmailContent');
+
+                $email = $data['User']['email'];
+                $name = $data['User']['name'];
+                $pass = $data['User']['password'];
+                $link = Router::url(array('controller' => 'users', 'action' => 'account_activation', $activ_code), true);
+
+                $this->EmailContent->registrationMail($name, $email, $link);
+
+                $this->Session->setFlash(__('Registration successful, Please check the email to verify your account'), 'default', array('class' => 'alert alert-success'));
                 return $this->redirect(array('action' => 'profile'));
             }
             $this->Session->setFlash(
-                    __('The user could not be saved. Please, try again.')
+                    __('The user could not be saved. Please, try again.'), 'default', array('class' => 'alert alert-danger')
             );
         }
     }
-    
+
+    //
+    public function account_activation($code = null) {
+        $request = $this->request;
+        $IS_VALID = false;
+        if (!empty($code)) {
+            $this->loadModel('User');
+            $result = $this->User->find('first', array(
+                'recursive' => -1,
+                'conditions' => array('status !=' => 2, 'verification_code' => $code)
+            ));
+            if (!empty($result)) {
+                $IS_VALID = true;
+                $save = array('User' => array(
+                        'verification_code' => '',
+                        'status' => '1'
+                ));
+
+                $this->User->id = $result["User"]["id"];
+                $this->User->save($save, array('validate' => false));
+
+                unset($result['User']['password']);
+
+                $this->Session->write('Auth.User', $result['User']);
+                $this->Session->setFlash(__("Account activated successfully"), "default", array('class' => 'alert alert-success'));
+            }
+        }
+
+        if (!$IS_VALID) {
+            $this->Session->setFlash(__("Invalid activation code"), "default", array('class' => 'alert alert-error'));
+        }
+        $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
+    }
+
     public function beagent() {
         if ($this->request->is('post')) {
             $this->User->create();
@@ -65,14 +121,14 @@ class UsersController extends AppController {
     public function dashboard() {
         $this->loadModel('Room');
         $_userId = $this->_getCurrentUserId();
-        $userRooms = $this->Room->find('all',array(
+        $userRooms = $this->Room->find('all', array(
             'conditions' => array(
                 'Room.created_by' => $_userId,
                 'Room.status !=' => 2,
             )
         ));
-        
-        $this->set('userRooms',$userRooms);
+
+        $this->set('userRooms', $userRooms);
     }
 
     public function index() {
@@ -82,11 +138,11 @@ class UsersController extends AppController {
     public function edit_profile() {
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->User->save($this->request->data)) {
-                $this->Session->write('Auth.User.first_name',$this->request->data['User']['first_name']);
-                $this->Session->write('Auth.User.last_name',$this->request->data['User']['last_name']);
-                $this->Session->write('Auth.User.contact_no',$this->request->data['User']['contact_no']);
-                
-                $this->Session->setFlash(__('Your profile has been update has been saved !'),'success');
+                $this->Session->write('Auth.User.first_name', $this->request->data['User']['first_name']);
+                $this->Session->write('Auth.User.last_name', $this->request->data['User']['last_name']);
+                $this->Session->write('Auth.User.contact_no', $this->request->data['User']['contact_no']);
+
+                $this->Session->setFlash(__('Your profile has been update has been saved !'), 'success');
                 return $this->redirect(array('action' => 'dashboard'));
             }
             $this->Session->setFlash(
@@ -111,11 +167,12 @@ class UsersController extends AppController {
                 $userData = array();
                 $userData['User']['id'] = $this->_getCurrentUserId();
                 $userData['User']['last_login'] = date("Y-m-d H:i");
+                $_username = $this->Auth->User("name");
 
                 if (!empty($userData)) {
                     $updateUser = $this->User->save($userData);
                 }
-                
+
                 if ($from == 1) {
                     $ret = array();
                     $ret['status'] = 1;
@@ -123,6 +180,9 @@ class UsersController extends AppController {
                     $ret['redirect_uri'] = Router::url($this->Auth->redirectUrl());
                     echo json_encode($ret);
                     exit;
+                }else{
+                    $this->Session->setFlash(__('Welcome ' . $_username));        
+                    $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
                 }
             }
             $this->Session->setFlash(__('Invalid username or password, try again'));
@@ -212,7 +272,7 @@ class UsersController extends AppController {
 
         $statics['latest_enquiry'] = $this->Enquiry->find('all', array(
             'limit' => '5',
-            'order' => array('id desc')
+            'order' => array('Enquiry.id desc')
         ));
 
         $this->set('statics', $statics);
@@ -235,7 +295,7 @@ class UsersController extends AppController {
             }
         }
     }
-    
+
     public function admin_edit($id) {
         if (!empty($this->request->data)) {
             $data = $this->request->data;
@@ -247,8 +307,8 @@ class UsersController extends AppController {
                 $this->Session->setFlash('User could be added.', 'default', array('class' => 'alert alert-danger'));
             }
         }
-        
-        $this->request->data = $this->User->find('first',array('conditions' => array('User.id' => $id)));
+
+        $this->request->data = $this->User->find('first', array('conditions' => array('User.id' => $id)));
     }
 
     public function admin_delete($user_id) {

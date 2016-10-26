@@ -17,7 +17,7 @@
     </a>
 
     <a href="<?php echo $this->Html->url(array('controller' => 'favorites', 'action' => 'index')); ?>" class="list-group-item">
-        <span class="glyphicon glyphicon-comment"></span> 
+        <span class="fa fa-heart"></span> 
         ShortLists <span class="badge">
             <?php
             echo (!empty($favCount) ? $favCount : '0');

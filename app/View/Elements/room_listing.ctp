@@ -67,18 +67,18 @@ if (!empty($roomList)) {
                     </div>
 
                     <div class="room-action">
-                        <a class="btn btn-primary blue show-number" data-id="<?php echo $room['Room']['id']; ?>" id="num<?php echo $room['Room']['id']; ?>">Show Number</a>
+                        <!--<a class="btn btn-primary blue show-number" data-id="<?php //echo $room['Room']['id']; ?>" id="num<?php //echo $room['Room']['id']; ?>">Show Number</a>-->
                         <a class="btn btn-primary site-green send-enquiry" data-id="<?php echo $room['Room']['id']; ?>">Send Enquiry</a>
                         <a class="btn btn-primary green fav-btn" title="Make Favorite"  data-room-id="<?php echo $room['Room']['id']; ?>" >
                             <?php
                             $favRoomId = $room['Favorite']['room_id'];
                             if (isset($favRoomId) && !empty($favRoomId)) {
                                 ?>
-                                <i  class="glyphicon glyphicon-star"></i>
+                                <i  class="fa fa-heart"></i>
                                 <?php
                             } else {
                                 ?>
-                                <i  class="glyphicon glyphicon-star-empty"></i>
+                                <i  class="fa fa-heart-o"></i>
                                 <?php
                             }
                             ?>

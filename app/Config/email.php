@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  *
@@ -39,51 +40,71 @@
  */
 class EmailConfig {
 
-	public $default = array(
-		'transport' => 'Mail',
-		'from' => 'admin@room247.com',
-		'additionalParameters' => '-fno-reply@room247.co.in',
-	);
-
-	public $smtp = array(
-		'transport' => 'Smtp',
-		'from' => array('site@localhost' => 'My Site'),
-		'host' => 'localhost',
-		'port' => 25,
-		'timeout' => 30,
-		'username' => 'user',
-		'password' => 'secret',
-		'client' => null,
-		'log' => false
-	);
-
-	public $fast = array(
-		'from' => 'you@localhost',
-		'sender' => null,
-		'to' => null,
-		'cc' => null,
-		'bcc' => null,
-		'replyTo' => null,
-		'readReceipt' => null,
-		'returnPath' => null,
-		'messageId' => true,
-		'subject' => null,
-		'message' => null,
-		'headers' => null,
-		'viewRender' => null,
-		'template' => false,
-		'layout' => false,
-		'viewVars' => null,
-		'attachments' => null,
-		'emailFormat' => null,
-		'transport' => 'Smtp',
-		'host' => 'localhost',
-		'port' => 25,
-		'timeout' => 30,
-		'username' => 'user',
-		'password' => 'secret',
-		'client' => null,
-		'log' => true,
-	);
+    public $default = array(
+        'transport' => 'Mail',
+        'from' => 'cgtdharm@gmail.com',
+        //'additionalParameters' => 'cgtdharm@gmail.com',
+    );
+    public $gmail = array(
+        'host' => 'ssl://smtp.gmail.com',
+        'port' => 465,
+        'username' => 'room247team@gmail.com',
+        'password' => 'Room2016',
+        'transport' => 'Smtp'
+    );
+    
+    public $smtp = array(
+        'transport' => 'Smtp',
+        'from' => array('mail-noreply@meocart.com' => 'Meocart Team'),
+        'host' => 'ssl://bh-in-13.webhostbox.net',
+        'port' => 465,
+        'timeout' => 45,
+        'username' => 'mail-noreply@meocart.com',
+        'password' => '3QwgB5KOegIm',
+        'client' => null,
+        'log' => false,
+            //'charset' => 'utf-8',
+            //'headerCharset' => 'utf-8',
+    );
+    
+    public $smtp22 = array(
+        'transport' => 'Smtp',
+        'from' => array('room247team@gmail.com' => 'Room Services'),
+        'host' => 'ssl://smtp.gmail.com',
+        'port' => 587,
+        'timeout' => 30,
+        'username' => 'room247team@gmail.com',
+        'password' => 'Room2016',
+        'client' => null,
+        'log' => false
+    );
+    public $fast = array(
+        'from' => 'you@localhost',
+        'sender' => null,
+        'to' => null,
+        'cc' => null,
+        'bcc' => null,
+        'replyTo' => null,
+        'readReceipt' => null,
+        'returnPath' => null,
+        'messageId' => true,
+        'subject' => null,
+        'message' => null,
+        'headers' => null,
+        'viewRender' => null,
+        'template' => false,
+        'layout' => false,
+        'viewVars' => null,
+        'attachments' => null,
+        'emailFormat' => null,
+        'transport' => 'Smtp',
+        'host' => 'localhost',
+        'port' => 25,
+        'timeout' => 30,
+        'username' => 'user',
+        'password' => 'secret',
+        'client' => null,
+        'log' => true,
+    );
 
 }

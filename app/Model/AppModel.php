@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application model for CakePHP.
  *
@@ -18,7 +19,6 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 App::uses('Model', 'Model');
 
 /**
@@ -30,4 +30,41 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+
+    /**
+     * Generate Random Values for given parameters
+     * @param int $len
+     * @param string $type
+     * @return type String
+     */
+    public function getRandomValues($len, $type = 'mix') {
+        $typeArr = array('mix', 'char', 'int');
+
+        if (!in_array($type, $typeArr)) {
+            $type = 'mix';
+        }
+        $val = '';
+        while (strlen($val) < $len) {
+            if ($type == 'digits') {
+                $char = rand(0, 9);
+            } else {
+                $char = chr(rand(0, 255));
+            }
+            if ($type == 'mix') {
+                if (eregi('^[a-z0-9]$', $char)) {
+                    $val .= $char;
+                }
+            } elseif ($type == 'char') {
+                if (eregi('^[a-z]$', $char)) {
+                    $val .= $char;
+                }
+            } elseif ($type == 'int') {
+                if (ereg('^[0-9]$', $char)) {
+                    $val .= $char;
+                }
+            }
+        }
+        return $val;
+    }
+
 }

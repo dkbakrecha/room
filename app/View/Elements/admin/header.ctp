@@ -39,21 +39,23 @@
 
     <nav class="navigation">
         <ul class="list-unstyled">
-            <li class="<?php echo $mnuDash; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'dashboard', 'admin' => true)) ?>"><i class="fa fa-bookmark-o"></i><span class="nav-label">Dashboard</span></a></li>
-            <li class="<?php echo $mnuCate; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'categories', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-file-image-o"></i><span class="nav-label">Category</span></a></li>
-            <li class="<?php echo $mnuFact; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'facilities', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-file-image-o"></i><span class="nav-label">Facility</span></a></li>
-            <li><a href="<?php echo $this->Html->url(array('controller' => 'payments', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-file-image-o"></i><span class="nav-label">Payments</span></a></li>
-            <li class="<?php echo $mnuRoom; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-file-image-o"></i><span class="nav-label">Rooms</span></a></li>
-            <li class="<?php echo $mnuEnqr; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'enquiries', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-file-image-o"></i><span class="nav-label">Enquiries</span></a></li>
-            <li class="<?php echo $mnuUser; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-file-image-o"></i><span class="nav-label">Users</span></a></li>
+            <li class="<?php echo $mnuDash; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'dashboard', 'admin' => true)) ?>"><i class="fa fa-dashboard"></i><span class="nav-label">Dashboard</span></a></li>
+            <li class="<?php echo $mnuUser; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-users"></i><span class="nav-label">Users</span></a></li>
+            <li class="<?php echo $mnuRoom; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'rooms', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-home"></i><span class="nav-label">Rooms</span></a></li>
+            <li class="<?php echo $mnuEnqr; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'enquiries', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-send-o"></i><span class="nav-label">Enquiries</span></a></li>
+            <li class=""><a href="<?php echo $this->Html->url(array('controller' => 'facilities', 'action' => 'nearlocations', 'admin' => true)) ?>"><i class="fa fa-map-marker"></i><span class="nav-label">Locations</span></a></li>
 
-
-            <li class="has-submenu "><a href="#"><i class="fa fa-comment-o"></i> <span class="nav-label">Apps</span></a>
+            <li class="has-submenu "><a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">Meta Information</span></a>
                 <ul class="list-unstyled">
-                    <li class="active"><a href="<?php echo $this->Html->url(array('controller' => 'posts', 'action' => 'index', 'admin' => true)); ?>">Posts</a></li>
-                    <li class="active"><a href="<?php echo $this->Html->url(array('controller' => 'faqs', 'action' => 'index', 'admin' => true)); ?>">FAQ'S</a></li>
-                    <li><a href="http://freakpixels.com/portfolio/brio/timeline.html">Timeline</a></li>
-                    <li><a href="http://freakpixels.com/portfolio/brio/calendar.html">Email</a></li>
+                    <li class=""><a href="<?php echo $this->Html->url(array('controller' => 'pages', 'action' => 'searchterms', 'admin' => true)) ?>"><span class="nav-label">Search Terms</span></a></li>
+                    <li class="<?php echo $mnuCate; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'categories', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-file-image-o"></i><span class="nav-label">Category</span></a></li>
+                    <li class="<?php echo $mnuFact; ?>"><a href="<?php echo $this->Html->url(array('controller' => 'facilities', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-file-image-o"></i><span class="nav-label">Facility</span></a></li>
+                    <li><a href="<?php echo $this->Html->url(array('controller' => 'payments', 'action' => 'index', 'admin' => true)) ?>"><i class="fa fa-file-image-o"></i><span class="nav-label">Payments</span></a></li>
+<li class=""><a href="<?php echo $this->Html->url(array('controller' => 'email_contents', 'action' => 'index', 'admin' => true)) ?>"><span class="nav-label">Email Templates</span></a></li>
+                    <li><a href="<?php echo $this->Html->url(array('controller' => 'posts', 'action' => 'index', 'admin' => true)); ?>">Posts</a></li>
+                    <li><a href="<?php echo $this->Html->url(array('controller' => 'faqs', 'action' => 'index', 'admin' => true)); ?>">FAQ'S</a></li>
+                    <!--<li><a href="http://freakpixels.com/portfolio/brio/timeline.html">Timeline</a></li>-->
+                    <!--<li><a href="http://freakpixels.com/portfolio/brio/calendar.html">Email</a></li>-->
                 </ul>
             </li>
             <li><a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'logout', 'admin' => true)) ?>"><i class="fa fa-sign-out"></i><span class="nav-label">Logout</span></a></li>

@@ -29,7 +29,7 @@ class ClassyNewsletterController extends ClassyNewsletterAppController {
         $request = $this->request;
         if(!empty($request)) {
             $dataN = $request['data'];
-            pr($dataN);
+            //pr($dataN);
             $nData = $this->Newsletter->find('first', array('conditions' => array(
                     'Newsletter.email' => $dataN['ne'])));
 

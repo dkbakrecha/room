@@ -59,16 +59,17 @@
                                     $favRoomId = $roomInfo['Favorite']['room_id'];
                                     if (isset($favRoomId) && !empty($favRoomId)) {
                                         ?>
-                                        <i  class="glyphicon glyphicon-star"></i>
+                                        <i  class="fa fa-heart"></i>
                                         <?php
                                     } else {
                                         ?>
-                                        <i  class="glyphicon glyphicon-star-empty"></i>
+                                        <i  class="fa fa-heart-o"></i>
                                         <?php
                                     }
                                     ?>
                                 </a>
-                                <!--<a class="btn btn-primary blue show-number" data-id="<?php //echo $roomInfo['Room']['id'];   ?>" id="num<?php //echo $roomInfo['Room']['id'];   ?>">Show Number</a>-->
+                                <span><?php echo $fav_count; ?> people make favorite this listing.</span>
+                                <!--<a class="btn btn-primary blue show-number" data-id="<?php //echo $roomInfo['Room']['id'];     ?>" id="num<?php //echo $roomInfo['Room']['id'];     ?>">Show Number</a>-->
                             </div>
 
                             <table class="table table-bordered">
@@ -85,6 +86,28 @@
                                 <tr>
                                     <td>ID</td>
                                     <td><?php echo $roomInfo['Room']['room_code']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="room-metas">
+                                            <ul class="feature-info">
+                                                <?php if (!empty($roomInfo['Room']['beds'])) { ?>
+                                                    <li><?php echo $this->Html->image('rs_icons/bed.png'); ?> <span><?php echo $roomInfo['Room']['beds']; ?></span>
+                                                    </li>
+                                                <?php } ?>
+
+                                                <?php if (!empty($roomInfo['Room']['baths'])) { ?>
+                                                    <li><?php echo $this->Html->image('rs_icons/bathtub.png'); ?> <span><?php echo $roomInfo['Room']['baths']; ?></span>
+                                                    </li>
+                                                <?php } ?>
+
+                                                <?php if (!empty($roomInfo['Room']['area'])) { ?>
+                                                    <li>Area<span><?php echo $roomInfo['Room']['area']; ?> sqft</span>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

@@ -1,7 +1,6 @@
 <?php echo $this->Session->flash(); ?>
 
 <?php 
-
 echo $this->Html->script('ckeditor/ckeditor'); 
 echo $this->Html->script('ckeditor/adapters/jquery'); 
 ?>

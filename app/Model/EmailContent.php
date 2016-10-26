@@ -3,7 +3,6 @@
 App::uses('AppModel', 'Model');
 App::uses('CakeEmail', 'Network/Email');
 
-
 class EmailContent extends AppModel {
 
     public $name = 'EmailContent';
@@ -76,7 +75,7 @@ class EmailContent extends AppModel {
 
     public function registrationMail($name, $email, $link) {
         $mail_content = $this->getMailContent('USER_REGISTRATION');
-
+        
         if (is_array($mail_content) && !empty($mail_content)) {
             $from = $mail_content['from'];
 
@@ -88,8 +87,8 @@ class EmailContent extends AppModel {
 
             $mail_refined_content = str_replace('{{receiver}}', $name, $mail_refined_content);
             $mail_refined_content = str_replace('{{link}}', $myLink, $mail_refined_content);
-
-            $this->__SendMail($email, $subject, $mail_refined_content, $from, $mail_content['id']);
+        
+            $this->__SendMail($email, $subject, $mail_refined_content);
         }
     }
 
@@ -301,11 +300,12 @@ class EmailContent extends AppModel {
     public function __SendMail($to, $sub = '', $contents = '', $attachments = null, $cc = null, $bcc = null) {
         $Email = new CakeEmail();
         $Email->config('default');
+        //prd($Email);
         $Email->emailFormat('html');
         $Email->subject($sub);
         $Email->template('default');
         $Email->to($to);
-        $Email->from(array('admin@admin.com' => 'room247'));
+        $Email->from(array('cgtdharm@gmail.com' => 'room247'));
 
         if (!empty($cc)) {
             $Email->cc($cc);
@@ -320,11 +320,13 @@ class EmailContent extends AppModel {
         }
         //prd($contents);
         $Email->viewVars(array('content' => $contents));
-        //prd($Email);
+        //prd($Email->send());
         try {
             if ($Email->send()) {
+                //echo "SUCCESS"; exit;
                 return true;
             }
+            //echo "FAIL"; exit;
             return false;
         } catch (Exception $e) {
             return $e->getMessage();

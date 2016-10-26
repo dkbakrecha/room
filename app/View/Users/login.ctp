@@ -6,17 +6,18 @@
                 <?php echo $this->Form->create('User'); ?>
                 <fieldset>
                     <legend>
-                        <?php echo __('Login to Your Account'); ?>
+                        <div class="text-green"><?php echo __('User Login'); ?></div>
+                        <span><?php echo __('Login to better user experiance'); ?></span>
 
                         <?php if (isset($from) && $from == 1) { ?>
                             <button class="close" data-dismiss="modal" type="button">
                                 <span aria-hidden="true">×</span>
                                 <span class="sr-only">Close</span>
                             </button>
-                        <?php 
-                        echo $this->Form->hidden('fromtype' , array('value' => 'ajax'));
-                        
-                        } ?>
+                            <?php
+                            echo $this->Form->hidden('fromtype', array('value' => 'ajax'));
+                        }
+                        ?>
                     </legend>
 
                     <div class="input-group">
@@ -40,28 +41,19 @@
                     </div>
                 </fieldset>
 
+                <h4><a href="" class="text-green">Forget your Password?</a> </h4>
+
                 <?php
                 echo $this->Form->submit(__('Login'), array('class' => 'login-submit green'));
                 echo $this->Form->end();
                 ?>
-            </div>
 
-            <div class="login-container" >
                 <h4 class="text-blue">Don't have an Account?</h4>
                 <span>No worry</span>
                 <a class="text-blue" class="signup">Click Here</a>
                 <span>to Register</span>
-                
-                <hr class="hr-line" />
-                
-                <h4 class="text-green">Forget your Password?</h4>
-                <span>Dont worry</span>
-                <a class="text-green">Click Here</a>
-                <span>to Get New One</span>
             </div>
         </div>
-
-
 
         <?php /*
           <div class="col-lg-8 room-features">

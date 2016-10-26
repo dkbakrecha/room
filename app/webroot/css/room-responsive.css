@@ -11,6 +11,22 @@
 }
 
 
+@media (max-width: 500px) {
+    .header-topbar .contact-info {
+        float: left;
+    }
+    .header-topbar .contact-info .nav.navbar-nav > li{
+      border-right: 0;
+    }
+    .mobilehide{
+        display: none !important;
+    }
+
+    .display_search{
+      width: 100%;
+    }
+
+}
 
 /* =========== LAPTOPS =========== */
 

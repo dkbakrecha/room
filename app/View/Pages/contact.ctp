@@ -5,7 +5,7 @@
 </div>
 
 <div class="login-wrapper">
-    <!-- <div class="row" id="contact-form">
+    <div class="row" id="contact-form">
         <div class="col-sm-1"></div>
         <div class="col-sm-4">
             <div class="users form contact-container">
@@ -85,10 +85,9 @@
                             <span><?php echo __('Where to find Us'); ?></span>
                         </legend>
                     </fieldset>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.4151028414835!2d73.003812!3d26.28064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39418da148d875d9%3A0xc20aad6138315bd2!2sCG+Technosoft!5e0!3m2!1sen!2sin!4v1440616933183" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
         </div>
-    </div> -->
+    </div>
     <div style="position:absolute; z-index:10; width: 100%;">
     
         <div class="col-md-4 col-md-offset-1">
@@ -135,10 +134,5 @@
         </div>
        
     
-    </div>
-    <div class ="" style="overflow:hidden;">
-        <div class="">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.4151028414835!2d73.003812!3d26.28064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39418da148d875d9%3A0xc20aad6138315bd2!2sCG+Technosoft!5e0!3m2!1sen!2sin!4v1441132524975" width="100%" height="850" frameborder="0" style="border:0; margin-top: -150px;" allowfullscreen></iframe>
-        </div>
     </div>
 </div>

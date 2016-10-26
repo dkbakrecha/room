@@ -23,6 +23,19 @@ class PagesController extends AppController {
     public function home() {
         
     }
+    
+    public function admin_searchterms() {
+        $this->loadModel('Searchterm');
+        $requestData = $this->request->data;
+        
+        if(!empty($requestData)){
+            $this->Searchterm->save($requestData);
+            $this->Session->setFlash("New Search Term add successfully", "default", array('class' => 'alert alert-success'));
+        }
+        
+        $search_termList = $this->Searchterm->find('all');
+        $this->set('termList',$search_termList);
+    }
 
     public function about() {
         $this->loadModel('CmsPage');

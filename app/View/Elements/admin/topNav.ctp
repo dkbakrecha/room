@@ -152,8 +152,7 @@
                         
                     </div>
                 </li>
-                   */ ?>
-                <li class="dropdown"><a href="#" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                 * <li class="dropdown"><a href="#" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
                 	<div class="dropdown-menu lg pull-right arrow panel panel-default arrow-top-right">
                     	<div class="panel-heading">
                         	More Apps
@@ -179,6 +178,8 @@
                         </div>
                     </div>
                 </li>
+                   */ ?>
+                
             
             </ul>
         </header>

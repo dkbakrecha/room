@@ -1,12 +1,11 @@
 <style>
     #map {
         height: 300px;
-        display: none;
+        display: show;
     }
-
 </style>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>-->
 
 <div class="hr-line"></div>
 
@@ -115,6 +114,42 @@
                                 'class' => 'form-control',
                                 'label' => false,
                                 'placeholder' => 'Room description ...'
+                            ));
+                            ?>
+                        </div>
+                    </div>
+                    <hr class="dotted">
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Beds</label>
+                        <div class="col-sm-2">
+                            <?php
+                            echo $this->Form->input('beds', array(
+                                'class' => 'form-control tip-attached',
+                                'label' => false,
+                                'title' => 'Show with listing'
+                            ));
+                            ?>
+                        </div>
+
+                        <label class="col-sm-2 control-label">Baths</label>
+                        <div class="col-sm-2">
+                            <?php
+                            echo $this->Form->input('baths', array(
+                                'class' => 'form-control tip-attached',
+                                'label' => false,
+                                'title' => 'Show with listing'
+                            ));
+                            ?>
+                        </div>
+                        
+                        <label class="col-sm-2 control-label">Area</label>
+                        <div class="col-sm-2">
+                            <?php
+                            echo $this->Form->input('area', array(
+                                'class' => 'form-control tip-attached',
+                                'label' => false,
+                                'title' => 'Show with listing'
                             ));
                             ?>
                         </div>
