@@ -380,17 +380,6 @@ class RoomsController extends AppController {
 
             //prd($data);
             if ($r = $this->Room->save($data)) {
-                foreach ($data['RoomOption'] as $key => $value) {
-                    if ($value['facility_id'] == 1) {
-                        $optionData = array();
-                        $optionData['RoomOption']['facility_id'] = $key;
-                        $optionData['RoomOption']['room_id'] = $r['Room']['id'];
-
-                        $this->RoomOption->create();
-                        $this->RoomOption->save($optionData);
-                    }
-                }
-
                 $this->Session->setFlash('Room added successfully.', 'default', array('class' => 'alert alert-success'));
                 $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
             } else {

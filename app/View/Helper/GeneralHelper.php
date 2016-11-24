@@ -47,7 +47,7 @@ class GeneralHelper extends AppHelper {
         //$shareSummary = @$cms_data['Cmspage']['description'];
 
         echo '<a href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=' . $sharepath . '&p[images][0]=' . $shareImage . '&p[title]=' . $shareTitle . '&p[summary]=' . $shareSummary . '" onclick="javascript:window.open(this.href,\' \',\' menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;" target="_blank">
-              <button type="button" class="btn meo-dark-button"><i class="fa fa-facebook"></i> FACEBOOK </button>
+              <i class="fa fa-facebook"></i>
         </a>';
     }
 
@@ -123,7 +123,7 @@ class GeneralHelper extends AppHelper {
         //$imgbtn = $this->Html->image($imgbtn);
 
         echo '<a href="https://plus.google.com/share?url=' . $sharepath . '+' . $shareTitle . '" target="_blank"  onclick="javascript:window.open(this.href,\' \',\' menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;">
-			<button type="button" class="btn meo-dark-button"><i class="fa fa-google-plus"></i> GOOGLE PLUS </button>
+			<i class="fa fa-google-plus"></i>
 		</a>';
     }
 

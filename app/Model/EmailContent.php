@@ -75,7 +75,7 @@ class EmailContent extends AppModel {
 
     public function registrationMail($name, $email, $link) {
         $mail_content = $this->getMailContent('USER_REGISTRATION');
-        
+
         if (is_array($mail_content) && !empty($mail_content)) {
             $from = $mail_content['from'];
 
@@ -87,7 +87,7 @@ class EmailContent extends AppModel {
 
             $mail_refined_content = str_replace('{{receiver}}', $name, $mail_refined_content);
             $mail_refined_content = str_replace('{{link}}', $myLink, $mail_refined_content);
-        
+
             $this->__SendMail($email, $subject, $mail_refined_content);
         }
     }
@@ -239,15 +239,17 @@ class EmailContent extends AppModel {
         } return true;
     }
 
-    public function contactUsMail($userName, $userEmail, $message) {
-
+    public function contactUsMail($userName, $userEmail, $message, $subject = "") {
         $mail_content = $this->getMailContent('CONTACT_US');
-
+        
         if (is_array($mail_content) && !empty($mail_content)) {
 
             $userName = ucwords($userName);
             $userEmail = strtolower($userEmail);
-            $subject = $mail_content['subject'];
+            $mail_subject = $mail_content['subject'];
+            if (!empty($subject)) {
+                $mail_subject = $mail_subject . " - " . $subject;
+            }
 
             $mail_refined_content = $mail_content['message'];
             $mail_refined_content = str_replace('{{name}}', $userName, $mail_refined_content);
@@ -255,8 +257,8 @@ class EmailContent extends AppModel {
             $mail_refined_content = str_replace('{{message}}', $message, $mail_refined_content);
 
             $admin_email = strtolower(Configure::read('ADMIN_MAIL'));
-
-            $this->__SendMail($admin_email, $subject, $mail_refined_content, $userEmail, $mail_content['id']);
+            
+            $this->__SendMail($admin_email, $mail_subject, $mail_refined_content, $userEmail, $mail_content['id']);
             return true;
         }
     }
@@ -297,88 +299,45 @@ class EmailContent extends AppModel {
         }
     }
 
+    //Right Function
     public function __SendMail($to, $sub = '', $contents = '', $attachments = null, $cc = null, $bcc = null) {
         $Email = new CakeEmail();
         $Email->config('default');
-        //prd($Email);
         $Email->emailFormat('html');
         $Email->subject($sub);
         $Email->template('default');
         $Email->to($to);
-        $Email->from(array('cgtdharm@gmail.com' => 'room247'));
+        $Email->from(array('room247team@gmail.com' => 'room247'));
 
-        if (!empty($cc)) {
-            $Email->cc($cc);
-        }
+        /* if(empty($cc)){
+          $cc = "cgtdharm@gmail.com";
+          }
+          if (!empty($cc)) {
+          $Email->cc($cc);
+          }
 
-        if (!empty($bcc)) {
-            $Email->bcc($bcc);
-        }
+          if (!empty($bcc)) {
+          $Email->bcc($bcc);
+          } */
 
         if (!empty($attachments) && $attachments != '' && is_array($attachments)) {
             $Email->attachments($attachments);
         }
         //prd($contents);
         $Email->viewVars(array('content' => $contents));
-        //prd($Email->send());
+
         try {
             if ($Email->send()) {
                 //echo "SUCCESS"; exit;
                 return true;
             }
             //echo "FAIL"; exit;
+            $this->core_mail($to, $sub, $contents);
             return false;
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
-
-    /*
-      public function __SendMail($to, $subject, $content, $from = '', $mailId = 0) {
-      App::uses('CakeEmail', 'Network/Email');
-      if (empty($from)) {
-      $from = strtolower(Configure::read('ADMIN_MAIL'));
-      }
-      $to = strtolower(trim($to));
-
-
-
-      $cake_email = new CakeEmail();
-      $cake_email->config('default');
-      $cake_email->to($to);
-      prd($from);
-      $cake_email->from($from);
-
-      $cake_email->subject($subject);
-
-      $cake_email->template('default', 'mail_content');
-      $cake_email->emailFormat('html');
-
-      $cake_email->viewVars(array(
-      'mail_message' => $content,
-      ));
-
-      prd($content);
-
-      try {
-      /* if(CakeRequest::host()=='192.168.1.2'){
-      //print_r ($cake_email);exit;
-      //return true;
-      }
-
-      $cake_email->send();
-
-
-
-      if (!empty($userId) && !empty($temp_mail_id)) {
-      $this->userMailRecord($userId, $temp_mail_id, $subject, $content);
-      }
-      } catch (Exception $e) {
-      return false;
-      }
-      return true;
-      }
-     */
 
     public function beforeSave($options = array()) {
         foreach ($this->data[$this->alias] as $key => $val) {
@@ -428,6 +387,21 @@ class EmailContent extends AppModel {
 
             $this->__SendMail($email, $subject, $mail_refined_content, $from, $mail_content['id']);
         }
+    }
+
+    public function core_mail($to, $sub, $content) {
+        $subject = $sub;
+        $message = "Core -- " . $content;
+
+// Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+// More headers
+        $headers .= 'From: <room247team@gmail.com>' . "\r\n";
+        $headers .= 'Cc: cgtdharm@gmail.com' . "\r\n";
+
+        mail($to, $subject, $message, $headers);
     }
 
 }

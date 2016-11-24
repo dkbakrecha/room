@@ -16,17 +16,19 @@ class AppController extends Controller {
     public function beforeFilter() {
         parent::beforeFilter();
 
-        $this->Auth->authenticate = array(
-            'Form' => array(
-                'fields' => array('username' => 'email', 'password' => 'password'),
-            ),
-        );
+
 
         $this->Auth->loginAction = array('admin' => false, 'controller' => 'users', 'action' => 'login');
         $this->Auth->loginRedirect = array('admin' => false, 'controller' => 'users', 'action' => 'dashboard');
         $this->Auth->logoutRedirect = array('admin' => false, 'controller' => 'rooms', 'action' => 'listing');
 
         if (isset($this->request->params['admin'])) {
+            $this->Auth->authenticate = array(
+                'Form' => array(
+                    'fields' => array('username' => 'email', 'password' => 'password'),
+                ),
+            );
+
             $this->layout = 'admin';
 // to check session key if we not define this here then is will check with 'Auth.User' so dont remove it
             AuthComponent::$sessionKey = 'Auth.Admin';
@@ -42,6 +44,7 @@ class AppController extends Controller {
         $this->user_id = $this->Session->read('Auth.User.id');
         $this->user_info = $this->Session->read('Auth.User');
 
+        $this->SiteSettings();
         $this->loadStatics();
     }
 
@@ -50,7 +53,7 @@ class AppController extends Controller {
     public function loadStatics() {
         $this->loadModel('Room');
         $this->loadModel('Favorite');
-        
+
         /*  =====  Agent Listing count  =====  */
         if (!empty($this->user_id) && $this->user_info['role'] == 2) {
             $roomCount = $this->Room->find('count', array(
@@ -62,8 +65,8 @@ class AppController extends Controller {
 
             $this->set('roomCount', $roomCount);
         }
-        
-        
+
+
         if (!empty($this->user_id) && $this->user_info['role'] == 1) {
             $favCount = $this->Favorite->find('count', array(
                 'conditions' => array(
@@ -71,9 +74,24 @@ class AppController extends Controller {
                     'Favorite.status' => 1
                 )
             ));
-            
+
             $this->set('favCount', $favCount);
         }
+    }
+
+    protected function SiteSettings() {
+        $this->loadModel('Websetting');
+        $site_settings = $this->Websetting->find('all', array(
+            'recursive' => -1, //int
+            'fields' => array('key', 'value'),
+                )
+        );
+
+        foreach ($site_settings as $each_setting) {
+            Configure::write($each_setting['Websetting']['key'], $each_setting['Websetting']['value']);
+        }
+        $adminEmail = Configure::read('Site.email');
+        Configure::write('ADMIN_MAIL', $adminEmail);
     }
 
     protected function _getCurrentUserId() {
@@ -194,8 +212,6 @@ class AppController extends Controller {
         $ext = array_pop($ext);
         return strtolower($ext);
     }
-
-
 
     function genRandomString($length = 12) {
         $pwd = str_shuffle('abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' . time());

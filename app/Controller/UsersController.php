@@ -4,8 +4,6 @@ App::uses('AppController', 'Controller');
 
 class UsersController extends AppController {
 
-    public $uses = array();
-
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('add', 'admin_showUserInfo', 'admin_login', 'register', 'login', 'beagent', 'account_activation');
@@ -25,13 +23,13 @@ class UsersController extends AppController {
     }
 
     public function register() {
-        /*$to = "cgtdharm@gmail.com";
-        $subject = "My subject";
-        $txt = "Hello world!";
-        $headers = "From: dkbakrecha@gmail.com" . "\r\n" .
-                "CC: dkbakrecha@gmail.com";
+        /* $to = "cgtdharm@gmail.com";
+          $subject = "My subject";
+          $txt = "Hello world!";
+          $headers = "From: dkbakrecha@gmail.com" . "\r\n" .
+          "CC: dkbakrecha@gmail.com";
 
-        mail($to, $subject, $txt, $headers);*/
+          mail($to, $subject, $txt, $headers); */
 
         if ($this->request->is('post')) {
             $this->User->create();
@@ -137,10 +135,13 @@ class UsersController extends AppController {
 
     public function edit_profile() {
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->User->save($this->request->data)) {
-                $this->Session->write('Auth.User.first_name', $this->request->data['User']['first_name']);
-                $this->Session->write('Auth.User.last_name', $this->request->data['User']['last_name']);
-                $this->Session->write('Auth.User.contact_no', $this->request->data['User']['contact_no']);
+            $userData = $this->request->data;
+            $this->User->set($userData);
+
+            if ($this->User->save()) {
+                $userData = $this->User->findById($userData['User']['id']);
+                unset($userData['User']['password']);
+                $this->Session->write('Auth.User', $userData['User']);
 
                 $this->Session->setFlash(__('Your profile has been update has been saved !'), 'success');
                 return $this->redirect(array('action' => 'dashboard'));
@@ -162,30 +163,42 @@ class UsersController extends AppController {
         }
 
         if ($this->request->is('Post')) {
-            //prd($this->Auth);
-            if ($this->Auth->login()) {
-                $userData = array();
-                $userData['User']['id'] = $this->_getCurrentUserId();
-                $userData['User']['last_login'] = date("Y-m-d H:i");
-                $_username = $this->Auth->User("name");
+            $requestedUser = $this->request->data['User']['email'];
+            $requestedPass = $this->request->data['User']['password'];
+            if (filter_var($requestedUser, FILTER_VALIDATE_EMAIL)) {
+                $userDetail = $this->User->find("first", array('conditions' => array('email' => $requestedUser, 'password' => AuthComponent::password($requestedPass), 'status' => 1)));
+            } else {
+                //pr($requestedUser);
+                $userDetail = $this->User->find("first", array('conditions' => array('contact_no' => $requestedUser, 'password' => AuthComponent::password($requestedPass), 'status' => 1)));
+            }
 
-                if (!empty($userData)) {
-                    $updateUser = $this->User->save($userData);
-                }
+            //prd($userDetail);
+            if (!empty($userDetail['User'])) {
+                if ($this->Auth->login($userDetail['User'])) {
+                    $userData = array();
+                    $userData['User']['id'] = $this->_getCurrentUserId();
+                    $userData['User']['last_login'] = date("Y-m-d H:i");
+                    $_username = $this->Auth->User("name");
 
-                if ($from == 1) {
-                    $ret = array();
-                    $ret['status'] = 1;
-                    $ret['msg'] = "welcome";
-                    $ret['redirect_uri'] = Router::url($this->Auth->redirectUrl());
-                    echo json_encode($ret);
-                    exit;
-                }else{
-                    $this->Session->setFlash(__('Welcome ' . $_username));        
-                    $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
+                    if (!empty($userData)) {
+                        $updateUser = $this->User->save($userData);
+                    }
+
+                    if ($from == 1) {
+                        $ret = array();
+                        $ret['status'] = 1;
+                        $ret['msg'] = "welcome";
+                        $ret['redirect_uri'] = Router::url($this->Auth->redirectUrl());
+                        echo json_encode($ret);
+                        exit;
+                    } else {
+                        $this->Session->setFlash(__('Welcome ' . $_username),'default',array('class' => 'alert alert-success'));
+                        $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
+                    }
                 }
             }
-            $this->Session->setFlash(__('Invalid username or password, try again'));
+
+            $this->Session->setFlash(__('Invalid login information, try again'),'default',array('class' => 'alert alert-danger'));
         }
     }
 

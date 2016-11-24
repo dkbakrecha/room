@@ -1,5 +1,2 @@
 /nbproject/*
-/lib/*
-/app/Config/database.php
 /app/tmp/*
-/app/webroot/*

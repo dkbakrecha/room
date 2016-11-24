@@ -26,6 +26,11 @@
     background: #18ab9b none repeat scroll 0 0 !important;
     color: #faf9f7;
 }
+
+.text-turquoise {
+    color: #18ab9b;
+}
+
 .blue {
     background: #3380b6 none repeat scroll 0 0 !important;
     color: #faf9f7;

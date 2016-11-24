@@ -103,6 +103,10 @@ body{
     width: 100%;
 }
 
+.panel-default{
+    border-radius: 0px;
+}
+
 #roomContent {
     min-height: 450px;
     padding: 10px 0;
@@ -144,12 +148,6 @@ a.list-group-item{
 
 .list-group-item span {
     margin-right: 5px;
-}
-
-.panel-default {
-    background: inherit;
-    border-radius: 0;
-    /*border: 1px solid #18ab9b;*/
 }
 
 .room-title {
@@ -300,17 +298,25 @@ span.room-rate {
     padding: 0;
 }
 
-
+.alert{
+    margin-bottom: 0px;
+}
 
 .center{
     text-align: center;
 }
 
 /****** General From ******/
-.btn-primary{
-    border-radius: 2px !important;
-    text-transform: capitalize;
-    border-color:  #496C28;
+
+.panel-heading .btn-top-panel {
+    border-radius: 0;
+    font-size: 16px;
+    margin-top: -10px;
+    padding: 10px 40px;
+}
+
+.panel-heading .btn-top-panel:last-child {
+    margin-right: -15px;
 }
 
 .form-control {
@@ -385,37 +391,6 @@ span.room-rate {
     width: 0;
 }
 
-
-.room-form input[type=text], 
-.room-form input[type=email], 
-.room-form input[type=number], 
-.room-form textarea, 
-.room-form select, 
-.room-form input[type=password] {
-    min-height: 44px;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 10px;
-    -webkit-appearance: none;
-    background: inherit;
-    border: 2px solid #18ab9b;
-    color: #18ab9b;
-    padding: 0 8px;
-}
-
-.room-form input[type=text]:hover,
-.room-form input[type=email]:hover,
-.room-form input[type=number]:hover,
-.room-form textarea:hover,
-.room-form select:hover, 
-.room-form input[type=password]:hover {
-    border: 1px solid #18ab9b;
-    border-top: 1px solid #18ab9b;
-    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-}
-
 .room-form select {
     height: 40px;
 }
@@ -441,18 +416,10 @@ span.room-rate {
 /****** LOGIN MODAL ******/
 .login-container {
     padding: 30px;
-    max-width: 350px;
-    width: 100% !important;
     background-color: #FFF;//rgba(255,255,255,0.60); //
     margin: 20px auto;
-    /*border-radius: 0px;*/
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     font-family: roboto;
-}
-
-.login-container.panel{
-    margin-bottom: 8px;
 }
 
 .login-container h1 {
@@ -474,25 +441,8 @@ span.room-rate {
     width: 100%;
     display: block;
     margin-bottom: 10px;
+    margin-top: 10px;    
     position: relative;
-}
-
-.login-container input[type=text], 
-.login-container input[type=email], 
-.login-container input[type=password] {
-    height: 44px;
-    font-size: 16px;
-    width: 100%;
-    /*margin-bottom: 10px;*/
-    -webkit-appearance: none;
-    background: #fff;
-    border: 1px solid #d9d9d9;
-    border-top: 1px solid #c0c0c0;
-    border-left: none;
-    /* border-radius: 2px; */
-    padding: 0 8px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
 }
 
 /*
@@ -525,25 +475,16 @@ span.room-rate {
     color: #fff;
     text-shadow: 0 1px rgba(0,0,0,0.1); 
     background-color: #4d90fe;
-    padding: 17px 0px;
+    padding: 10px 0px;
     font-family: roboto;
-    font-size: 14px;
-    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+    font-size: 20px;
 }
 
 .login-submit:hover {
-    /* border: 1px solid #2f5bb7; */
     border: 0px;
     text-shadow: 0 1px rgba(0,0,0,0.3);
     background-color: #357ae8;
     /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
-}
-
-#UserLoginForm legend span {
-    color: #888;
-    float: left;
-    font-size: 16px;
-    width: 100%;
 }
 
 #UserLoginForm legend .close span {
@@ -552,15 +493,11 @@ span.room-rate {
     margin-top: -54px;
 }
 
-.login-container a {
-    text-decoration: none;
-    color: #666;
-    /*font-weight: 400;*/
+legend > div {
+    font-size: 26px;
+    margin-bottom: 10px;
     text-align: center;
-    display: inline-block;
-    opacity: 0.6;
-    transition: opacity ease 0.5s;
-} 
+}
 
 .login-help{
     font-size: 12px;
@@ -579,6 +516,10 @@ span.room-rate {
 .room-features h3 {
     font-size: 16px;
     font-weight: 600;
+}
+
+label.error {
+    color: red;
 }
 
 
@@ -715,6 +656,24 @@ span.room-rate {
     margin: 0 0 15px;
 }
 
+.detail-main-top .table{
+    margin-bottom: 0;
+}
+
+.social-sharing {
+    margin-top: 45px;
+}
+
+.social-sharing .sharing-img {
+    position: relative;
+}
+
+.social-sharing .sharing-img > img {
+    left: -20px;
+    position: absolute;
+    top: -38px;
+}
+
 .room-detail .room-actions {
     border-bottom: 1px solid #e8eeee;
     float: left;
@@ -748,6 +707,34 @@ span.room-rate {
     float: left;
     padding: 10px 15px;
     width: 100%;
+}
+
+.social-sharing > .print, .social-sharing > .email {
+    border-color: #e8e8e8;
+    border-style: solid;
+    border-width: 0 1px 0 0;
+    display: inline-block;
+    float: left;
+    line-height: 0;
+    margin-bottom: 4px;
+    margin-right: 30px;
+    margin-top: 4px;
+    padding-right: 30px;
+}
+.social-sharing > .print i, .social-sharing > .email i {
+    margin-right: 10px;
+}
+.social-sharing li {
+    display: inline-block;
+    float: left;
+    line-height: 0;
+    list-style: outside none none;
+    padding: 0;
+}
+.social-sharing li a {
+    display: inline-block;
+    margin: 4px 20px 4px 0;
+    padding: 2px 5px;
 }
 
 .listing-info {
@@ -822,6 +809,7 @@ section.ca_newsletter {
     background: #fff;
     font-size: 14px;
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .room-modal .panel-default > .panel-heading,
@@ -1068,10 +1056,6 @@ footer a {
 
 .spacer-20{
     margin-bottom: 20px;
-}
-
-#contact-form{
-    position: absolute;
 }
 
 #map-location{

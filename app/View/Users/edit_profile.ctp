@@ -14,6 +14,7 @@ $this->request->data = $this->Session->read('Auth');
                     <?php 
                     echo $this->Form->create('User',array('class' => 'room-form col-lg-6')); 
                     echo $this->Form->hidden('id');
+                    echo $this->Form->hidden('role_id');
                     ?>
                     <?php 
                     echo $this->Form->input('name',array(

@@ -1,3 +1,10 @@
+<?php 
+$ShareUrl = Router::url('/', true) . "rooms/detail/" .  $roomInfo['Room']['id'];
+$ShareImagePath = Router::url('/', true) . "img/room-image.png";
+$shareTitle = $roomInfo['Room']['title'];
+$shareSummary = strip_tags($roomInfo['Room']['description']);
+?>
+
 <style>
     .section-room-detail-header{
         background: url('<?php echo $this->webroot; ?>img/bg-jodhpur.jpg');
@@ -87,6 +94,7 @@
                                     <td>ID</td>
                                     <td><?php echo $roomInfo['Room']['room_code']; ?></td>
                                 </tr>
+                                <?php if (!empty($roomInfo['Room']['beds'])) {?>
                                 <tr>
                                     <td colspan="2">
                                         <div class="room-metas">
@@ -109,7 +117,30 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <?php } ?>
                             </table>
+
+                    <div class="social-sharing">
+                        <div class="sharing-img"><?php echo $this->Html->image('sharing-caring-hearts.png'); ?></div>
+                        <div class="email">
+                            <a target="_blank" href="mailto:?subject=listing-on-room247.in&amp;body=<?php echo $ShareUrl; ?>">
+                                <i class="fa fa-envelope"></i>
+                                Email to a Friend           
+                            </a>
+                        </div>
+                        <ul class="ts-social-sharing">
+                           <li class="">
+                                <?php
+                                echo $this->General->fbShareButtonLink("ui_images/images/facebookcopy.jpg", $ShareUrl, $ShareImagePath, $shareTitle, $shareSummary); 
+                                ?>
+                            </li>
+                            <li class="">
+                                <?php
+                                echo $this->General->googlePlusShareLink(null,$ShareUrl,$shareTitle);
+                                ?>
+                            </li>
+                        </ul>   
+                    </div>
                         </div>
                     </div>
                 </div>

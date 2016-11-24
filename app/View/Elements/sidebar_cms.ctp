@@ -4,7 +4,7 @@
         <div class="textwidget">
             <p style="font-size:14px;">Email: <strong>support@room247.in</strong> <br> <br>
 
-                Phone: <br>Services: <strong>+91 85599 33848</strong><br>Services: <strong>+91 95092 85988</strong><br>Tech Issues: <strong>+91 94612 71720</strong><br><br>
+                Phone: <br>Services: <strong>+91 85599 33848</strong><br>Services: <strong>+91 78774 77387</strong><br>Tech Issues: <strong>+91 94612 71720</strong><br><br>
 
                 Timings:<br> Monday to Friday - <strong>9 AM to 9 PM</strong><br>Saturday-Sunday - <strong>10 AM to 6 PM</strong>
             </p></div>

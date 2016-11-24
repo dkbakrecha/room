@@ -25,6 +25,19 @@
                 </div>
             </div>
             <div class="col-lg-8 room-list" id="roomList">
+            <?php 
+            pr($this->request->data['Room']);
+            if(isset($this->request->data['Room']['searchterm']) && !empty($this->request->data['Room']['searchterm'])){
+                    ?>
+                        <?php 
+                        echo $this->Form->input('searchterm',array(
+                        'type' => 'text',
+                        'label' => false,
+                        'value' => $this->request->data['Room']['searchterm'],
+                        'placeholder' => 'Enter an address, town, street, zip etc...')); 
+                        ?>
+                    <?php
+                } ?>
                 <?php echo $this->element('room_listing', array('roomList' => $roomList)); ?>
             </div>
         </div>

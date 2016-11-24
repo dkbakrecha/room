@@ -11,7 +11,7 @@ class PagesController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('index', 'about', 'home', 'req_complete', 'sync', 'getEvents'
-                , 'add_lesson_opening', 'services', 'contact','terms');
+                , 'add_lesson_opening', 'services', 'contact', 'terms');
 
         $this->Gcal->c_id = "406644858249-sa671ja4v9uc9td5cbclfqmcpci5sm42.apps.googleusercontent.com";
         $this->Gcal->c_secrat = "q3PZCxUtP862JwTWVkTnEJEX";
@@ -23,18 +23,18 @@ class PagesController extends AppController {
     public function home() {
         
     }
-    
+
     public function admin_searchterms() {
         $this->loadModel('Searchterm');
         $requestData = $this->request->data;
-        
-        if(!empty($requestData)){
+
+        if (!empty($requestData)) {
             $this->Searchterm->save($requestData);
             $this->Session->setFlash("New Search Term add successfully", "default", array('class' => 'alert alert-success'));
         }
-        
+
         $search_termList = $this->Searchterm->find('all');
-        $this->set('termList',$search_termList);
+        $this->set('termList', $search_termList);
     }
 
     public function about() {
@@ -45,10 +45,10 @@ class PagesController extends AppController {
                 'CmsPage.unique_name' => 'ABOUT_US'
             )
         ));
-       
+
         $this->set('cmsContent', $cmsContent);
     }
-    
+
     public function terms() {
         $this->loadModel('CmsPage');
 
@@ -57,7 +57,7 @@ class PagesController extends AppController {
                 'CmsPage.unique_name' => 'TERMS'
             )
         ));
-       
+
         $this->set('cmsContent', $cmsContent);
     }
 
@@ -454,19 +454,19 @@ class PagesController extends AppController {
 
     public function contact() {
         $this->loadModel('Contact');
-        $contact = $this->Contact->find('all');
+        $this->loadModel('EmailContent');
         if ($this->request->is('post')) {
-
             $data = $this->request->data;
-            $this->Contact->create($data);
 
+            $this->Contact->create($data);
             if ($this->Contact->validates()) {
                 $this->Contact->save();
-                $this->Session->setFlash(__('Contact us has been saved successfully.'));
-                return $this->redirect(array('action' => 'contact'));
+                $this->EmailContent->contactUsMail($data['Contact']['name'], $data['Contact']['email'], $data['Contact']['subject'], $data['Contact']['message']);
+                $this->Session->setFlash(__('Thanks for contact us. Soon one of our team member replay you back :)'), 'default', array('class' => 'alert alert-success'));
+                $this->redirect(array('controller' => 'rooms', 'action' => 'index'));
             } else {
                 $this->Session->setFlash(
-                        __('Error! While saving. Please fill all required field.')
+                        __('Error! While saving. Please fill all required field.'), 'default', array('class' => 'alert alert-danger')
                 );
             }
         }

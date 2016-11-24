@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /rooms/detail
+Disallow: /rooms/listing
+Allow: /about-us
+Allow: /contact-us
+Allow: /terms-and-conditions
+Allow: /faqs

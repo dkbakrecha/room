@@ -74,7 +74,7 @@ echo $this->Html->script('owl-carousel/owl.carousel.min');
             </div>
             <div>
                 <?php
-                echo $this->Form->input('searchteam', array(
+                echo $this->Form->input('searchterm', array(
                     'class' => 'form-control search-text',
                     'placeholder' => 'Enter locality or pincode',
                     'div' => false,
@@ -234,7 +234,7 @@ echo $this->Html->script('owl-carousel/owl.carousel.min');
 
 <script type="text/javascript">
     $('document').ready(function () {
-        $('#RoomSearchteam').keyup(function () {
+        $('#RoomSearchterm').keyup(function () {
             var _term = $(this).val();
             if (_term == "") {
                 $("#display_search").html("");

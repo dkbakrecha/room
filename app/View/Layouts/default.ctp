@@ -33,6 +33,7 @@ $siteName = __d('cake_dev', 'room247.com - New fastest growing rooms listing.');
             'jquery.form.min',
             'jquery.blockUI',
             'lib/jquery-ui.custom.min',
+            'jquery.validate.min'
         ));
 
         // echo $this->element('imp_meta');
